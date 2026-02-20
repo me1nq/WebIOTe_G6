@@ -1,0 +1,136 @@
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form-row select,
+.form-row input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 1;
+  font-family: 'Kanit';
+  font-size: 1rem;
+}
+
+.btn-add {
+  background: #F37021;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100px;
+}
+
+.btn-add:hover {
+  background: #d65a12;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+th {
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.btn-del {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+}
+
+.progress-item {
+  margin-bottom: 15px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.progress-bg {
+  background: #eee;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #28a745;
+  width: 0%;
+  transition: width 0.5s;
+}
+
+.gpa-box {
+  text-align: center;
+  background: #F37021;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.gpa-value {
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.select2-container .select2-selection--single {
+  height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 1px;
+  font-family: 'Kanit';
+}
+
+.select2-selection__arrow {
+  top: 8px !important;
+}
+
+.select2-container {
+  flex: 3;
+}
