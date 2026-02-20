@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Lab Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style_admin_lab.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3 style="margin:0 0 15px 0;">จัดการ Lab Member</h3>
+      <button class="btn-full btn-gray" onclick="openLabSettings()">⚙️ ข้อมูล Lab</button>
+      <button class="btn-full btn-gray" onclick="openCategorySettings()">📁 จัดการหมวดหมู่</button>
+      <button class="btn-full btn-orange" onclick="openMemberForm()">+ เพิ่มสมาชิกใหม่</button>
+    </div>
+    <div class="project-list" id="member-list">Loading...</div>
+  </div>
+
+  <div class="main-editor">
+
+    <div id="lab-settings-editor" class="settings-box">
+      <h2 class="section-header">⚙️ ตั้งค่าข้อมูล Lab</h2>
+      <form id="info-form">
+        <div class="form-group"><label>ชื่อ Lab:</label><input type="text" name="lab_name" id="info-name" required>
+        </div>
+        <div class="form-group"><label>คำอธิบาย:</label><textarea name="description" id="info-desc"
+            style="height:120px;"></textarea></div>
+        <div class="form-group">
+          <label>Logo:</label>
+          <input type="file" name="logo" accept="image/*">
+          <input type="hidden" name="old_logo" id="info-old-logo">
+          <div id="logo-preview" style="margin-top:10px;"></div>
+        </div>
+        <button type="submit" class="btn-save">บันทึก</button>
+      </form>
+    </div>
+
+    <div id="category-editor" class="settings-box" style="border-left-color: #007bff;">
+      <h2 class="section-header">📁 จัดการหมวดหมู่ (Category)</h2>
+      <div class="form-group" style="display:flex; gap:10px;">
+        <input type="text" id="new-cat-name" placeholder="ชื่อหมวดหมู่ใหม่..." style="flex:1;">
+        <input type="number" id="new-cat-order" placeholder="ลำดับ" value="1" style="width:80px;">
+        <button class="btn-orange" onclick="addCategory()" style="width:100px; border-radius:5px;">เพิ่ม</button>
+      </div>
+      <div id="category-list" style="margin-top:20px;"></div>
+    </div>
+
+    <div id="member-editor" style="background:white; padding:30px; border-radius:10px;">
+      <h2 class="section-header" id="form-title">แก้ไขสมาชิก</h2>
+      <form id="member-form">
+        <input type="hidden" name="id" id="mem-id">
+        <input type="hidden" name="old_image" id="mem-old-image">
+
+        <div class="form-group">
+          <label>หมวดหมู่:</label>
+          <select name="category_id" id="mem-category">
+          </select>
+        </div>
+        <div class="form-group"><label>ชื่อ-นามสกุล:</label><input type="text" name="name" id="mem-name" required></div>
+        <div class="form-group"><label>ตำแหน่ง:</label><input type="text" name="position" id="mem-position"></div>
+        <div class="form-group">
+          <label>รูปโปรไฟล์:</label>
+          <input type="file" name="image" id="mem-image" accept="image/*">
+          <div id="mem-preview" style="margin-top:10px;"></div>
+        </div>
+        <button type="submit" class="btn-save">บันทึกสมาชิก</button>
+        <button type="button" class="btn-delete" onclick="deleteMember()" style="margin-top:10px;">ลบสมาชิก</button>
+      </form>
+    </div>
+
+    <div id="welcome-msg" style="text-align:center; margin-top:100px; color:#aaa;">
+      <h2>เลือกเมนูด้านซ้าย</h2>
+    </div>
+  </div>
+
+  <script src="assets/js/admin_lab.js"></script>
+
+</body>
+
+</html>
