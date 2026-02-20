@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - IoT Academic</title>
+    <link rel="stylesheet" href="adminacademic1.css">
+</head>
+<body>
+
+<h1>Admin Panel - IoT System and Information</h1>
+
+<div class="admin-container">
+
+    <label>หัวข้อหลัก</label>
+    <input type="text" id="titleInput">
+
+    <label>รายละเอียดเนื้อหา</label>
+    <textarea id="contentInput" rows="6"></textarea>
+
+    <label>ค่าธรรมเนียม</label>
+    <input type="number" id="tuitionInput">
+
+    <label>สีพื้นหลังกล่องเนื้อหา</label>
+    <input type="color" id="colorInput">
+
+    <label>เปลี่ยนรูปแผนการศึกษา</label>
+    <input type="file" id="imageInput">
+
+    <button onclick="saveData()">บันทึกข้อมูล</button>
+</div>
+
+<hr>
+
+<h2>Preview</h2>
+
+<div class="preview-box">
+    <h2 id="previewTitle"></h2>
+    <div id="previewContent"></div>
+    <h3 id="previewTuition"></h3>
+    <img id="previewImage" src="pic1.png">
+</div>
+
+<script src="adminacademic1.js"></script>
+</body>
+</html>
