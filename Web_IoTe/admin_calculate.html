@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - จัดการรายวิชา</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style_admin_calculate.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3 style="margin:0 0 15px 0;">จัดการรายวิชาหลักสูตร</h3>
+      <button class="btn-full btn-orange" onclick="openForm()">+ เพิ่มรายวิชาใหม่</button>
+      <input type="text" id="admin-search" placeholder="🔍 ค้นหารหัส หรือ ชื่อวิชา..."
+        style="margin-top:10px; padding:10px; width:100%; border:1px solid #ccc; border-radius:5px;"
+        onkeyup="filterSidebar()">
+    </div>
+    <div class="project-list" id="subject-list">Loading...</div>
+  </div>
+
+  <div class="main-editor">
+    <div id="welcome-msg" style="text-align:center; margin-top:100px; color:#aaa;">
+      <h2>เลือกรอบวิชาด้านซ้ายเพื่อแก้ไข หรือกดเพิ่มวิชาใหม่</h2>
+    </div>
+    <div id="subject-editor"
+      style="display:none; background:white; padding:30px; border-radius:10px; max-width:600px; margin:0 auto; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+      <h2 class="section-header" id="form-title">เพิ่ม/แก้ไข รายวิชา</h2>
+      <form id="subject-form">
+        <input type="hidden" name="id" id="edit-id">
+        <div class="form-group" style="display:flex; gap:10px;">
+          <div style="flex:1;"><label>รหัสวิชา:</label><input type="text" name="course_code" id="edit-code" required>
+          </div>
+          <div style="flex:1;"><label>หน่วยกิต:</label><input type="number" name="credit" id="edit-credit" value="3"
+              required></div>
+        </div>
+        <div class="form-group"><label>ชื่อวิชา:</label><input type="text" name="name" id="edit-name" required></div>
+        <div class="form-group"><label>หมวดหมู่:</label><select name="category" id="edit-category">
+            <option value="gen">ศึกษาทั่วไป</option>
+            <option value="core">วิชาเฉพาะ</option>
+            <option value="free">เลือกเสรี</option>
+          </select></div>
+        <button type="submit" class="btn-save">บันทึกข้อมูลวิชา</button>
+        <button type="button" class="btn-delete" onclick="deleteSubject()" id="btn-delete"
+          style="margin-top:10px; display:none;">ลบวิชานี้</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/admin_calculate.js"></script>
+</body>
+
+</html>
