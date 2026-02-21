@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About IoTe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #f39c12;
+            --primary-dark: #1a1a1a;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-gray: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Header Section --- */
+        .header-section {
+            background-color: var(--primary-dark);
+            background-image: radial-gradient(#333 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .header-section h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* --- Main Content Container --- */
+        .main-container {
+            max-width: 1200px;
+            margin: -30px auto 50px; /* ดึงเนื้อหาขึ้นไปทับ Header เล็กน้อย */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Tabs Navigation --- */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* ให้พับลงมาในจอมือถือ */
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            background-color: white;
+            color: var(--text-dark);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-orange);
+            color: white;
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+
+        /* --- Tab Content Area --- */
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 2px dashed #3498db; /* กรอบเส้นประตามรูป */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+        }
+
+        .content-title.red-text {
+            color: #e74c3c;
+            font-size: 1.5rem;
+        }
+
+        .text-paragraph {
+            color: var(--text-light);
+            text-align: justify;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        /* --- Tab 1: Info Cards --- */
+        .info-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .info-card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .info-card i {
+            font-size: 3rem;
+            color: var(--primary-orange);
+            margin-bottom: 15px;
+        }
+
+        /* --- Job List --- */
+        .job-section {
+            margin-top: 50px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        
+        .job-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-dark);
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .job-grid ul {
+            list-style-position: inside;
+            color: var(--text-light);
+        }
+
+        .job-grid li {
+            margin-bottom: 8px;
+        }
+
+        /* --- Tab 2: Feature Columns --- */
+        .feature-grid {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .feature-item h4 {
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* --- Tab 3: Split Content --- */
+        .split-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .split-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .split-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .split-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .tab-content { padding: 20px; }
+            .header-section { padding: 40px 20px; }
+            .content-title { font-size: 1.5rem; }
+            .split-content { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-section">
+        <h1>About IoTe</h1>
+    </header>
+
+    <main class="main-container">
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'tab1')">ABOUT IoT System and Information</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')">ABOUT Dual Degree</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab3')">ABOUT Industry Physics</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+            <h2 class="content-title">วิศวกรรมระบบไอโอทีและสารสนเทศคืออะไร ?</h2>
+            <p class="text-paragraph">ในโลกยุคดิจิทัล 4.0 ที่เทคโนโลยีต่างๆ เข้ามามีบทบาทสำคัญเป็นอย่างมากในชีวิตประจำวันรวมถึงการพัฒนาเศรษฐกิจระดับประเทศ ที่การเชื่อมต่อสื่อสารนั้นเป็นไปอย่างไร้พรมแดน ไม่เพียงแต่การสื่อสารระหว่างมนุษย์อย่างเดียว แต่ยังมีการเชื่อมต่อสื่อสารระหว่างอุปกรณ์กับอุปกรณ์ เครื่องจักร หรือทุกสรรพสิ่ง จึงเป็นที่มาของเทคโนโลยีระบบอินเตอร์เน็ตในทุกสรรพสิ่งหรือเรียกสั้นๆว่า ไอโอที (IoT)</p>
+            <p class="text-paragraph">หลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ เป็นหลักสูตรที่ตอบสนองต่อนโยบายทางการพัฒนาเศรษฐกิจและอุตสาหกรรมของรัฐบาล โดยมีความสอดคล้องกันกับแผนพัฒนาเศรษฐกิจและสังคมแห่งชาติฉบับที่ 13 (พ.ศ. 2565-2569) ที่ได้มีการกล่าวถึงการเปลี่ยนแปลงทางเทคโนโลยีแบบก้าวกระโดด (Disruption) และหนึ่งในเทคโนโลยีที่สำคัญนั้นคือ เทคโนโลยีระบบไอโอทีและสารสนเทศ</p>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>1</h3>
+                    <p>วิศวกรรมระบบไอโอทีและสารสนเทศ 1 ปริญญา</p>
+                </div>
+                <div class="info-card">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <h3>2</h3>
+                    <p>วิศวกรรมระบบไอโอทีและสารสนเทศ+ฟิสิกส์อุตสาหกรรม 2 ปริญญา</p>
+                </div>
+            </div>
+
+            <div class="job-section">
+                <h3>อาชีพที่ประกอบได้หลังจบการศึกษา</h3>
+                <div class="job-grid">
+                    <div>
+                        <ul>
+                            <li>วิศวกรระบบไอโอที (IoT Engineer)</li>
+                            <li>วิศวกรระบบสารสนเทศ (Information System Engineer)</li>
+                            <li>วิศวกรระบบสมองกลฝังตัว (Embedded System Engineer)</li>
+                            <li>วิศวกรซอฟต์แวร์ระบบสมองกลฝังตัว (Embedded Software Engineer)</li>
+                            <li>นักพัฒนาแอพพลิเคชัน (Application Developer)</li>
+                            <li>โปรแกรมเมอร์ (Programmer)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>วิศวกรซอฟต์แวร์ (Software Engineer)</li>
+                            <li>นักพัฒนาส่วนหน้า (Front End Developer)</li>
+                            <li>นักพัฒนาส่วนเบื้องหลัง (Back End Developer)</li>
+                            <li>นักพัฒนาฟูลสแตก (Full Stack Developer)</li>
+                            <li>วิศวกรระบบคลาวด์ (Cloud Engineer)</li>
+                            <li>วิศวกรระบบเครือข่าย (Network Engineer)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+            <h2 class="content-title red-text">ครั้งแรกของประเทศไทย โครงการหลักสูตรปริญญาตรีสองปริญญา (Dual Degree) ระหว่างคณะวิศวกรรมศาสตร์และคณะวิทยาศาสตร์ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ และ วท.บ. ฟิสิกส์อุตสาหกรรม</h2>
+            <p class="text-paragraph" style="text-align: center;">ในโลกยุค Disruption ได้เปลี่ยนแปลงทุกสิ่งไปอย่างรวดเร็ว การรู้เพียงศาสตร์ใดศาสตร์หนึ่งจึงอาจไม่เพียงพอกับการต่อสู้ในยุคแห่งการเปลี่ยนแปลงนี้ โดยเฉพาะอย่างยิ่งทักษะทางดิจิทัลและเทคโนโลยีที่จำเป็นต่อโลกอันไร้พรมแดน จึงเป็นที่มาของหลักสูตร "PhysIoT" ที่ตอบสนองกับการเปลี่ยนแปลงในยุค Disruption นี้</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h4>เรียน 4 ปี ได้ 2 ปริญญา</h4>
+                    <p>วศ.บ.วิศวกรรมระบบไอโอทีและสารสนเทศ + วท.บ. ฟิสิกส์อุตสาหกรรม</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-pen"></i></div>
+                    <h4>ทลายกำแพงระหว่างคณะ</h4>
+                    <p>ศึกษาและปฏิบัติด้านอิเล็กทรอนิกส์อัจฉริยะและสมาร์ทเซ็นเซอร์ การออกแบบและควบคุมอุปกรณ์สมาร์ทดีไวซ์โดยใช้พื้นฐานด้านวงจรไฟฟ้า อิเล็กทรอนิกส์ ระบบดิจิทัล</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <h4>จบแล้วฮอตสุดไม่มีตกยุค</h4>
+                    <p>หากได้ลองค้นหาคำว่า "Top 10 อาชีพไม่ตกงาน" แน่นอนว่าจะต้องเจอกับอาชีพด้านไอทีอย่างแน่นอน เพราะเป็นสายงานที่มีความหลากหลายมากในยุคดิจิทัลไทยแลนด์ 4.0</p>
+                </div>
+            </div>
+
+            <div class="job-section">
+                <h3>อาชีพที่ประกอบได้หลังจบการศึกษา</h3>
+                <div class="job-grid">
+                    <div>
+                        <ul>
+                            <li>วิศวกรระบบไอโอที (IoT Engineer)</li>
+                            <li>วิศวกรระบบสารสนเทศ (Information System Engineer)</li>
+                            <li>วิศวกรระบบสมองกลฝังตัว (Embedded System Engineer)</li>
+                            <li>วิศวกรซอฟต์แวร์ระบบสมองกลฝังตัว (Embedded Software Engineer)</li>
+                            <li>นักพัฒนาแอพพลิเคชัน (Application Developer)</li>
+                            <li>โปรแกรมเมอร์ (Programmer)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>วิศวกรซอฟต์แวร์ (Software Engineer)</li>
+                            <li>นักพัฒนาส่วนหน้า (Front End Developer)</li>
+                            <li>นักพัฒนาส่วนเบื้องหลัง (Back End Developer)</li>
+                            <li>นักพัฒนาฟูลสแตก (Full Stack Developer)</li>
+                            <li>วิศวกรระบบคลาวด์ (Cloud Engineer)</li>
+                            <li>วิศวกรระบบเครือข่าย (Network Engineer)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+            <div class="split-content">
+                <div class="split-image">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="อาคารพระจอมเกล้า" style="object-fit: cover; height: 350px;">
+                </div>
+                <div class="split-text">
+                    <h2 class="content-title" style="text-align: left;">ทำไมต้องเรียน วท.บ. ฟิสิกส์อุตสาหกรรม ที่ สจล. ?</h2>
+                    <p class="text-paragraph">หลักสูตรฟิสิกส์อุตสาหกรรมของ สจล. มุ่งพัฒนาความรู้ ทักษะ และเทคโนโลยีต่างๆ ทางฟิสิกส์และการนำศาสตร์ทางฟิสิกส์ไปประยุกต์ใช้งานในอุตสาหกรรมด้านต่างๆ ตอบโจทย์ความต้องการของบริษัทและอุตสาหกรรม เป็นหลักสูตรที่มีความร่วมมือกับหน่วยงานอุตสาหกรรมชั้นนำของประเทศ มีการจัดการเรียนการสอน ที่ให้ความรู้เทคโนโลยีด้านฟิสิกส์ที่รองรับความต้องการของอุตสาหกรรม</p>
+                    <p class="text-paragraph">เมื่อนักศึกษาขึ้นชั้นปีที่ 2 นักศึกษาสามารถเลือกเรียนแผน 2 ปริญญาร่วมกับหลักสูตรวิศวกรรมระบบไอโอทีและสารสนเทศ(ฝั่งรับเปิดโดยคณะวิศวกรรมศาสตร์ สจล.) เมื่อเรียนจบแล้วจะได้ปริญญา วท.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ.วิศวกรรมระบบไอโอทีและสารสนเทศ</p>
+                </div>
+            </div>
+
+            <div class="job-section">
+                <h3>อาชีพที่ประกอบได้หลังจบการศึกษา</h3>
+                <div class="job-grid">
+                    <div>
+                        <ul>
+                            <li>วิศวกรระบบไอโอที (IoT Engineer)</li>
+                            <li>วิศวกรระบบสารสนเทศ (Information System Engineer)</li>
+                            <li>วิศวกรระบบสมองกลฝังตัว (Embedded System Engineer)</li>
+                            <li>วิศวกรซอฟต์แวร์ระบบสมองกลฝังตัว (Embedded Software Engineer)</li>
+                            <li>นักพัฒนาแอพพลิเคชัน (Application Developer)</li>
+                            <li>โปรแกรมเมอร์ (Programmer)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>วิศวกรซอฟต์แวร์ (Software Engineer)</li>
+                            <li>นักพัฒนาส่วนหน้า (Front End Developer)</li>
+                            <li>นักพัฒนาส่วนเบื้องหลัง (Back End Developer)</li>
+                            <li>นักพัฒนาฟูลสแตก (Full Stack Developer)</li>
+                            <li>วิศวกรระบบคลาวด์ (Cloud Engineer)</li>
+                            <li>วิศวกรระบบเครือข่าย (Network Engineer)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            // ซ่อนเนื้อหา Tab ทั้งหมด
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+
+            // ลบคลาส active ออกจากปุ่มทั้งหมด
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            // แสดง Tab ที่ถูกคลิก และใส่คลาส active ให้ปุ่ม
+            document.getElementById(tabName).style.display = "block";
+            
+            // รอจังหวะนิดนึงเพื่อให้แอนิเมชันทำงาน
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
+            
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
