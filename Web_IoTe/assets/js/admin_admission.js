@@ -7,8 +7,8 @@ async function init() {
 }
 
 async function fetchRounds() {
-  // ชี้ไปที่โฟลเดอร์ api
-  const res = await fetch('api/rounds.php?action=get');
+  // 🟢 แก้ไขลิงก์ API
+  const res = await fetch('api/admission.php?action=get_rounds');
   allRounds = await res.json();
   const select = document.getElementById('edit-round');
   select.innerHTML = '';
@@ -16,8 +16,8 @@ async function fetchRounds() {
 }
 
 async function fetchProjects() {
-  // ชี้ไปที่โฟลเดอร์ api
-  const res = await fetch('api/get_projects.php');
+  // 🟢 แก้ไขลิงก์ API
+  const res = await fetch('api/admission.php?action=get_projects');
   allProjects = await res.json();
   renderSidebar();
 }
@@ -40,18 +40,29 @@ function renderSidebar() {
 function selectProject(index, el) {
   document.querySelectorAll('.project-list-item').forEach(e => e.classList.remove('active'));
   el.classList.add('active');
+
   const p = allProjects[index];
   document.getElementById('welcome-msg').style.display = 'none';
   document.getElementById('editor-area').style.display = 'block';
   document.getElementById('edit-title').innerText = 'แก้ไขโครงการ';
   document.getElementById('btn-delete-proj').style.display = 'block';
+
   document.getElementById('edit-id').value = p.id;
   document.getElementById('edit-round').value = p.round_id || (allRounds[0] ? allRounds[0].id : '');
   document.getElementById('edit-name').value = p.project_name;
   document.getElementById('edit-seats').value = p.seat_count;
   document.getElementById('edit-link').value = p.apply_link;
-  let txt = (p.details || "").replace(/<ul>/g, "").replace(/<\/ul>/g, "").replace(/<\/li><li>/g, "\n").replace(/<\/?li>/g, "").trim();
-  document.getElementById('edit-details').value = txt;
+
+  // แปลงแท็ก <ul><li> กลับเป็นบรรทัดใหม่
+  let txtDetails = (p.details || "").replace(/<ul>/g, "").replace(/<\/ul>/g, "").replace(/<\/li><li>/g, "\n").replace(/<\/?li>/g, "").trim();
+  document.getElementById('edit-details').value = txtDetails;
+
+  // 🟢 เพิ่มการดึงค่า conditions และ scoring 
+  let txtConditions = (p.conditions || "").replace(/<ul>/g, "").replace(/<\/ul>/g, "").replace(/<\/li><li>/g, "\n").replace(/<\/?li>/g, "").trim();
+  document.getElementById('edit-conditions').value = txtConditions;
+
+  let txtScoring = (p.scoring || "").replace(/<ul>/g, "").replace(/<\/ul>/g, "").replace(/<\/li><li>/g, "\n").replace(/<\/?li>/g, "").trim();
+  document.getElementById('edit-scoring').value = txtScoring;
 }
 
 function setupNewProject() {
@@ -60,17 +71,23 @@ function setupNewProject() {
   document.getElementById('editor-area').style.display = 'block';
   document.getElementById('edit-title').innerText = 'เพิ่มโครงการใหม่';
   document.getElementById('btn-delete-proj').style.display = 'none';
+
   document.getElementById('edit-id').value = '';
   document.getElementById('edit-name').value = '';
   document.getElementById('edit-seats').value = '';
   document.getElementById('edit-link').value = '';
   document.getElementById('edit-details').value = '';
+
+  // 🟢 เคลียร์ค่า conditions และ scoring เมื่อกดเพิ่มใหม่
+  document.getElementById('edit-conditions').value = '';
+  document.getElementById('edit-scoring').value = '';
 }
 
 async function saveData() {
   const id = document.getElementById('edit-id').value;
-  const lines = document.getElementById('edit-details').value.split('\n');
-  let html = '<ul>' + lines.map(l => l.trim() ? `<li>${l.trim()}</li>` : '').join('') + '</ul>';
+
+  // ฟังก์ชันช่วยแปลง Text จากกล่องเป็น <ul><li>
+  const formatList = (text) => '<ul>' + text.split('\n').map(l => l.trim() ? `<li>${l.trim()}</li>` : '').join('') + '</ul>';
 
   const payload = {
     id: id,
@@ -78,11 +95,13 @@ async function saveData() {
     project_name: document.getElementById('edit-name').value,
     seat_count: document.getElementById('edit-seats').value,
     apply_link: document.getElementById('edit-link').value,
-    details: html
+    details: formatList(document.getElementById('edit-details').value),
+    conditions: formatList(document.getElementById('edit-conditions').value), // 🟢 เพิ่มข้อมูลใหม่
+    scoring: formatList(document.getElementById('edit-scoring').value)        // 🟢 เพิ่มข้อมูลใหม่
   };
 
-  // ชี้ไปที่โฟลเดอร์ api
-  const url = id ? 'api/save_project.php' : 'api/add_project.php';
+  // 🟢 แก้ไขลิงก์ API
+  const url = id ? 'api/admission.php?action=save_project' : 'api/admission.php?action=add_project';
 
   try {
     const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
@@ -105,8 +124,8 @@ async function deleteProject() {
     showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'ลบเลย!'
   });
   if (result.isConfirmed) {
-    // ชี้ไปที่โฟลเดอร์ api
-    const res = await fetch('api/delete_project.php', { method: 'POST', body: JSON.stringify({ id }) });
+    // 🟢 แก้ไขลิงก์ API
+    const res = await fetch('api/admission.php?action=delete_project', { method: 'POST', body: JSON.stringify({ id }) });
     const json = await res.json();
     if (json.status == 'success') {
       Swal.fire('ลบแล้ว!', '', 'success').then(() => location.reload());
@@ -135,8 +154,8 @@ function renderRoundList() {
 async function addRound() {
   const name = document.getElementById('new-round-name').value;
   if (!name) return;
-  // ชี้ไปที่โฟลเดอร์ api
-  const res = await fetch('api/rounds.php?action=add', { method: 'POST', body: JSON.stringify({ round_name: name }) });
+  // 🟢 แก้ไขลิงก์ API
+  const res = await fetch('api/admission.php?action=add_round', { method: 'POST', body: JSON.stringify({ round_name: name }) });
   const json = await res.json();
   if (json.status === 'success') {
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'เพิ่มรอบสำเร็จ', showConfirmButton: false, timer: 1500 });
@@ -147,8 +166,8 @@ async function addRound() {
 
 async function updateRound(id) {
   const name = document.getElementById(`r-name-${id}`).value;
-  // ชี้ไปที่โฟลเดอร์ api
-  const res = await fetch('api/rounds.php?action=update', { method: 'POST', body: JSON.stringify({ id: id, round_name: name }) });
+  // 🟢 แก้ไขลิงก์ API
+  const res = await fetch('api/admission.php?action=update_round', { method: 'POST', body: JSON.stringify({ id: id, round_name: name }) });
   if (await res.json().then(j => j.status === 'success')) {
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'แก้ไขชื่อรอบเรียบร้อย', showConfirmButton: false, timer: 1500 });
     await fetchRounds();
@@ -158,8 +177,8 @@ async function updateRound(id) {
 async function deleteRound(id) {
   const res = await Swal.fire({ title: 'แน่ใจนะ?', text: "โครงการทั้งหมดในรอบนี้จะหายไปนะ!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'ลบทั้งหมด' });
   if (res.isConfirmed) {
-    // ชี้ไปที่โฟลเดอร์ api
-    const apiRes = await fetch('api/rounds.php?action=delete', { method: 'POST', body: JSON.stringify({ id: id }) });
+    // 🟢 แก้ไขลิงก์ API
+    const apiRes = await fetch('api/admission.php?action=delete_round', { method: 'POST', body: JSON.stringify({ id: id }) });
     if (await apiRes.json().then(j => j.status === 'success')) {
       Swal.fire('ลบสำเร็จ!', '', 'success');
       await fetchRounds(); renderRoundList();

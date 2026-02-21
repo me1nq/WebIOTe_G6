@@ -31,10 +31,27 @@
       <input type="hidden" id="edit-id">
       <div class="form-group"><label>เลือกรอบ (Round):</label><select id="edit-round"></select></div>
       <div class="form-group"><label>ชื่อโครงการ:</label><input type="text" id="edit-name"></div>
-      <div class="form-group"><label>จำนวนรับ (คน):</label><input type="number" id="edit-seats"></div>
-      <div class="form-group"><label>ลิงก์สมัคร:</label><input type="text" id="edit-link"></div>
-      <div class="form-group"><label>รายละเอียด (ขึ้นบรรทัดใหม่เพื่อแยกข้อ):</label><textarea
-          id="edit-details"></textarea></div>
+
+      <div style="display:flex; gap: 10px;">
+        <div class="form-group" style="flex:1;"><label>จำนวนรับ (คน):</label><input type="number" id="edit-seats"></div>
+        <div class="form-group" style="flex:2;"><label>ลิงก์สมัคร (URL):</label><input type="text" id="edit-link"></div>
+      </div>
+
+      <div class="form-group">
+        <label>คุณสมบัติ (ขึ้นบรรทัดใหม่เพื่อแยกข้อ):</label>
+        <textarea id="edit-details" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>เงื่อนไขการรับ (ขึ้นบรรทัดใหม่เพื่อแยกข้อ):</label>
+        <textarea id="edit-conditions" rows="4"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>การคำนวณคะแนน (ขึ้นบรรทัดใหม่เพื่อแยกข้อ):</label>
+        <textarea id="edit-scoring" rows="4"></textarea>
+      </div>
+
       <button class="btn-save" onclick="saveData()">บันทึกข้อมูล</button>
     </div>
     <div id="welcome-msg" style="text-align:center; margin-top:100px; color:#aaa;">
@@ -56,7 +73,6 @@
   </div>
 
   <script src="assets/js/admin_admission.js"></script>
-
 
 </body>
 

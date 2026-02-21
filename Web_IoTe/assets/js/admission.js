@@ -1,9 +1,7 @@
 async function fetchProjects() {
   try {
-    // --- แก้ไขตรงนี้ครับ ---
-    // เปลี่ยนจาก 'api.php' เป็น 'api/get_projects.php'
-    const response = await fetch('api/get_projects.php');
-    // ---------------------
+    // 🟢 1. แก้ไข URL ให้เรียกไปที่ API ตัวใหม่ที่เรารวมไฟล์ไว้
+    const response = await fetch('api/admission.php?action=get_projects');
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -14,9 +12,9 @@ async function fetchProjects() {
     console.error('Error fetching data:', error);
     document.getElementById('project-container').innerHTML =
       `<p style="text-align:center; color:red;">
-                ไม่สามารถดึงข้อมูลได้ (Path ผิด หรือหาไฟล์ไม่เจอ)<br>
-                โปรดตรวจสอบว่ามีไฟล์ <b>api/get_projects.php</b> อยู่จริงไหม
-            </p>`;
+          ไม่สามารถดึงข้อมูลได้ (Path ผิด หรือหาไฟล์ไม่เจอ)<br>
+          โปรดตรวจสอบว่ามีไฟล์ <b>api/admission.php</b> อยู่จริงไหม
+       </p>`;
   }
 }
 
@@ -38,11 +36,21 @@ function renderProjects(data) {
 
     const projectItem = document.createElement('div');
     projectItem.className = 'project-item';
+
+    // 🟢 2. เพิ่มการแสดงผล "เงื่อนไขการรับ" และ "การคำนวณคะแนน" เข้าไปใน HTML
     projectItem.innerHTML = `
             <button class="project-btn">${project.project_name}</button>
             <div class="project-details">
+                
                 <div class="detail-header">คุณสมบัติ</div>
-                <div class="detail-content">${project.details}</div>
+                <div class="detail-content">${project.details || '-'}</div>
+                
+                <div class="detail-header" style="margin-top: 15px;">เงื่อนไขการรับ</div>
+                <div class="detail-content">${project.conditions || '-'}</div>
+                
+                <div class="detail-header" style="margin-top: 15px;">การคำนวณคะแนน</div>
+                <div class="detail-content">${project.scoring || '-'}</div>
+
                 <div class="detail-footer">
                     <div>รายละเอียดเปิดรับ: <a href="${project.apply_link}" target="_blank" class="apply-link">คลิกที่นี่</a></div>
                     <div class="seat-badge">${project.seat_count} คน</div>
@@ -52,6 +60,7 @@ function renderProjects(data) {
 
     const btn = projectItem.querySelector('.project-btn');
     const content = projectItem.querySelector('.project-details');
+
     btn.addEventListener('click', () => {
       if (content.style.maxHeight) {
         content.style.maxHeight = null;
