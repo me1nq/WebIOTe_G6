@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Academic 1</title>
+    <link rel="stylesheet" href="adminacademic1.css">
+</head>
+<body>
+
+<div class="admin-box">
+
+    <h2>Admin - Academic 1</h2>
+
+    <label>หัวข้อ</label>
+    <input type="text" id="title">
+
+    <label>เนื้อหา</label>
+    <textarea id="content"></textarea>
+
+    <label>ค่าเทอม</label>
+    <input type="number" id="tuition">
+
+    <label>สีพื้นหลัง</label>
+    <input type="color" id="color">
+
+    <label>เปลี่ยนรูปภาพ</label>
+    <input type="file" id="imageInput" accept="image/*">
+
+    <label>เพิ่มไฟล์ PDF</label>
+    <input type="file" id="pdfInput" accept="application/pdf">
+
+    <button onclick="saveData()">บันทึก</button>
+
+</div>
+
+<script src="adminacademic1.js"></script>
+</body>
+</html>

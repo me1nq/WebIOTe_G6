@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Physics + IoT</title>
+    <link rel="stylesheet" href="adminacademic2.css">
+</head>
+<body>
+
+<h1>Admin Panel - Physics + IoT</h1>
+
+<div class="admin-container">
+
+    <label>หัวข้อหลัก</label>
+    <input type="text" id="titleInput">
+
+    <label>รายละเอียดเนื้อหา</label>
+    <textarea id="contentInput" rows="6"></textarea>
+
+    <label>ค่าธรรมเนียม</label>
+    <input type="number" id="tuitionInput">
+
+    <label>สีพื้นหลังกล่องเนื้อหา</label>
+    <input type="color" id="colorInput" value="#f4b183">
+
+    <label>เปลี่ยนรูปแผนการศึกษา</label>
+    <input type="file" id="imageInput" accept="image/*">
+
+    <hr>
+
+    <label>อัปโหลดไฟล์ PDF หลักสูตร</label>
+    <input type="file" id="pdfInput" accept="application/pdf">
+
+    <button onclick="saveData()">บันทึกข้อมูลทั้งหมด</button>
+
+</div>
+
+<script src="adminacademic2.js"></script>
+</body>
+</html>
