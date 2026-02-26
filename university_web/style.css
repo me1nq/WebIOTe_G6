@@ -1,0 +1,164 @@
+/* นำเข้าฟอนต์ Kanit */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+
+/* พื้นฐานของหน้าเว็บ */
+body {
+    font-family: 'Kanit', sans-serif; /* เปลี่ยนเป็นฟอนต์ Kanit */
+    font-weight: 300;
+    margin: 0;
+    padding: 40px 20px;
+    background-color: #f5f6fa; /* เปลี่ยนพื้นหลังเป็นสีเทาอ่อน เรียบหรูแบบหน้า Admin */
+    color: #333;
+}
+
+h1, h2, h3, h4, strong, b {
+    font-weight: 500; /* ให้หัวข้อมีความหนาขึ้นมานิดนึง */
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #4a4a4a;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    color: #FF6F00; /* เปลี่ยนสีหัวข้อรองเป็นสีส้มให้ลิงก์กับธีม Admin */
+    margin-bottom: 40px;
+}
+
+.faculty-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* สไตล์ของการ์ดอาจารย์ */
+.card {
+    background-color: #fff; /* เปลี่ยนการ์ดเป็นสีขาวให้ดูสะอาดตา */
+    padding: 15px;
+    width: 200px;
+    border-radius: 10px; /* เพิ่มขอบมนนิดนึง */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* ปรับเงาให้นุ่มนวลขึ้น */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มลูกเล่นตอนชี้เมาส์ */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* เด้งขึ้น */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15); /* เงาเข้มขึ้น */
+}
+
+.profile-img {
+    width: 170px;
+    height: 170px;
+    background-color: #eee;
+    border-radius: 8px; /* ทำให้รูปมีความมนนิดๆ */
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.card-info .name {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #000;
+}
+
+.card-info .role {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+}
+
+/* ================= Modal (Pop-up) Styles ================= */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: left;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.close-btn:hover { color: #dc3545; }
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.modal-img {
+    width: 90px; height: 90px;
+    margin-bottom: 0;
+    border-radius: 50%; /* ทำให้รูปใน Pop-up เป็นวงกลม (ถ้าไม่ชอบลบบรรทัดนี้ได้ครับ) */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* สไตล์สำหรับส่วนคอมเมนต์ */
+.comment-section {
+    margin-top: 20px;
+}
+.comment-box {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-family: 'Kanit', sans-serif;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    font-size: 1rem;
+    width: 100%;
+}
+.submit-btn:hover {
+    background-color: #0056b3;
+}
