@@ -1,91 +1,67 @@
-/* --- CSS สำหรับหน้า Admin Lab --- */
+/* =========================================
+   Layout: บน-ล่าง (อิงตีม University_web) - หน้า Admin Lab
+   ========================================= */
 body {
-  font-family: 'Kanit', sans-serif;
+  font-family: 'Segoe UI', 'Kanit', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  background-color: #f0f2f5;
-  display: flex;
-  height: 100vh;
+  padding: 30px 15px;
+  background-color: #fdfbf7;
+  color: #333;
 }
 
-.sidebar {
-  width: 320px;
-  background-color: #fff;
-  border-right: 1px solid #ddd;
+.admin-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.sidebar-header {
-  padding: 20px;
-  border-bottom: 1px solid #eee;
+/* --- แถบเมนู --- */
+.top-panel {
   background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-top: 5px solid #ffcc99;
 }
 
-.btn-orange {
-  background-color: #F37021;
-  color: white;
-  border: none;
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.btn-orange:hover {
-  background-color: #d65a12;
+.top-actions {
+  display: flex;
+  gap: 10px;
 }
 
-.btn-gray {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  margin-top: 5px;
-}
-
-.btn-gray:hover {
-  background-color: #5a6268;
-}
-
-.btn-full {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.project-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-
-.project-list-item {
-  padding: 12px;
-  cursor: pointer;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.project-list-item:hover {
-  background-color: #fff0e6;
-  color: #F37021;
-}
-
-.project-list-item.active {
-  background-color: #F37021;
-  color: white;
-  border-radius: 5px;
-}
-
-.round-label {
-  font-size: 0.85rem;
-  color: #888;
-  margin: 15px 0 5px 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
+/* --- พื้นที่แก้ไข (Main Editor) --- */
 .main-editor {
-  flex: 1;
-  padding: 40px;
-  overflow-y: auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.settings-box {
+  background: #fafafa;
+  padding: 25px;
+  border-radius: 10px;
+  border-left: 5px solid #F37021;
+  border-top: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.section-header {
+  margin-top: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  color: #4a4a4a;
 }
 
 .form-group {
@@ -95,146 +71,194 @@ body {
 label {
   display: block;
   font-weight: bold;
-  margin-bottom: 5px;
-  color: #333;
+  margin-bottom: 8px;
+  color: #4a4a4a;
 }
 
-input,
+input[type="text"],
+input[type="number"],
 textarea,
 select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 6px;
   box-sizing: border-box;
-  font-family: 'Kanit';
+  font-family: 'Segoe UI', 'Kanit', sans-serif;
   font-size: 1rem;
-}
-
-textarea {
-  height: 150px;
-  resize: vertical;
-}
-
-.btn-save {
-  background-color: #28a745;
-  color: white;
-  padding: 15px;
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.btn-delete {
-  background-color: #dc3545;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  float: right;
-}
-
-/* -- สไตล์พิเศษเฉพาะหน้า Admin Lab (กล่องตั้งค่าและหมวดหมู่) -- */
-.settings-box {
   background: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  border-left: 5px solid #F37021;
+  transition: 0.2s;
 }
 
-.section-header {
-  margin-top: 0;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #ffcc99;
+  box-shadow: 0 0 5px rgba(255, 204, 153, 0.5);
 }
 
-#lab-settings-editor,
-#member-editor,
-#category-editor {
-  display: none;
-}
-
+/* --- หมวดหมู่ (Category List) --- */
 .cat-item {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  padding: 12px;
   background: #fff;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   border: 1px solid #eee;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
-.cat-item input {
-  border: none;
+.cat-item input[type="text"],
+.cat-item input[type="number"] {
+  padding: 8px;
   background: transparent;
+  border: 1px solid transparent;
   font-weight: bold;
-  font-family: 'Kanit';
-  width: 70%;
 }
 
-.cat-item input:focus {
-  outline: 1px solid #ddd;
+.cat-item input[type="text"]:focus,
+.cat-item input[type="number"]:focus {
   background: #fff;
+  border: 1px solid #ccc;
+}
+
+.icon-btn {
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 1.1rem;
+  background: #ffe6e6;
+  border: none;
+  border-radius: 5px;
+  color: #dc3545;
+}
+
+.icon-btn:hover {
+  background: #ffcccc;
+}
+
+/* --- ระบบปุ่ม --- */
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: 'Segoe UI', 'Kanit', sans-serif;
+  transition: background 0.2s;
+}
+
+.btn-save,
+.btn-add {
+  background: #FF6F00;
+  color: white;
+}
+
+.btn-save:hover,
+.btn-add:hover {
+  background: #d25800;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.btn-edit {
+  background: #ffc107;
+  color: black;
+}
+
+.btn-edit:hover {
+  background: #e0a800;
 }
 
 /* =========================================
-   Responsive สำหรับหน้า Admin (มือถือ & แท็บเล็ต)
+   ส่วนตาราง (Table Styles อิงจาก admin.php) 
    ========================================= */
+.table-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background-color: #ffcc99;
+  /* สีส้มพาสเทล */
+  color: #333;
+  font-weight: bold;
+}
+
+tbody tr {
+  transition: 0.2s;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.table-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Responsive --- */
 @media (max-width: 768px) {
-
-  /* 1. เปลี่ยนเลย์เอาต์จาก ซ้าย-ขวา เป็น บน-ล่าง */
-  body {
+  .top-header {
     flex-direction: column;
-    height: auto;
-    min-height: 100vh;
+    align-items: stretch;
+    gap: 15px;
   }
 
-  /* 2. แถบเมนูด้านซ้าย ให้กินพื้นที่เต็มความกว้าง แต่จำกัดความสูงไว้ให้พอเลื่อนได้ */
-  .sidebar {
+  .top-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
     width: 100%;
-    height: 40vh;
-    /* ให้กล่องรายชื่อสูงแค่ 40% ของหน้าจอ จะได้เหลือที่ให้ฟอร์ม */
-    border-right: none;
-    border-bottom: 3px solid #F37021;
+    text-align: center;
   }
 
-  /* 3. กล่องฟอร์มแก้ไข กินพื้นที่เต็ม 100% และลดระยะขอบลง */
-  .main-editor {
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    /* ป้องกันกล่องล้นขอบจอ */
-  }
-
-  /* 4. บังคับให้ช่อง Input ที่เคยเรียงซ้าย-ขวา ตกลงมาเรียงบน-ล่างให้หมด */
-  .form-group[style*="display:flex"],
-  .form-group[style*="display: flex"] {
-    flex-direction: column !important;
-  }
-
-  /* 5. ปรับหน้าตาของกล่องจัดการหมวดหมู่ (หน้า Lab) ให้กดง่ายขึ้น */
   .cat-item {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
   }
 
   .cat-item>div {
-    margin-bottom: 10px;
     width: 100%;
+    display: flex;
+    gap: 5px;
   }
 
-  .cat-item input[type="text"] {
-    width: 100%;
-  }
-
-  .btn-delete {
-    width: 100%;
-    margin-top: 10px;
+  th,
+  td {
+    padding: 10px;
+    font-size: 0.85rem;
   }
 }
