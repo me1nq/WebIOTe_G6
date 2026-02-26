@@ -1,0 +1,129 @@
+/* สำคัญมาก กันล้นทุก element */
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+    overflow-x: hidden;
+}
+
+.hero {
+    background: #000;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.content-card {
+    width: 90%;
+    max-width: 1200px;
+    margin: -40px auto 60px;
+    background: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.content-card h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ===== DESKTOP LAYOUT ===== */
+.info-box {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    border-radius: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.text {
+    flex: 3;
+    line-height: 1.9;
+    min-width: 0;
+}
+
+.tuition {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    height: fit-content;
+}
+
+.tuition h3 {
+    margin: 15px 0;
+    font-size: 32px;
+    color: #ff6600;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.main-btn {
+    display: inline-block;
+    background: #ff6600;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.main-btn:hover {
+    background: #e65c00;
+}
+
+.curriculum {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.curriculum img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 900px) {
+
+    .content-card {
+        width: 95%;
+        padding: 20px;
+        margin: -20px auto 40px;
+    }
+
+    .info-box {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .tuition {
+        width: 100%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }
+
+    .tuition h3{
+        font-size: 24px;
+    }
+
+}
