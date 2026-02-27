@@ -42,18 +42,23 @@ async function loadCategories() {
   list.innerHTML = '';
   allCats.forEach(c => {
     list.innerHTML += `
-        <div class="cat-item">
+        <div class="cat-item" style="font-family: 'Kanit', sans-serif;">
             <div style="flex:1; display:flex; gap:10px;">
-                <input type="number" value="${c.display_order}" onchange="updateCat(${c.id}, this.value, '${c.category_name}')" style="width:60px; text-align:center;" title="ลำดับ">
-                <input type="text" value="${c.category_name}" onchange="updateCat(${c.id}, ${c.display_order}, this.value)">
+                <input type="number" value="${c.display_order}" onchange="updateCat(${c.id}, this.value, '${c.category_name}')" style="width:60px; text-align:center; font-family: 'Kanit', sans-serif;" title="ลำดับ">
+                <input type="text" value="${c.category_name}" onchange="updateCat(${c.id}, ${c.display_order}, this.value)" style="font-family: 'Kanit', sans-serif;">
             </div>
-            <button class="icon-btn" onclick="deleteCat(${c.id})"> ลบ</button>
+            <button class="icon-btn" onclick="deleteCat(${c.id})" style="font-family: 'Kanit', sans-serif;">ลบ</button>
         </div>`;
   });
 
   if (select) {
     select.innerHTML = '';
     allCats.forEach(c => select.innerHTML += `<option value="${c.id}">${c.category_name}</option>`);
+  }
+  const filterSelect = document.getElementById('filter-category');
+  if (filterSelect) {
+    filterSelect.innerHTML = '<option value="all">-- แสดงทั้งหมด --</option>';
+    allCats.forEach(c => filterSelect.innerHTML += `<option value="${c.category_name}">${c.category_name}</option>`);
   }
 }
 
@@ -76,9 +81,21 @@ async function updateCat(id, order, name) {
 }
 
 async function deleteCat(id) {
-  if (confirm("ต้องการลบหมวดหมู่นี้? สมาชิกที่อยู่ในหมวดหมู่นี้อาจหายไปด้วยนะ")) {
-    const fd = new FormData(); fd.append('id', id);
+  const result = await Swal.fire({
+    title: 'ต้องการลบหมวดหมู่นี้?',
+    text: "สมาชิกที่อยู่ในหมวดหมู่นี้อาจหายไป หรือได้รับผลกระทบนะครับ!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonText: 'ยกเลิก',
+    confirmButtonText: 'ใช่, ลบเลย!'
+  });
+
+  if (result.isConfirmed) {
+    const fd = new FormData();
+    fd.append('id', id);
     await fetch('api/lab.php?action=delete_category', { method: 'POST', body: fd });
+    Swal.fire('ลบสำเร็จ!', 'ลบหมวดหมู่เรียบร้อยแล้ว', 'success');
     loadCategories();
   }
 }
@@ -179,4 +196,33 @@ async function deleteMemberById(id) {
       showEditor('');
     }
   }
+}
+
+// 🟢 เพิ่มฟังก์ชันสำหรับการค้นหาและกรองตาราง 🟢
+function filterTable() {
+  const searchText = document.getElementById('search-input').value.toLowerCase();
+  const filterCat = document.getElementById('filter-category').value;
+  const rows = document.querySelectorAll('#member-table-body tr');
+
+  rows.forEach(row => {
+    // ข้ามแถวที่เขียนว่า "กำลังโหลดข้อมูล..." หรือ "ยังไม่มีสมาชิก"
+    if (row.cells.length < 5) return;
+
+    const name = row.cells[1].innerText.toLowerCase(); // คอลัมน์ที่ 2 คือ ชื่อ
+    const category = row.cells[2].innerText;           // คอลัมน์ที่ 3 คือ หมวดหมู่
+    const position = row.cells[3].innerText.toLowerCase(); // คอลัมน์ที่ 4 คือ ตำแหน่ง
+
+    // ตรวจสอบเงื่อนไขการค้นหาข้อความ
+    const matchSearch = name.includes(searchText) || position.includes(searchText);
+
+    // ตรวจสอบเงื่อนไขหมวดหมู่
+    const matchCategory = (filterCat === 'all') || (category === filterCat);
+
+    // ถ้าตรงทั้ง 2 เงื่อนไขให้โชว์ ถ้าไม่ตรงให้ซ่อนแถว
+    if (matchSearch && matchCategory) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
 }

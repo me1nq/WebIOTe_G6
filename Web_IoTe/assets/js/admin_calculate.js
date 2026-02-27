@@ -149,3 +149,32 @@ async function deleteSubjectById(id) {
     }
   }
 }
+
+// 🟢 เพิ่มฟังก์ชันสำหรับการค้นหาและกรองตารางวิชา 🟢
+function filterTable() {
+  const searchText = document.getElementById('search-input').value.toLowerCase();
+  const filterCat = document.getElementById('filter-category').value;
+  const rows = document.querySelectorAll('#subject-table-body tr');
+
+  rows.forEach(row => {
+    // ข้ามแถวที่เขียนว่า "กำลังโหลดข้อมูล..." หรือ "ยังไม่มีข้อมูลรายวิชา"
+    if (row.cells.length < 5) return;
+
+    const code = row.cells[0].innerText.toLowerCase(); // คอลัมน์ที่ 1: รหัสวิชา
+    const name = row.cells[1].innerText.toLowerCase(); // คอลัมน์ที่ 2: ชื่อวิชา
+    const category = row.cells[3].innerText;           // คอลัมน์ที่ 4: หมวดหมู่ (วิชาแกน, ศึกษาทั่วไป ฯลฯ)
+
+    // ตรวจสอบเงื่อนไขการค้นหาข้อความ (หาจากรหัส หรือ ชื่อ ก็ได้)
+    const matchSearch = code.includes(searchText) || name.includes(searchText);
+
+    // ตรวจสอบเงื่อนไขหมวดหมู่
+    const matchCategory = (filterCat === 'all') || (category.includes(filterCat));
+
+    // ถ้าตรงทั้ง 2 เงื่อนไขให้โชว์ ถ้าไม่ตรงให้ซ่อนแถว
+    if (matchSearch && matchCategory) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}

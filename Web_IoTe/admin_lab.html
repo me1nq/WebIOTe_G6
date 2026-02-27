@@ -98,6 +98,19 @@
 
     <div class="table-container">
       <h3 style="margin-top:0; color:#4a4a4a; margin-bottom: 15px;">รายชื่อสมาชิกทั้งหมด</h3>
+      <div
+        style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+        <div style="flex: 2; min-width: 200px;">
+          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">ค้นหาชื่อ / ตำแหน่ง:</label>
+          <input type="text" id="search-input" placeholder="พิมพ์ชื่อ หรือ ตำแหน่ง..." onkeyup="filterTable()">
+        </div>
+        <div style="flex: 1; min-width: 150px;">
+          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">กรองตามหมวดหมู่:</label>
+          <select id="filter-category" onchange="filterTable()">
+            <option value="all">-- แสดงทั้งหมด --</option>
+          </select>
+        </div>
+      </div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
