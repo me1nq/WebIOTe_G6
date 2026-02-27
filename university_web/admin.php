@@ -6,29 +6,19 @@ require 'db.php'; // เชื่อมต่อฐานข้อมูล
 // -------------------------
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
-    
-    // ออปชันเสริม: ถ้าอยากให้ลบรูปออกจากโฟลเดอร์ด้วยเมื่อกดลบข้อมูล
-    /*
-    $sql_get_img = "SELECT image FROM personnel WHERE id = $id";
-    $res_img = $conn->query($sql_get_img);
-    if($res_img->num_rows > 0) {
-        $img_row = $res_img->fetch_assoc();
-        if($img_row['image'] != 'images/default.png' && file_exists($img_row['image'])) {
-            unlink($img_row['image']); // ลบไฟล์รูป
-        }
-    }
-    */
-
     $sql_delete = "DELETE FROM personnel WHERE id = $id";
     if ($conn->query($sql_delete) === TRUE) {
-        echo "<script>alert('ลบข้อมูลสำเร็จ'); window.location.href='admin.php';</script>";
+        // 🚨 เรียกใช้ SweetAlert2 แทน Alert ธรรมดา
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'ลบข้อมูลเรียบร้อยแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin.php'; });</script></body></html>";
+        exit;
     } else {
-        echo "<script>alert('เกิดข้อผิดพลาด: " . $conn->error . "');</script>";
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'error', title: 'ผิดพลาด', text: '" . $conn->error . "', confirmButtonColor: '#dc3545'}).then(() => { window.history.back(); });</script></body></html>";
+        exit;
     }
 }
 
 // -------------------------
-// 2. จัดการการเพิ่มข้อมูล (Create) พร้อมระบบอัปโหลดรูป
+// 2. จัดการการเพิ่มข้อมูล (Create)
 // -------------------------
 if (isset($_POST['submit_add'])) {
     $type = $conn->real_escape_string($_POST['type']);
@@ -37,21 +27,53 @@ if (isset($_POST['submit_add'])) {
     $role = $conn->real_escape_string($_POST['role']);
     $popup_role = $conn->real_escape_string($_POST['popup_role']); 
     $history = $conn->real_escape_string($_POST['history']);
-    $image = $conn->real_escape_string($_POST['image']);
+    $research = $conn->real_escape_string($_POST['research']); 
+    $research_link = $conn->real_escape_string($_POST['research_link']); 
+    
+    $image_path = "images/default.png"; 
+    $research_image_path = ""; 
 
-    // เพิ่ม popup_role ลงในคำสั่ง INSERT
-    $sql_insert = "INSERT INTO personnel (type, program, name, role, popup_role, history, image) 
-                   VALUES ('$type', '$program', '$name', '$role', '$popup_role', '$history', '$image')";
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $target_dir = "images/"; 
+        $file_extension = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+        $new_file_name = uniqid() . '.' . $file_extension;
+        $target_file = $target_dir . $new_file_name;
+
+        if(getimagesize($_FILES["image"]["tmp_name"]) !== false) {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $image_path = $target_file; 
+            }
+        }
+    }
+
+    if (isset($_FILES['research_image']) && $_FILES['research_image']['error'] == 0) {
+        $target_dir = "images/"; 
+        $file_extension = strtolower(pathinfo($_FILES["research_image"]["name"], PATHINFO_EXTENSION));
+        $new_research_file_name = 'research_' . uniqid() . '.' . $file_extension;
+        $target_research_file = $target_dir . $new_research_file_name;
+
+        if(getimagesize($_FILES["research_image"]["tmp_name"]) !== false) {
+            if (move_uploaded_file($_FILES["research_image"]["tmp_name"], $target_research_file)) {
+                $research_image_path = $target_research_file; 
+            }
+        }
+    }
+
+    $sql_insert = "INSERT INTO personnel (type, program, name, role, popup_role, history, image, research, research_link, research_image) 
+                   VALUES ('$type', '$program', '$name', '$role', '$popup_role', '$history', '$image_path', '$research', '$research_link', '$research_image_path')";
     
     if ($conn->query($sql_insert) === TRUE) {
-        echo "<script>alert('เพิ่มข้อมูลสำเร็จ'); window.location.href='admin.php';</script>";
+        // 🚨 เรียกใช้ SweetAlert2 ตอนบันทึกสำเร็จ
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'บันทึกแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin.php'; });</script></body></html>";
+        exit;
     } else {
-        echo "<script>alert('เกิดข้อผิดพลาด: " . $conn->error . "');</script>";
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'error', title: 'ผิดพลาด', text: '" . $conn->error . "', confirmButtonColor: '#dc3545'}).then(() => { window.history.back(); });</script></body></html>";
+        exit;
     }
 }
 
 // -------------------------
-// 3. ดึงข้อมูลมาแสดง (Read) - ดึงมาทั้งหมดรอไว้ก่อน
+// 3. ดึงข้อมูลมาแสดง (Read)
 // -------------------------
 $sql_select = "SELECT * FROM personnel ORDER BY id DESC";
 $result = $conn->query($sql_select);
@@ -66,75 +88,59 @@ $result = $conn->query($sql_select);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <style>
-        /* 🚨 เปลี่ยนฟอนต์หลักของหน้าเว็บเป็น Kanit */
-        body { 
-            font-family: 'Kanit', sans-serif; 
-            background-color: #f5f6fa; 
-            padding: 20px; 
-            font-weight: 300;
-        }
-        
-        /* ปรับให้หัวข้อหนาขึ้นนิดนึงเพื่อให้ดูชัดเจน */
-        h2, h3, label, th, strong {
-            font-weight: 500; 
-        }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #f5f6fa; padding: 20px; font-weight: 300; }
+        h2, h3, label, th, strong { font-weight: 500; }
         .admin-container { max-width: 1100px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
         th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #FF6F00; color: white;} /* เพิ่มสีตัวหนังสือขาวบนหัวตารางเผื่อให้อ่านง่าย */
+        th { background-color: #FF6F00; color: white;} 
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; }
-        
-        /* บังคับให้ช่องกรอกข้อมูลใช้ฟอนต์ Kanit ด้วย */
         .form-group input[type="text"], .form-group select, .form-group textarea, .filter-section input, .filter-section select { 
-            font-family: 'Kanit', sans-serif;
-            width: 100%; 
-            padding: 8px; 
-            box-sizing: border-box; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
+            font-family: 'Kanit', sans-serif; width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; 
         }
-        
         .btn { font-family: 'Kanit', sans-serif; font-weight: 400; padding: 8px 15px; background: #28a745; color: white; border: none; cursor: pointer; text-decoration: none; border-radius: 5px; display: inline-block;} 
         .btn-danger { background: #dc3545; }
         .btn-edit { background: #11b65b; }
         
+        /* 🚨 สไตล์สำหรับปุ่มดูรีวิว */
+        .btn-review { 
+            background-color: #FF6F00; 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            display: inline-block; 
+            margin-bottom: 20px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s;
+        }
+        .btn-review:hover {
+            background-color: #0056b3;
+        }
+
         .filter-section { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
         .filter-section select { width: 250px; }
         .filter-section input { width: 300px; }
         
         .file-upload-box {
-            border: 2px dashed #999;
-            padding: 20px;
-            text-align: center;
-            background-color: #fdfdfd;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
+            border: 2px dashed #999; padding: 20px; text-align: center; background-color: #fdfdfd; border-radius: 8px; cursor: pointer; transition: background 0.3s;
         }
-        .file-upload-box:hover {
-            background-color: #f1f1f1;
-            border-color: #FF6F00;
-        }
-        .file-upload-box input[type="file"] {
-            display: block;
-            margin: 10px auto;
-            cursor: pointer;
-            font-family: 'Kanit', sans-serif; /* บังคับฟอนต์ที่ปุ่มอัปโหลดไฟล์ด้วย */
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 5px; 
-            justify-content: center; 
-        }
+        .file-upload-box:hover { background-color: #f1f1f1; border-color: #FF6F00; }
+        .file-upload-box input[type="file"] { display: block; margin: 10px auto; cursor: pointer; font-family: 'Kanit', sans-serif; }
+        .action-buttons { display: flex; gap: 5px; justify-content: center; }
+        .research-section { background-color: #fff3e0; padding: 15px; border-radius: 8px; border: 1px solid #ffe0b2; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
 <div class="admin-container">
+    <a href="admin_reviews.php" class="btn-review">ดูรีวิว / ความคิดเห็นของคณาจารย์ทั้งหมด</a>
+
     <h2>ระบบจัดการข้อมูลบุคลากร (Admin Panel)</h2>
     
     <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 30px;">
@@ -173,11 +179,30 @@ $result = $conn->query($sql_select);
                 <label>ประวัติความเชี่ยวชาญ:</label>
                 <textarea name="history" rows="3" required></textarea>
             </div>
+
+            <div class="research-section">
+                <h4 style="margin-top: 0; color: #FF6F00;">📚 ส่วนข้อมูลงานวิจัย (ถ้ามี)</h4>
+                <div class="form-group">
+                    <label>ชื่องานวิจัย / คำอธิบาย:</label>
+                    <textarea name="research" rows="2" placeholder="เช่น พัฒนาระบบ IoT สำหรับสมาร์ทฟาร์ม..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ลิงก์ไปยังงานวิจัย (URL):</label>
+                    <input type="text" name="research_link" placeholder="เช่น https://www.researchgate.net/...">
+                </div>
+                <div class="form-group">
+                    <label>อัปโหลดรูปหน้าปกงานวิจัย:</label>
+                    <div class="file-upload-box" style="border-color: #FF6F00;">
+                        <p style="margin: 0; color: #555;">ลากไฟล์รูปปกวิจัยมาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</p>
+                        <input type="file" name="research_image" accept="image/jpeg, image/png, image/webp">
+                    </div>
+                </div>
+            </div>
             
             <div class="form-group">
-                <label>อัปโหลดรูปโปรไฟล์:</label>
+                <label>อัปโหลดรูปโปรไฟล์อาจารย์:</label>
                 <div class="file-upload-box">
-                    <p style="margin: 0; color: #555;">ลากไฟล์รูปมาวางที่นี่ หรือคลิกปุ่มด้านล่างเพื่อเลือกไฟล์</p>
+                    <p style="margin: 0; color: #555;">ลากไฟล์รูปโปรไฟล์มาวางที่นี่ หรือคลิกปุ่มด้านล่างเพื่อเลือกไฟล์</p>
                     <input type="file" name="image" accept="image/jpeg, image/png, image/webp">
                 </div>
             </div>
@@ -227,7 +252,7 @@ $result = $conn->query($sql_select);
                     <td>
                         <div class="action-buttons">
                             <a href="admin_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-edit">แก้ไข</a>
-                            <a href="admin.php?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('คุณแน่ใจหรือไม่ว่าต้องการลบอาจารย์ท่านนี้?');">ลบ</a>
+                            <a href="#" onclick="confirmDelete(<?php echo $row['id']; ?>); return false;" class="btn btn-danger">ลบ</a>
                         </div>
                     </td>
                 </tr>
@@ -256,6 +281,23 @@ function filterTable() {
             row.style.display = ""; 
         } else {
             row.style.display = "none"; 
+        }
+    });
+}
+
+function confirmDelete(deleteId) {
+    Swal.fire({
+        title: 'แน่ใจหรือไม่?',
+        text: "คุณต้องการลบข้อมูลบุคลากรท่านนี้ใช่ไหม!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'ใช่, ลบเลย!',
+        cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = 'admin.php?delete_id=' + deleteId;
         }
     });
 }
