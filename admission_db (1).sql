@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2026 at 04:01 PM
+-- Generation Time: Mar 01, 2026 at 03:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -141,7 +141,7 @@ CREATE TABLE `lab_members` (
 
 INSERT INTO `lab_members` (`id`, `lab_id`, `category_id`, `name`, `position`, `image_url`, `display_order`) VALUES
 (6, 2, 1, 'ดร.สมชาย ใจดี', 'AI Specialist', '', 1),
-(12, 1, 1, 'ผศ.ดร.อรรถพล ป้อมสถิตย์', '', '69987f7a06c26.webp', 0),
+(12, 1, 1, 'ผศ.ดร.อรรถพล ป้อมสถิตย์', 'หัวหน้า', '69987f7a06c26.webp', 0),
 (13, 1, 5, 'ชินวัตร ศิลาธนสาร', '', '699875a53b54a.webp', 0),
 (14, 1, 5, 'ฐิติพันต์ สอนโคตร', '', '699875b0eb701.webp', 0),
 (15, 1, 5, 'โกเมศ ประกอบผล', '', '699875bd653f7.webp', 0),
@@ -199,7 +199,6 @@ INSERT INTO `subjects` (`id`, `course_code`, `name`, `credit`, `category`) VALUE
 (18, '01236250', 'สนามแม่เหล็กไฟฟ้า / ELECTROMAGNETIC FIELDS', 3, 'core'),
 (19, '01236251', 'คณิตศาสตร์ดิสครีต / DISCRETE MATHEMATICS', 3, 'core'),
 (20, '01236252', 'คณิตศาสตร์สำหรับวิทยาการข้อมูล / MATH FOR DATA SCIENCE', 4, 'core'),
-(21, '99999999', 'Umamusume', 99, '0'),
 (22, '01236249', 'พื้นฐานการออกแบบระบบดิจิทัล / FUNDAMENTAL OF DIGITAL SYSTEM DESIGN', 3, 'core'),
 (23, '01236254', 'วงจรไฟฟ้าและอิเล็กทรอนิกส์ / CIRCUITS AND ELECTRONICS', 3, 'core'),
 (24, '01236255', 'พื้นฐานระบบไอโอที / INTRODUCTION TO IoT', 3, 'core'),
@@ -233,7 +232,9 @@ INSERT INTO `subjects` (`id`, `course_code`, `name`, `credit`, `category`) VALUE
 (52, '01236269', 'โครงงานวิศวกรรมระบบไอโอทีและสารสนเทศ 1 / CAPSTONE PROJECT 1', 3, 'core'),
 (53, '01236270', 'โครงงานวิศวกรรมระบบไอโอทีและสารสนเทศ 2 / CAPSTONE PROJECT 2', 3, 'core'),
 (54, '01236319', 'สหกิจศึกษา / COOPERATIVE EDUCATION', 6, 'core'),
-(55, '01236320', 'การปฏิบัติการฝึกงานต่างประเทศ / OVERSEA TRAINING', 6, 'core');
+(55, '01236320', 'การปฏิบัติการฝึกงานต่างประเทศ / OVERSEA TRAINING', 6, 'core'),
+(58, '987456', 'admin', 30, 'gen'),
+(62, 'test', 'JJ hack', 3, 'free');
 
 --
 -- Indexes for dumped tables
@@ -285,7 +286,7 @@ ALTER TABLE `subjects`
 -- AUTO_INCREMENT for table `admission_projects`
 --
 ALTER TABLE `admission_projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `admission_rounds`
@@ -297,7 +298,7 @@ ALTER TABLE `admission_rounds`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `labs`
@@ -309,13 +310,13 @@ ALTER TABLE `labs`
 -- AUTO_INCREMENT for table `lab_members`
 --
 ALTER TABLE `lab_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Constraints for dumped tables
