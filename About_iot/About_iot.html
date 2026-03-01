@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-orange: #f39c12;
+            --primary-orange: #FF6F00; /* แก้ไขสีหลักเป็น #FF6F00 */
             --primary-dark: #1a1a1a;
             --text-dark: #333;
             --text-light: #666;
@@ -47,7 +47,7 @@
         /* --- Main Content Container --- */
         .main-container {
             max-width: 1200px;
-            margin: -30px auto 50px; /* ดึงเนื้อหาขึ้นไปทับ Header เล็กน้อย */
+            margin: -30px auto 50px; 
             padding: 0 20px;
             position: relative;
             z-index: 10;
@@ -58,7 +58,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
-            flex-wrap: wrap; /* ให้พับลงมาในจอมือถือ */
+            flex-wrap: wrap; 
         }
 
         .tab-btn {
@@ -79,7 +79,7 @@
         .tab-btn.active {
             background-color: var(--primary-orange);
             color: white;
-            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3); /* ปรับสีเงาตามสีส้มใหม่ */
         }
 
         .tab-btn:hover:not(.active) {
@@ -93,7 +93,7 @@
             border-radius: 12px;
             padding: 40px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 2px dashed #3498db; /* กรอบเส้นประตามรูป */
+            border: 2px dashed #3498db; 
             animation: fadeIn 0.5s ease;
         }
 
@@ -202,7 +202,7 @@
             justify-content: center;
             font-size: 2rem;
             margin: 0 auto 20px;
-            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.4);
+            box-shadow: 0 6px 15px rgba(255, 111, 0, 0.4); /* ปรับสีเงาตามสีส้มใหม่ */
         }
 
         .feature-item h4 {
