@@ -1,31 +1,41 @@
 <?php
 require_once 'db.php';
 
-// ... (โค้ด PHP ส่วนเดิมทั้งหมด ไม่มีการเปลี่ยนแปลง Logic) ...
-// ตรวจสอบ ID, ดึงข้อมูลเก่า, อัปเดตชื่อ, อัปเดตรูป, อัปเดต PDF
+// ตรวจสอบ ID, ดึงข้อมูลเก่า
 if (!isset($_GET['id'])) { header("Location: admin.php"); exit(); }
 $id = $_GET['id'];
 $sql = "SELECT * FROM projects WHERE id = $id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
+$update_success = false;
+
 if (isset($_POST['update_project'])) {
     $project_name = $conn->real_escape_string($_POST['project_name']);
     $update_sql = "UPDATE projects SET project_name = '$project_name'";
+    
+    // อัปเดตรูปภาพ
     if (!empty($_FILES['image']['name'])) {
         if(file_exists("uploads/images/" . $row['image_file'])) { unlink("uploads/images/" . $row['image_file']); }
         $new_img = time() . '_' . $_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'], "uploads/images/" . $new_img);
         $update_sql .= ", image_file = '$new_img'";
     }
+    
+    // อัปเดต PDF
     if (!empty($_FILES['pdf']['name'])) {
         if(file_exists("uploads/pdfs/" . $row['pdf_file'])) { unlink("uploads/pdfs/" . $row['pdf_file']); }
         $new_pdf = time() . '_' . $_FILES['pdf']['name'];
         move_uploaded_file($_FILES['pdf']['tmp_name'], "uploads/pdfs/" . $new_pdf);
         $update_sql .= ", pdf_file = '$new_pdf'";
     }
+    
     $update_sql .= " WHERE id = $id";
-    if ($conn->query($update_sql) === TRUE) { echo "<script>alert('อัปเดตข้อมูลสำเร็จ!'); window.location='admin.php';</script>"; } else { echo "Error: " . $conn->error; }
+    if ($conn->query($update_sql) === TRUE) { 
+        $update_success = true; // ตั้งค่าสถานะเพื่อเรียกใช้ SweetAlert
+    } else { 
+        $error_msg = $conn->error; 
+    }
 }
 ?>
 
@@ -37,9 +47,11 @@ if (isset($_POST['update_project'])) {
     <title>แก้ไขข้อมูลโปรเจค</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         :root {
-            --primary-orange: #f39c12;
+            --primary-orange: #FF6F00; /* แก้ไขรหัสสีตามที่สั่ง */
             --bg-gray: #f5f6fa;
             --text-dark: #333;
         }
@@ -63,20 +75,28 @@ if (isset($_POST['update_project'])) {
         
         .current-file { 
             font-size: 0.9rem; color: #666; margin-top: 10px; 
-            background: #fff0d9; padding: 10px; border-radius: 8px; /* พื้นหลังสีส้มอ่อน */
-            display: flex; align-items: center;
+            background: #fff0d9; padding: 12px; border-radius: 8px;
+            display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+            word-break: break-all;
         }
-        .current-file img { max-height: 50px; border-radius: 4px; margin-left: 15px; border: 1px solid #ddd; }
-        .current-file strong { color: var(--primary-orange); margin-left: 5px; }
+        .current-file img { max-height: 50px; border-radius: 4px; border: 1px solid #ddd; }
+        .current-file strong { color: var(--primary-orange); flex: 1; min-width: 120px; }
         
         .btn { padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; text-align: center; display: block; text-decoration: none; font-weight: 500; transition: all 0.3s; }
         .btn-save { 
             background: var(--primary-orange); color: white; margin-bottom: 15px; 
-            box-shadow: 0 4px 10px rgba(243, 156, 18, 0.3);
+            box-shadow: 0 4px 10px rgba(255, 111, 0, 0.3);
         }
-        .btn-save:hover { background: #d35400; transform: translateY(-2px); }
+        .btn-save:hover { background: #e66400; transform: translateY(-2px); }
         .btn-cancel { background: #e0e0e0; color: #555; }
         .btn-cancel:hover { background: #d0d0d0; }
+
+        @media (max-width: 480px) {
+            .container { padding: 25px 15px; }
+            h2 { font-size: 1.4rem; }
+            .current-file { flex-direction: column; align-items: flex-start; }
+            .current-file img { margin-top: 5px; }
+        }
     </style>
 </head>
 <body>
@@ -95,7 +115,9 @@ if (isset($_POST['update_project'])) {
             <label>เปลี่ยนรูปภาพหน้าปก <span style="color: var(--primary-orange); font-size:0.9rem;">(ถ้าไม่เปลี่ยนให้เว้นว่าง)</span></label>
             <input type="file" name="image" accept="image/*">
             <div class="current-file">
-                <i class="fa-regular fa-image"></i> รูปปัจจุบัน: <img src="uploads/images/<?php echo $row['image_file']; ?>" alt="Current Image">
+                <i class="fa-regular fa-image"></i> 
+                <span>รูปปัจจุบัน:</span>
+                <img src="uploads/images/<?php echo $row['image_file']; ?>" alt="Current Image">
             </div>
         </div>
 
@@ -103,7 +125,9 @@ if (isset($_POST['update_project'])) {
             <label>เปลี่ยนไฟล์เอกสาร (PDF) <span style="color: var(--primary-orange); font-size:0.9rem;">(ถ้าไม่เปลี่ยนให้เว้นว่าง)</span></label>
             <input type="file" name="pdf" accept=".pdf">
             <div class="current-file">
-                <i class="fa-regular fa-file-pdf"></i> ไฟล์ปัจจุบัน: <strong><?php echo $row['pdf_file']; ?></strong>
+                <i class="fa-regular fa-file-pdf"></i> 
+                <span>ไฟล์ปัจจุบัน:</span>
+                <strong><?php echo htmlspecialchars($row['pdf_file']); ?></strong>
             </div>
         </div>
 
@@ -112,6 +136,33 @@ if (isset($_POST['update_project'])) {
         
     </form>
 </div>
+
+<?php if($update_success): ?>
+    <script>
+        Swal.fire({
+            title: 'อัปเดตข้อมูลสำเร็จ!',
+            text: 'ระบบได้บันทึกการเปลี่ยนแปลงของคุณแล้ว',
+            icon: 'success',
+            confirmButtonColor: '#FF6F00',
+            confirmButtonText: 'ตกลง'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = 'admin.php';
+            }
+        });
+    </script>
+<?php endif; ?>
+
+<?php if(isset($error_msg)): ?>
+    <script>
+        Swal.fire({
+            title: 'เกิดข้อผิดพลาด!',
+            text: '<?php echo $error_msg; ?>',
+            icon: 'error',
+            confirmButtonColor: '#FF6F00'
+        });
+    </script>
+<?php endif; ?>
 
 </body>
 </html>

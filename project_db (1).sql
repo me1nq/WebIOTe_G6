@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2026 at 05:07 PM
+-- Generation Time: Mar 01, 2026 at 02:36 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,7 +40,9 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`id`, `project_name`, `image_file`, `pdf_file`, `created_at`) VALUES
-(1, 'จ๊อบ', '1771687764_20260209_092532.jpg', '1771687764_Footprinting_Module_Cheat_Sheet.pdf', '2026-02-21 15:29:24');
+(6, 'จ๊อบ', '1772090900_5.png', '1772090900_ID Buddy Homie.pdf', '2026-02-26 07:28:20'),
+(7, 'เจเจV.2', '1772093033_6.jpg', '1772093033_ID Buddy Homie.pdf', '2026-02-26 08:03:53'),
+(8, 'เจเจ', '1772095012_133719916857293172.jpg', '1772095012_67010633 Homework9.pdf', '2026-02-26 08:36:52');
 
 --
 -- Indexes for dumped tables
@@ -60,7 +62,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
