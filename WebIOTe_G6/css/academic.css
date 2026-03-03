@@ -1,0 +1,133 @@
+/* =========================================
+   academic1.css - สำหรับหน้า Academics (IoTe)
+   ========================================= */
+
+.academic-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 30px;
+    color: #000;
+    font-weight: bold;
+}
+
+/* ===== DESKTOP LAYOUT ===== */
+.info-box {
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    border-radius: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.text {
+    flex: 3;
+    line-height: 1.8;
+    min-width: 0;
+    font-size: 20px; /* ขนาดเท่าหน้า Index */
+    color: #555555;
+    text-align: justify;
+}
+
+/* กล่องค่าเทอม */
+.tuition {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+}
+
+.tuition p {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+    font-weight: bold;
+}
+
+.tuition h3 {
+    margin: 15px 0;
+    font-size: 36px;
+    color: #FF6F00; /* สีส้มหลักของเว็บ */
+}
+
+.tuition span {
+    font-size: 15px;
+    color: #666;
+}
+
+/* ปุ่มดาวน์โหลด PDF */
+.button-group {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.main-btn {
+    display: inline-block;
+    background: #FF6F00;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.main-btn:hover {
+    background: #e65c00;
+    transform: scale(1.02);
+    color: white !important;
+}
+
+/* รูปแผนการศึกษา */
+.curriculum {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.curriculum img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 992px) {
+    .academic-title {
+        font-size: 24px;
+    }
+
+    .info-box {
+        flex-direction: column;
+        padding: 20px;
+        gap: 30px;
+    }
+
+    .text {
+        font-size: 15px;
+    }
+
+    .tuition {
+        width: 100%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    .tuition h3{
+        font-size: 28px;
+    }
+    
+    .main-btn {
+        font-size: 16px;
+        padding: 12px 25px;
+    }
+}

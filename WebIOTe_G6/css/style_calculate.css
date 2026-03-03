@@ -1,0 +1,231 @@
+/* =========================================
+   1. จัดการโครงสร้างพื้นฐาน (ห้ามล้นจอเด็ดขาด)
+   ========================================= */
+* {
+  box-sizing: border-box !important;
+}
+
+html,
+body {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  /* ห้ามเลื่อนซ้ายขวาที่หน้าจอหลัก */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* =========================================
+   2. สไตล์หลัก (สำหรับคอมพิวเตอร์)
+   ========================================= */
+.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.form-row select,
+.form-row input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 1;
+  font-family: 'Kanit', sans-serif;
+  font-size: 1rem;
+}
+
+.btn-add {
+  background: #F37021;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100px;
+  text-align: center;
+}
+
+.btn-add:hover {
+  background: #d65a12;
+}
+
+/* ตาราง */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+th {
+  background-color: #f9f9f9;
+  color: #555;
+}
+
+.btn-del {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+}
+
+/* แถบความคืบหน้า */
+.progress-item {
+  margin-bottom: 15px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.progress-bg {
+  background: #eee;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #28a745;
+  width: 0%;
+  transition: width 0.5s;
+}
+
+.gpa-box {
+  text-align: center;
+  background: #F37021;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.gpa-value {
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* ปลั๊กอิน Select2 */
+.select2-container {
+  width: 100% !important;
+  /* บังคับให้เต็มกล่องเสมอ */
+}
+
+.select2-container .select2-selection--single {
+  height: 48px;
+  /* ปรับให้พอดีกับปุ่ม */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-family: 'Kanit', sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.select2-selection__arrow {
+  top: 10px !important;
+}
+
+/* =========================================
+   3. Responsive (สำหรับมือถือ)
+   ========================================= */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+    /* ลดระยะขอบในมือถือ */
+  }
+
+  /* ปิดระบบ Grid ทิ้ง เปลี่ยนเป็นบล็อกเรียงต่อกัน */
+  .grid-layout {
+    display: block !important;
+  }
+
+  .card {
+    width: 100% !important;
+    padding: 15px !important;
+    /* ลด padding ไม่ให้กินพื้นที่ */
+    margin-bottom: 15px;
+  }
+
+  /* จัดฟอร์มเรียงบนลงล่าง */
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .form-row select,
+  .form-row input,
+  .btn-add,
+  .select2-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    margin: 0 !important;
+  }
+
+  .btn-add {
+    padding: 15px;
+    height: auto;
+  }
+
+  /* บังคับตารางให้เลื่อนซ้าย-ขวาได้ภายในกล่อง โดยที่หน้าหลักไม่ขยับ */
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+  }
+
+  table {
+    min-width: 550px;
+    /* ยอมให้ตารางยาวได้ แต่มันจะถูกขังอยู่ใน table-responsive */
+  }
+}

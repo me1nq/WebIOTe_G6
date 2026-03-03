@@ -1,0 +1,227 @@
+/* =========================================
+   about.css - สำหรับเนื้อหาเฉพาะหน้า About IoTe
+   ========================================= */
+
+:root {
+    --primary-orange: #FF6F00; 
+    --primary-dark: #000000; /* 🔴 ปรับเป็นดำสนิท (#000) ตามหัวข้อหน้า index */
+    --text-dark: #333333;
+    --text-light: #555555; /* 🔴 ปรับเป็นเทา (#555555) ตาม description-iot หน้า index */
+}
+
+/* --- Tabs Navigation --- */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap; 
+}
+
+.tab-btn {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold; /* ให้ตัวหนังสือปุ่มหนาชัดเจนขึ้น */
+    /* 🔴 ลบคำสั่งบังคับ Kanit ออก เพื่อให้มันดึงฟอนต์ Inter จากโครงสร้างหลัก (style.css) มาใช้ */
+    border: none;
+    cursor: pointer;
+    background-color: #f5f6fa;
+    color: var(--text-dark);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: var(--primary-orange);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255, 111, 0, 0.3); 
+}
+
+.tab-btn:hover:not(.active) {
+    background-color: #e2e4eb;
+}
+
+/* --- Tab Content Area --- */
+.tab-content {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 20px 0;
+    animation: fadeIn 0.5s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔴 หัวข้อใหญ่ */
+.content-title {
+    text-align: center;
+    font-size: 30px; /* 🔴 ปรับเป็น 30px ให้เท่ากับ h1 ในหน้า index */
+    color: var(--primary-dark);
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.content-title.red-text {
+    color: #e74c3c;
+    font-size: 24px; /* ลดหลั่นขนาดลงมาให้ดูเป็นหัวข้อย่อย */
+}
+
+/* 🔴 ข้อความเนื้อหา */
+.text-paragraph {
+    color: var(--text-light);
+    text-align: justify;
+    margin-bottom: 20px;
+    font-size: 20px; /* 🔴 ปรับเป็น 20px ให้เท่ากับ .description-iot */
+    font-weight: normal; /* 🔴 ปรับเป็น normal ให้เท่ากัน */
+    line-height: 1.5;
+}
+
+/* --- Tab 1: Info Cards --- */
+.info-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.info-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.info-card i {
+    font-size: 3rem;
+    color: var(--primary-orange);
+    margin-bottom: 15px;
+}
+
+.info-card p {
+    font-size: 15px; /* 🔴 เท่ากับ .stat-desc หน้า index */
+    color: var(--text-light);
+}
+
+/* --- Job List --- */
+.job-section {
+    margin-top: 50px;
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
+
+.job-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-dark);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.job-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.job-grid ul {
+    list-style-position: inside;
+    color: var(--text-light);
+    font-size: 15px; /* 🔴 ยึดขนาด 15px ไว้สำหรับเนื้อหาลิสต์ */
+    line-height: 1.5;
+}
+
+.job-grid li {
+    margin-bottom: 8px;
+}
+
+/* --- Tab 2: Feature Columns --- */
+.feature-grid {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    flex: 1;
+    min-width: 250px;
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--primary-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 20px;
+    box-shadow: 0 6px 15px rgba(255, 111, 0, 0.4); 
+}
+
+.feature-item h4 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.feature-item p {
+    color: var(--text-light);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* --- Tab 3: Split Content --- */
+.split-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.split-image {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+}
+
+.split-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.split-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* --- Responsive Design --- */
+/* 🔴 เปลี่ยน Breakpoint เป็น 992px ให้หน้าต่างหดพร้อมกับหน้า index */
+@media (max-width: 992px) {
+    .content-title { 
+        font-size: 24px; /* 🔴 ย่อเหลือ 24px ในมือถือ เท่าหน้า index */
+    }
+    .content-title.red-text {
+        font-size: 20px;
+    }
+    .text-paragraph {
+        font-size: 15px; /* 🔴 ย่อเหลือ 15px ในมือถือ เท่าหน้า index */
+    }
+    .split-content { flex-direction: column; }
+}

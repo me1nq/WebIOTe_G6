@@ -1,0 +1,177 @@
+/* =========================================
+   index.css - สำหรับเนื้อหาเฉพาะหน้าแรก (Home)
+   ========================================= */
+
+/* --- 1. ข้อความเกริ่นนำ --- */
+.content-left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.content-left h1 {
+    color: #000; 
+    font-size: 30px;
+}
+
+.description-iot {
+    line-height: 1.5; 
+    color: #555555; 
+    font-size: 20px;
+    text-align: justify;
+    font-weight: normal;
+}
+
+/* --- 2. จัด Grid ด้านบน (ข้อความซ้าย สถิติขวา) --- */
+.info-grid { 
+    display: grid; 
+    grid-template-columns: 2fr 1fr; 
+    gap: 40px; 
+}
+
+/* --- 3. ส่วนของภาพบรรยากาศ (แกลลอรี 3 รูป) --- */
+.image-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin-top: 20px;
+}
+.grid-item { 
+    position: relative;
+    border-radius: 15px; 
+    overflow: hidden; 
+    aspect-ratio: 4/3; 
+}
+.grid-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+/* =========================================
+   ส่วนของปุ่มรายละเอียดการสมัคร
+   ========================================= */
+.btn-admission {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #ff7a00 0%, #ffe6cc 100%); 
+    color: #000000;
+    text-decoration: none;
+    padding: 15px 30px;
+    border-radius: 50px; 
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: auto;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.btn-admission:hover {
+    transform: scale(1.02); 
+}
+
+.btn-admission span {
+    flex: 1;
+    text-align: center; 
+}
+
+.btn-admission .btn-icon {
+    position: absolute;
+    right: 25px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================
+   ส่วนของ 4 กล่องสถิติด้านขวา
+   ========================================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px;
+    height: 100%;
+}
+
+.stat-card {
+    background: #ffffff;
+    border: 2px solid #ce8d5e; 
+    border-radius: 20px;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.stat-img {
+    height: 45px; 
+    object-fit: contain;
+}
+
+.stat-num {
+    color: #FF6F00;
+    font-size: 50px; 
+    font-weight: 900;
+    line-height: 1;
+}
+
+.stat-desc {
+    font-size: 15px;
+    color: #555555;
+    line-height: 1.5;
+}
+
+/* =========================================
+   Responsive เฉพาะหน้าแรก (มือถือ) - ก้อนนี้ต้องอยู่ล่างสุดเสมอ!
+   ========================================= */
+@media (max-width: 992px) {
+    .info-grid { 
+        grid-template-columns: 1fr; 
+        gap: 30px; 
+    }
+    
+    .image-grid { 
+        grid-template-columns: 1fr; 
+    }
+    
+    .content-left h1 {
+        font-size: 24px; 
+    }
+    
+    .description-iot {
+        font-size: 15px;
+    }
+    
+    .btn-admission {
+        font-size: 16px;
+        padding: 12px 20px;
+        margin-bottom: 20px; 
+    }
+    
+    /* 🔴 แก้ปัญหาการจัดเรียงกล่องสถิติในมือถือ */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        height: auto; 
+    }
+    
+    .stat-card {
+        padding: 15px 5px;
+    }
+
+    .stat-desc {
+        font-size: 8px;
+    }
+}
