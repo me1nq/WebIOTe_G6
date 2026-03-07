@@ -42,12 +42,12 @@ include 'includes/db.php';
                 <div class="info-cards">
                     <div class="info-card">
                         <i class="fa-solid fa-graduation-cap"></i>
-                        <h3>1</h3>
+                        <img src="assets/icon1.png">
                         <p>วิศวกรรมระบบไอโอทีและสารสนเทศ 1 ปริญญา</p>
                     </div>
                     <div class="info-card">
                         <i class="fa-solid fa-chart-simple"></i>
-                        <h3>2</h3>
+                        <img src="assets/icon2.png">
                         <p>วิศวกรรมระบบไอโอทีและสารสนเทศ+ฟิสิกส์อุตสาหกรรม 2 ปริญญา</p>
                     </div>
                 </div>

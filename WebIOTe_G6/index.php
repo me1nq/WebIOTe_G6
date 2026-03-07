@@ -2,20 +2,19 @@
 session_start(); 
 include 'includes/db.php'; 
 
-// เพิ่มการเช็คการเชื่อมต่อ
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
 $res = mysqli_query($conn, "SELECT * FROM home_detail WHERE id = 1");
 
-// เช็คว่ามีข้อมูลไหมก่อนจะ fetch
 if ($res && mysqli_num_rows($res) > 0) {
     $data = mysqli_fetch_assoc($res);
 } else {
-    $data = ['content' => 'ยังไม่มีข้อมูลในระบบ']; // กันเหนียวไว้ก่อน
+    $data = ['content' => 'ยังไม่มีข้อมูลในระบบ'];
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +47,7 @@ if ($res && mysqli_num_rows($res) > 0) {
                     </div>
                     
                     <?php if(isset($_SESSION['is_admin'])): ?>
-                        <a href="admin/edit_index.php" style="display:inline-block; margin-top:20px; color: #ff6600; font-weight:bold;">
+                        <a href="admin/index_edit.php" style="display:inline-block; margin-top:20px; color: #ff6600; font-weight:bold;">
                             [ Edit Content ]
                         </a>
                     <?php endif; ?>

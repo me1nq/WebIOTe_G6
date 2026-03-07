@@ -22,15 +22,15 @@
         <li class="desktop-dropdown">
             <a href="#">Faculty ▾</a>
             <ul class="desktop-submenu">
-                <li><a href="#">Professor of IoTe</a></li>
-                <li><a href="#">Professor of Physics & IoTe</a></li>
+                <li><a href="professoriote.php">Professor of IoTe</a></li>
+                <li><a href="professorphysics.php">Professor of Physics & IoTe</a></li>
             </ul>
         </li>
 
         <li class="desktop-dropdown">
             <a href="#">Performance ▾</a>
             <ul class="desktop-submenu">
-                <li><a href="#">Cybersecurity Laboratory</a></li>
+                <li><a href="cyber_lab.php">Cybersecurity Laboratory</a></li>
             </ul>
         </li>
 
@@ -74,28 +74,28 @@
     
     <ul class="mobile-nav-links">
         <li><a href="index.php">Home</a></li>
-        <li><a href="#">About IoTe</a></li>
+        <li><a href="about_iot.php">About IoTe</a></li>
         
         <li class="mobile-dropdown">
             <div class="dropdown-header" onclick="toggleDropdown('ac-sub')">Academics ▾</div>
             <ul id="ac-sub" class="sub-menu">
-                <li><a href="#">IoTe</a></li>
-                <li><a href="#">Physics & IoTe</a></li>
+                <li><a href="academic1.php">IoTe</a></li>
+                <li><a href="academic2.php">Physics & IoTe</a></li>
             </ul>
         </li>
 
         <li class="mobile-dropdown">
             <div class="dropdown-header" onclick="toggleDropdown('fa-sub')">Faculty ▾</div>
             <ul id="fa-sub" class="sub-menu">
-                <li><a href="#">Professor of IoTe</a></li>
-                <li><a href="#">Professor of Physics & IoTe</a></li>
+                <li><a href="professoriote.php">Professor of IoTe</a></li>
+                <li><a href="professorphysics.php">Professor of Physics & IoTe</a></li>
             </ul>
         </li>
 
         <li class="mobile-dropdown">
             <div class="dropdown-header" onclick="toggleDropdown('per-sub')">Performance ▾</div>
             <ul id="per-sub" class="sub-menu">
-                <li><a href="#">Cybersecurity Laboratory</a></li>
+                <li><a href="cyber_lab.php">Cybersecurity Laboratory</a></li>
             </ul>
         </li>
 

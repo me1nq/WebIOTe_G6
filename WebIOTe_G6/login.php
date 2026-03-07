@@ -13,14 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) == 1) {
-        $user_data = mysqli_fetch_assoc($result); // ดึงข้อมูลก้อนนั้นออกมา
+        $user_data = mysqli_fetch_assoc($result); 
         
         // เก็บข้อมูลลง Session
         $_SESSION['user_id'] = $user_data['id'];
         $_SESSION['username'] = $user_data['username'];
-        $_SESSION['role'] = $user_data['role']; // <--- ตัวสำคัญ! จำว่าคนนี้เป็น admin หรือ user
+        $_SESSION['role'] = $user_data['role']; 
 
-        header("Location: index.php"); // ล็อกอินสำเร็จไปหน้า home
+        header("Location: index.php"); 
         exit();
     } else {
         $error = "อีเมลหรือรหัสผ่านไม่ถูกต้อง!";
@@ -34,29 +34,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | IoT Engineering</title>
-    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/login.css">
 </head>
-<body class="login-page">
-    <div class="login-container">
-        <div class="login-logo-section">
-            <div class="logo-circle">
-                <img src="assets/kmitl_logo.png" alt="KMITL Logo">
-            </div>
-        </div>
-
-        <div class="login-form-section">
-            <h2>Department of IoT and <br> Information Engineering</h2>
+<body>
+    <div class="login-page-wrapper">
+        <div class="login-container">
             
-            <?php if($error): ?>
-                <p style="color: red; font-size: 12px;"><?php echo $error; ?></p>
-            <?php endif; ?>
+            <div class="login-logo-section">
+                <img src="assets/kmitl_logo.png" alt="KMITL Logo" class="kmitl-logo">
+            </div>
 
-            <form method="POST">
-                <input type="text" name="email" placeholder="Email (@kmitl.ac.th)" required>
-                <input type="password" name="password" placeholder="****************" required>
-                <button type="submit" class="btn-login">Log in</button>
-            </form>
+            <div class="login-form-section">
+                <h2>Department of IoT and<br>Information Engineering</h2>
+                
+                <?php if($error): ?>
+                    <div class="error-msg"><?php echo $error; ?></div>
+                <?php endif; ?>
+
+                <form method="POST">
+                    <div class="input-group">
+                        <input type="text" name="email" id="email" required>
+                        <label for="email">Email (@kmitl.ac.th)</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" name="password" id="password" required>
+                        <label for="password">Password</label>
+                    </div>
+
+                    <button type="submit" class="btn-login">Log in</button>
+                </form>
+            </div>
+            
         </div>
     </div>
 </body>
