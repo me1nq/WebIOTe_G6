@@ -8,7 +8,7 @@ async function init() {
 
 async function fetchRounds() {
   // 🟢 แก้ไขลิงก์ API
-  const res = await fetch('../api/admission.php?action=get_rounds');
+  const res = await fetch('../api/admission_api.php?action=get_rounds');
   allRounds = await res.json();
   const select = document.getElementById('edit-round');
   select.innerHTML = '';
@@ -17,7 +17,7 @@ async function fetchRounds() {
 
 async function fetchProjects() {
   // 🟢 แก้ไขลิงก์ API
-  const res = await fetch('../api/admission.php?action=get_projects');
+  const res = await fetch('../api/admission_api.php?action=get_projects');
   allProjects = await res.json();
   renderSidebar();
 }
@@ -101,7 +101,7 @@ async function saveData() {
   };
 
   // 🟢 แก้ไขลิงก์ API
-  const url = id ? '../api/admission.php?action=save_project' : '../api/admission.php?action=add_project';
+  const url = id ? '../api/admission_api.php?action=save_project' : '../api/admission_api.php?action=add_project';
 
   try {
     const res = await fetch(url, { method: 'POST', body: JSON.stringify(payload) });
@@ -125,7 +125,7 @@ async function deleteProject() {
   });
   if (result.isConfirmed) {
     // 🟢 แก้ไขลิงก์ API
-    const res = await fetch('../api/admission.php?action=delete_project', { method: 'POST', body: JSON.stringify({ id }) });
+    const res = await fetch('../api/admission_api.php?action=delete_project', { method: 'POST', body: JSON.stringify({ id }) });
     const json = await res.json();
     if (json.status == 'success') {
       Swal.fire('ลบแล้ว!', '', 'success').then(() => location.reload());
@@ -155,7 +155,7 @@ async function addRound() {
   const name = document.getElementById('new-round-name').value;
   if (!name) return;
   // 🟢 แก้ไขลิงก์ API
-  const res = await fetch('../api/admission.php?action=add_round', { method: 'POST', body: JSON.stringify({ round_name: name }) });
+  const res = await fetch('../api/admission_api.php?action=add_round', { method: 'POST', body: JSON.stringify({ round_name: name }) });
   const json = await res.json();
   if (json.status === 'success') {
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'เพิ่มรอบสำเร็จ', showConfirmButton: false, timer: 1500 });
@@ -167,7 +167,7 @@ async function addRound() {
 async function updateRound(id) {
   const name = document.getElementById(`r-name-${id}`).value;
   // 🟢 แก้ไขลิงก์ API
-  const res = await fetch('../api/admission.php?action=update_round', { method: 'POST', body: JSON.stringify({ id: id, round_name: name }) });
+  const res = await fetch('../api/admission_api.php?action=update_round', { method: 'POST', body: JSON.stringify({ id: id, round_name: name }) });
   if (await res.json().then(j => j.status === 'success')) {
     Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'แก้ไขชื่อรอบเรียบร้อย', showConfirmButton: false, timer: 1500 });
     await fetchRounds();
@@ -178,7 +178,7 @@ async function deleteRound(id) {
   const res = await Swal.fire({ title: 'แน่ใจนะ?', text: "โครงการทั้งหมดในรอบนี้จะหายไปนะ!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', confirmButtonText: 'ลบทั้งหมด' });
   if (res.isConfirmed) {
     // 🟢 แก้ไขลิงก์ API
-    const apiRes = await fetch('../api/admission.php?action=delete_round', { method: 'POST', body: JSON.stringify({ id: id }) });
+    const apiRes = await fetch('../api/admission_api.php?action=delete_round', { method: 'POST', body: JSON.stringify({ id: id }) });
     if (await apiRes.json().then(j => j.status === 'success')) {
       Swal.fire('ลบสำเร็จ!', '', 'success');
       await fetchRounds(); renderRoundList();

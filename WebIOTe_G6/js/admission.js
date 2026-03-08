@@ -1,7 +1,7 @@
 async function fetchProjects() {
   try {
     // 🟢 1. แก้ไข URL ให้เรียกไปที่ API ตัวใหม่ที่เรารวมไฟล์ไว้
-    const response = await fetch('api/admission.php?action=get_projects');
+    const response = await fetch('api/admission_api.php?action=get_projects');
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -13,7 +13,7 @@ async function fetchProjects() {
     document.getElementById('project-container').innerHTML =
       `<p style="text-align:center; color:red;">
           ไม่สามารถดึงข้อมูลได้ (Path ผิด หรือหาไฟล์ไม่เจอ)<br>
-          โปรดตรวจสอบว่ามีไฟล์ <b>api/admission.php</b> อยู่จริงไหม
+          โปรดตรวจสอบว่ามีไฟล์ <b>api/admission_api.php</b> อยู่จริงไหม
        </p>`;
   }
 }
@@ -67,7 +67,7 @@ function renderProjects(data) {
         content.classList.remove('active');
       } else {
         content.classList.add('active');
-        content.style.maxHeight = content.scrollHeight + "px";
+        content.style.maxHeight = (content.scrollHeight + 50) + "px"; 
       }
     });
   });

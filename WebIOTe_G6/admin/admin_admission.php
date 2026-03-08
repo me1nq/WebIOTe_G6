@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
   <title>Admin Dashboard - ระบบรับสมัคร</title>
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="../css/style_admin_admission.css">
+  <link rel="stylesheet" href="../css/admin_admission.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>

@@ -13,7 +13,7 @@ function showEditor(type) {
 }
 
 async function loadInfo() {
-  const res = await fetch('../api/lab.php?action=get_info');
+  const res = await fetch('../api/lab_api.php?action=get_info');
   const data = await res.json();
   if (data) {
     document.getElementById('info-name').value = data.lab_name || '';
@@ -27,14 +27,14 @@ async function loadInfo() {
 
 document.getElementById('info-form').onsubmit = async (e) => {
   e.preventDefault();
-  await fetch('../api/lab.php?action=save_info', { method: 'POST', body: new FormData(e.target) });
+  await fetch('../api/lab_api.php?action=save_info', { method: 'POST', body: new FormData(e.target) });
   Swal.fire('สำเร็จ', 'บันทึกข้อมูล Lab เรียบร้อย', 'success');
   loadInfo();
 };
 
 let allCats = [];
 async function loadCategories() {
-  const res = await fetch('../api/lab.php?action=get_categories');
+  const res = await fetch('../api/lab_api.php?action=get_categories');
   allCats = await res.json();
   const list = document.getElementById('category-list');
   const select = document.getElementById('mem-category');
@@ -69,14 +69,14 @@ async function addCategory() {
   const fd = new FormData();
   fd.append('category_name', name);
   fd.append('display_order', order);
-  await fetch('../api/lab.php?action=save_category', { method: 'POST', body: fd });
+  await fetch('../api/lab_api.php?action=save_category', { method: 'POST', body: fd });
   document.getElementById('new-cat-name').value = '';
   loadCategories();
 }
 
 async function updateCat(id, order, name) {
   const fd = new FormData(); fd.append('id', id); fd.append('category_name', name); fd.append('display_order', order);
-  await fetch('../api/lab.php?action=save_category', { method: 'POST', body: fd });
+  await fetch('../api/lab_api.php?action=save_category', { method: 'POST', body: fd });
   loadCategories();
 }
 
@@ -94,7 +94,7 @@ async function deleteCat(id) {
   if (result.isConfirmed) {
     const fd = new FormData();
     fd.append('id', id);
-    await fetch('../api/lab.php?action=delete_category', { method: 'POST', body: fd });
+    await fetch('../api/lab_api.php?action=delete_category', { method: 'POST', body: fd });
     Swal.fire('ลบสำเร็จ!', 'ลบหมวดหมู่เรียบร้อยแล้ว', 'success');
     loadCategories();
   }
@@ -102,7 +102,7 @@ async function deleteCat(id) {
 
 let allMembers = [];
 async function loadMembers() {
-  const res = await fetch('../api/lab.php?action=get_members');
+  const res = await fetch('../api/lab_api.php?action=get_members');
   allMembers = await res.json();
   const tbody = document.getElementById('member-table-body');
   if (!tbody) return;
@@ -167,7 +167,7 @@ function openCategorySettings() { showEditor('category-editor'); }
 
 document.getElementById('member-form').onsubmit = async (e) => {
   e.preventDefault();
-  await fetch('../api/lab.php?action=save_member', { method: 'POST', body: new FormData(e.target) });
+  await fetch('../api/lab_api.php?action=save_member', { method: 'POST', body: new FormData(e.target) });
   Swal.fire('สำเร็จ', 'บันทึกข้อมูลสมาชิกเรียบร้อย', 'success');
   loadMembers();
 };
@@ -187,7 +187,7 @@ async function deleteMemberById(id) {
   });
   if (result.isConfirmed) {
     const fd = new FormData(); fd.append('id', id);
-    await fetch('../api/lab.php?action=delete_member', { method: 'POST', body: fd });
+    await fetch('../api/lab_api.php?action=delete_member', { method: 'POST', body: fd });
     Swal.fire('ลบแล้ว!', '', 'success');
     loadMembers();
 

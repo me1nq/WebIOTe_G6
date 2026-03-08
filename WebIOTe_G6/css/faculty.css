@@ -51,5 +51,5 @@
 .swal2-container { font-family: 'Kanit', sans-serif; z-index: 10000 !important; }
 
 @media (max-width: 992px) {
-    .faculty-title { font-size: 24px; }
+    .faculty-title { font-size: 20px; }
 }

@@ -6,7 +6,7 @@ if (localStorage.getItem('mySubjects')) mySubjects = JSON.parse(localStorage.get
 
 async function fetchSubjectsFromDB() {
   try {
-    const res = await fetch('api/subjects.php?action=get');
+    const res = await fetch('../api/subjects_api.php?action=get');
     dbSubjects = await res.json();
     const $select = $('#select-subject');
 

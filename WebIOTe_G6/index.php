@@ -108,7 +108,7 @@ if ($res && mysqli_num_rows($res) > 0) {
                         echo '<div class="grid-item">';
                         echo '  <img src="assets/'.$img['image_path'].'" alt="gallery">';
                         if(isset($_SESSION['is_admin'])) {
-                            echo '  <a href="admin/edit_gallery.php?id='.$img['id'].'" class="edit-overlay">แก้ไขรูป</a>';
+                            echo '  <a href="admin/admin_index.php?id='.$img['id'].'" class="edit-overlay">แก้ไขรูป</a>';
                         }
                         echo '</div>';
                     }

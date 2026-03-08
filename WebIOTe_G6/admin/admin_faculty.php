@@ -1,0 +1,304 @@
+<?php
+require '../includes/db.php'; // เชื่อมต่อฐานข้อมูล
+
+// -------------------------
+// 1. จัดการการลบข้อมูล (Delete)
+// -------------------------
+if (isset($_GET['delete_id'])) {
+    $id = $_GET['delete_id'];
+    $sql_delete = "DELETE FROM personnel WHERE id = $id";
+    if ($conn->query($sql_delete) === TRUE) {
+        // 🚨 เปลี่ยนกลับมาหน้า faculty.php
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'ลบข้อมูลเรียบร้อยแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin_faculty.php'; });</script></body></html>";
+        exit;
+    } else {
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'error', title: 'ผิดพลาด', text: '" . $conn->error . "', confirmButtonColor: '#dc3545'}).then(() => { window.history.back(); });</script></body></html>";
+        exit;
+    }
+}
+
+// -------------------------
+// 2. จัดการการเพิ่มข้อมูล (Create)
+// -------------------------
+if (isset($_POST['submit_add'])) {
+    $type = $conn->real_escape_string($_POST['type']);
+    $program = $conn->real_escape_string($_POST['program']);
+    $name = $conn->real_escape_string($_POST['name']);
+    $role = $conn->real_escape_string($_POST['role']);
+    $popup_role = $conn->real_escape_string($_POST['popup_role']); 
+    $history = $conn->real_escape_string($_POST['history']);
+    $research = $conn->real_escape_string($_POST['research']); 
+    $research_link = $conn->real_escape_string($_POST['research_link']); 
+    
+    $image_path = "assets/faculty/default.png"; 
+    $research_image_path = ""; 
+
+    // 🔴 จัดการรูปโปรไฟล์ (อัปโหลดจริงมี ../ แต่เซฟลง DB ไม่มี)
+    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+        $upload_dir = "../assets/faculty/"; 
+        $db_path = "assets/faculty/";       
+        
+        $file_extension = strtolower(pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION));
+        $new_file_name = uniqid() . '.' . $file_extension;
+        
+        $target_upload = $upload_dir . $new_file_name; 
+        $target_db = $db_path . $new_file_name;        
+
+        if(getimagesize($_FILES["image"]["tmp_name"]) !== false) {
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_upload)) {
+                $image_path = $target_db; 
+            }
+        }
+    }
+
+    // 🔴 จัดการรูปงานวิจัย (ใช้หลักการเดียวกัน)
+    if (isset($_FILES['research_image']) && $_FILES['research_image']['error'] == 0) {
+        $upload_dir = "../assets/faculty/"; 
+        $db_path = "assets/faculty/"; 
+        
+        $file_extension = strtolower(pathinfo($_FILES["research_image"]["name"], PATHINFO_EXTENSION));
+        $new_research_file_name = 'research_' . uniqid() . '.' . $file_extension;
+        
+        $target_upload_research = $upload_dir . $new_research_file_name;
+        $target_db_research = $db_path . $new_research_file_name;
+
+        if(getimagesize($_FILES["research_image"]["tmp_name"]) !== false) {
+            if (move_uploaded_file($_FILES["research_image"]["tmp_name"], $target_upload_research)) {
+                $research_image_path = $target_db_research; 
+            }
+        }
+    }
+
+    $sql_insert = "INSERT INTO personnel (type, program, name, role, popup_role, history, image, research, research_link, research_image) 
+                   VALUES ('$type', '$program', '$name', '$role', '$popup_role', '$history', '$image_path', '$research', '$research_link', '$research_image_path')";
+    
+    if ($conn->query($sql_insert) === TRUE) {
+        // 🚨 เด้งกลับหน้า faculty.php
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'บันทึกแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'faculty.php'; });</script></body></html>";
+        exit;
+    } else {
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'error', title: 'ผิดพลาด', text: '" . $conn->error . "', confirmButtonColor: '#dc3545'}).then(() => { window.history.back(); });</script></body></html>";
+        exit;
+    }
+}
+
+// -------------------------
+// 3. ดึงข้อมูลมาแสดง (Read)
+// -------------------------
+$sql_select = "SELECT * FROM personnel ORDER BY id DESC";
+$result = $conn->query($sql_select);
+?>
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - จัดการบุคลากร</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #f5f6fa; padding: 20px; font-weight: 300; }
+        h2, h3, label, th, strong { font-weight: 500; }
+        .admin-container { max-width: 1100px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #FF6F00; color: white;} 
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; }
+        .form-group input[type="text"], .form-group select, .form-group textarea, .filter-section input, .filter-section select { 
+            font-family: 'Kanit', sans-serif; width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; 
+        }
+        .btn { font-family: 'Kanit', sans-serif; font-weight: 400; padding: 8px 15px; background: #28a745; color: white; border: none; cursor: pointer; text-decoration: none; border-radius: 5px; display: inline-block;} 
+        .btn-danger { background: #dc3545; }
+        .btn-edit { background: #11b65b; }
+        
+        .btn-review { 
+            background-color: #FF6F00; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; 
+            display: inline-block; margin-bottom: 20px; font-weight: 500; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: background-color 0.2s;
+        }
+        .btn-review:hover { background-color: #0056b3; }
+
+        .filter-section { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .filter-section select { width: 250px; }
+        .filter-section input { width: 300px; }
+        
+        .file-upload-box { border: 2px dashed #999; padding: 20px; text-align: center; background-color: #fdfdfd; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .file-upload-box:hover { background-color: #f1f1f1; border-color: #FF6F00; }
+        .file-upload-box input[type="file"] { display: block; margin: 10px auto; cursor: pointer; font-family: 'Kanit', sans-serif; }
+        .action-buttons { display: flex; gap: 5px; justify-content: center; }
+        .research-section { background-color: #fff3e0; padding: 15px; border-radius: 8px; border: 1px solid #ffe0b2; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-container">
+    <a href="faculty_reviews.php" class="btn-review">ดูรีวิว / ความคิดเห็นของคณาจารย์ทั้งหมด</a>
+
+    <h2>ระบบจัดการข้อมูลบุคลากร (Admin Panel)</h2>
+    
+    <div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 30px;">
+        <h3>เพิ่มข้อมูลใหม่</h3>
+        <form method="POST" action="" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>ประเภทบุคลากร:</label>
+                <select name="type" required>
+                    <option value="faculty">คณาจารย์ (Faculty)</option>
+                    <option value="staff">บุคลากรสายสนับสนุน (Staff)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>หลักสูตร / สังกัด:</label>
+                <select name="program" required>
+                    <option value="iot">วิศวกรรมไอโอที (IoT)</option>
+                    <option value="science">วิทยาศาสตร์ (Science) - 2 ปริญญา</option>
+                    <option value="other">หลักสูตรอื่นๆ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>ชื่อ-นามสกุล (พร้อมคำนำหน้า):</label>
+                <input type="text" name="name" required placeholder="เช่น ผศ.ดร.ใจดี เรียนเก่ง">
+            </div>
+            
+            <div class="form-group">
+                <label>ตำแหน่ง (โชว์ในการ์ดหน้าแรก):</label>
+                <input type="text" name="role" required placeholder="เช่น หัวหน้าภาควิชา">
+            </div>
+            <div class="form-group">
+                <label>ตำแหน่ง (โชว์ใน Pop-up):</label>
+                <input type="text" name="popup_role" placeholder="เช่น อาจารย์ประจำหลักสูตร (ถ้าปล่อยว่างจะใช้ค่าเดียวกับการ์ด)">
+            </div>
+            
+            <div class="form-group">
+                <label>ประวัติความเชี่ยวชาญ:</label>
+                <textarea name="history" rows="3" required></textarea>
+            </div>
+
+            <div class="research-section">
+                <h4 style="margin-top: 0; color: #FF6F00;">📚 ส่วนข้อมูลงานวิจัย (ถ้ามี)</h4>
+                <div class="form-group">
+                    <label>ชื่องานวิจัย / คำอธิบาย:</label>
+                    <textarea name="research" rows="2" placeholder="เช่น พัฒนาระบบ IoT สำหรับสมาร์ทฟาร์ม..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ลิงก์ไปยังงานวิจัย (URL):</label>
+                    <input type="text" name="research_link" placeholder="เช่น https://www.researchgate.net/...">
+                </div>
+                <div class="form-group">
+                    <label>อัปโหลดรูปหน้าปกงานวิจัย:</label>
+                    <div class="file-upload-box" style="border-color: #FF6F00;">
+                        <p style="margin: 0; color: #555;">ลากไฟล์รูปปกวิจัยมาวางที่นี่ หรือคลิกเพื่อเลือกไฟล์</p>
+                        <input type="file" name="research_image" accept="image/jpeg, image/png, image/webp">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>อัปโหลดรูปโปรไฟล์อาจารย์:</label>
+                <div class="file-upload-box">
+                    <p style="margin: 0; color: #555;">ลากไฟล์รูปโปรไฟล์มาวางที่นี่ หรือคลิกปุ่มด้านล่างเพื่อเลือกไฟล์</p>
+                    <input type="file" name="image" accept="image/jpeg, image/png, image/webp">
+                </div>
+            </div>
+
+            <button type="submit" name="submit_add" class="btn">บันทึกข้อมูล</button>
+        </form>
+    </div>
+
+    <h3>รายชื่อบุคลากรทั้งหมด</h3>
+    
+    <div class="filter-section">
+        <label for="tableFilter"><strong>กรองตามหลักสูตร:</strong></label>
+        <select id="tableFilter" onchange="filterTable()">
+            <option value="all">แสดงทั้งหมด</option>
+            <option value="iot">วิศวกรรมไอโอที (IoT)</option>
+            <option value="science">วิทยาศาสตร์ (Science) - 2 ปริญญา</option>
+            <option value="other">หลักสูตรอื่นๆ</option>
+        </select>
+        
+        <label for="searchInput" style="margin-left: 10px;"><strong>ค้นหาชื่อ:</strong></label>
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="พิมพ์ชื่อเพื่อค้นหา...">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>รูป</th>
+                <th>ชื่อ</th>
+                <th>ประเภท</th>
+                <th>หลักสูตร</th>
+                <th>ตำแหน่ง (การ์ด)</th>
+                <th>ตำแหน่ง (Pop-up)</th>
+                <th>จัดการ</th>
+            </tr>
+        </thead>
+        <tbody id="personnelTableBody">
+            <?php if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) { 
+            ?>
+                <tr class="data-row" data-program="<?php echo htmlspecialchars($row['program']); ?>" data-name="<?php echo strtolower(htmlspecialchars($row['name'])); ?>">
+                    <td><img src="../<?php echo htmlspecialchars($row['image']); ?>" width="50" height="50" style="object-fit: cover;"></td>
+                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['type']); ?></td>
+                    <td><?php echo $row['program'] ? htmlspecialchars($row['program']) : '-'; ?></td>
+                    <td><?php echo htmlspecialchars($row['role']); ?></td>
+                    <td><?php echo !empty($row['popup_role']) ? htmlspecialchars($row['popup_role']) : '<span style="color:#999;">(ไม่ได้ระบุ)</span>'; ?></td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="faculty_edit.php?id=<?php echo $row['id']; ?>" class="btn btn-edit">แก้ไข</a>
+                            <a href="#" onclick="confirmDelete(<?php echo $row['id']; ?>); return false;" class="btn btn-danger">ลบ</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php } 
+            } else { ?>
+                <tr id="noDataRow"><td colspan="7" style="text-align: center;">ไม่มีข้อมูลในระบบ</td></tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+<script>
+function filterTable() {
+    let filterValue = document.getElementById("tableFilter").value;
+    let searchValue = document.getElementById("searchInput").value.toLowerCase();
+    let rows = document.querySelectorAll(".data-row");
+    
+    rows.forEach(row => {
+        let rowProgram = row.getAttribute("data-program");
+        let rowName = row.getAttribute("data-name");
+        
+        let matchProgram = (filterValue === "all" || filterValue === rowProgram);
+        let matchName = (rowName.includes(searchValue)); 
+        
+        if (matchProgram && matchName) {
+            row.style.display = ""; 
+        } else {
+            row.style.display = "none"; 
+        }
+    });
+}
+
+function confirmDelete(deleteId) {
+    Swal.fire({
+        title: 'แน่ใจหรือไม่?',
+        text: "คุณต้องการลบข้อมูลบุคลากรท่านนี้ใช่ไหม!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'ใช่, ลบเลย!',
+        cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 🚨 แก้เป็นชื่อไฟล์ faculty.php
+            window.location.href = 'faculty.php?delete_id=' + deleteId;
+        }
+    });
+}
+</script>
+
+</body>
+</html>

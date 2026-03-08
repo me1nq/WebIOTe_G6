@@ -2,7 +2,6 @@
 session_start(); 
 include 'includes/db.php'; 
 
-// 1. เช็คว่า Login หรือยัง
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();

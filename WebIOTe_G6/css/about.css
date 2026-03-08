@@ -72,7 +72,7 @@
 
 .content-title.red-text {
     color: #e74c3c;
-    font-size: 24px; /* ลดหลั่นขนาดลงมาให้ดูเป็นหัวข้อย่อย */
+    font-size: 30px; /* ลดหลั่นขนาดลงมาให้ดูเป็นหัวข้อย่อย */
 }
 
 /* 🔴 ข้อความเนื้อหา */
@@ -125,7 +125,7 @@
     text-align: center;
     margin-bottom: 20px;
     color: var(--primary-dark);
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -215,13 +215,22 @@
 /* 🔴 เปลี่ยน Breakpoint เป็น 992px ให้หน้าต่างหดพร้อมกับหน้า index */
 @media (max-width: 992px) {
     .content-title { 
-        font-size: 24px; /* 🔴 ย่อเหลือ 24px ในมือถือ เท่าหน้า index */
+        font-size: 20px;
     }
     .content-title.red-text {
         font-size: 20px;
     }
     .text-paragraph {
-        font-size: 15px; /* 🔴 ย่อเหลือ 15px ในมือถือ เท่าหน้า index */
+        font-size: 16px;
     }
     .split-content { flex-direction: column; }
+    .job-section h3 {
+        font-size: 20px;
+    }
+    .feature-item h4 {
+        font-size: 18px;
+    }
+    .feature-item p {
+        font-size: 13px;
+    }
 }

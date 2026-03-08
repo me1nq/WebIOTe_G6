@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'includes/db.php'; // 🔴 เชื่อมฐานข้อมูลหลัก
+include 'includes/db.php'; 
 
 // ดึงเฉพาะอาจารย์ IoT
 $sql = "SELECT * FROM personnel WHERE program = 'iot' ORDER BY id ASC";
@@ -25,8 +25,8 @@ if ($result && $result->num_rows > 0) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/style.css?v=3">
-    <link rel="stylesheet" href="css/faculty.css?v=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/faculty.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -137,7 +137,7 @@ if ($result && $result->num_rows > 0) {
                     <button type="submit" class="submit-btn">ส่งความคิดเห็น</button>
                 </form>
             </div>
-            <?php endif; // จบแค่นี้เลย ไม่ต้องมี else ให้ปวดหัว! ?>
+            <?php endif;?>
 
         </div>
     </div>

@@ -1,0 +1,164 @@
+/* =========================================
+   adminacademic1.css - สำหรับหน้า Admin
+   ========================================= */
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background: #f4f7f6;
+    margin: 0;
+    padding: 40px 20px;
+    color: #333;
+}
+
+.admin-container {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.admin-container h1 {
+    margin: 0 0 30px 0;
+    font-size: 28px;
+    color: #000;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #444;
+    font-size: 16px;
+}
+
+/* ตกแต่งช่องกรอกข้อมูลให้ดูคลีนๆ */
+input[type="text"], 
+input[type="number"], 
+textarea {
+    width: 100%;
+    padding: 15px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+/* เวลากดพิมพ์ให้ขอบเป็นสีส้ม */
+input:focus, textarea:focus {
+    border-color: #FF6F00;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 111, 0, 0.2);
+}
+
+/* ตกแต่งปุ่มเลือกสี */
+input[type="color"] {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+/* ตกแต่งปุ่มอัปโหลดไฟล์ */
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background: #f9f9f9;
+    border: 1px dashed #aaa;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+}
+
+/* ตกแต่งปุ่มบันทึก */
+button {
+    margin-top: 40px;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff7a00 0%, #ff5200 100%);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+}
+
+/* =========================================
+   POPUP แจ้งเตือนเวลาเซฟสำเร็จ
+   ========================================= */
+.popup-overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.6); /* ทำให้พื้นหลังมืดขึ้นนิดนึง */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.popup-box{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:400px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+}
+
+.success-icon{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid #4CAF50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #4CAF50;
+    margin: 0 auto 20px auto;
+}
+
+.popup-box button{
+    margin-top:20px;
+    padding:12px 30px;
+    width:auto;
+}
+
+@keyframes fadeIn{
+    from{transform:scale(0.8); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .admin-container {
+        padding: 25px;
+    }
+    .admin-container h1 {
+        font-size: 22px;
+    }
+}

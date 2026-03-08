@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - จัดการรายวิชา (Calculate)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&family=Kanit:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/admin_calculate.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+
+  <div class="admin-container">
+
+    <div class="top-panel" style="padding-bottom: 25px;">
+      <div class="top-header" style="border-bottom:none; padding-bottom:0;">
+        <h3 style="margin:0; color:#4a4a4a;">จัดการรายวิชาและหน่วยกิต</h3>
+        <div class="top-actions">
+          <button class="btn btn-add" onclick="setupNewSubject()">เพิ่มรายวิชาใหม่</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-editor">
+
+      <div id="editor-area" class="settings-box" style="display:none; border-left-color: #007bff;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+          <h2 class="section-header" id="edit-title" style="margin:0; border:none; padding:0;">แก้ไขรายวิชา</h2>
+          <button id="btn-delete-subj" class="btn btn-danger" onclick="deleteSubjectFromForm()">ลบวิชานี้</button>
+        </div>
+
+        <input type="hidden" id="edit-id">
+
+        <div style="display:flex; gap: 15px; flex-wrap: wrap;">
+          <div class="form-group" style="flex:1; min-width: 150px;">
+            <label>รหัสวิชา:</label>
+            <input type="text" id="edit-code" placeholder="เช่น 01076001" required>
+          </div>
+          <div class="form-group" style="flex:3; min-width: 200px;">
+            <label>ชื่อวิชา:</label>
+            <input type="text" id="edit-name" placeholder="เช่น Computer Programming" required>
+          </div>
+        </div>
+
+        <div style="display:flex; gap: 15px; flex-wrap: wrap;">
+          <div class="form-group" style="flex:1; min-width: 150px;">
+            <label>หน่วยกิต:</label>
+            <input type="number" id="edit-credit" placeholder="เช่น 3" min="0" required>
+          </div>
+          <div class="form-group" style="flex:2; min-width: 200px;">
+            <label>หมวดหมู่ (Category):</label>
+            <select id="edit-category">
+              <option value="core">วิชาแกน (Core Course)</option>
+              <option value="gen">วิชาศึกษาทั่วไป (General Education)</option>
+              <option value="free">วิชาเลือกเสรี (Free Elective)</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn btn-save" onclick="saveData()"
+          style="width: 100%; font-size: 1.1rem; padding: 15px; margin-top: 10px;">บันทึกข้อมูลรายวิชา</button>
+      </div>
+
+      <div id="welcome-msg" style="text-align:center; color:#aaa; padding: 30px 0;">
+        <h2 style="margin-bottom: 10px;">กด "เพิ่มรายวิชาใหม่" เพื่อสร้างข้อมูล</h2>
+        <p>หรือกดปุ่ม "แก้ไข" ในตารางด้านล่างเพื่อแก้ข้อมูลรายวิชาเดิม</p>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <h3 style="margin-top:0; color:#4a4a4a; margin-bottom: 15px;">รายชื่อวิชาทั้งหมดในระบบ</h3>
+      <div
+        style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+        <div style="flex: 2; min-width: 200px;">
+          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">ค้นหารหัสวิชา / ชื่อวิชา:</label>
+          <input type="text" id="search-input" placeholder="พิมพ์รหัสวิชา หรือ ชื่อวิชาที่ต้องการหา..."
+            onkeyup="filterTable()">
+        </div>
+        <div style="flex: 1; min-width: 150px;">
+          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">กรองตามหมวดหมู่:</label>
+          <select id="filter-category" onchange="filterTable()">
+            <option value="all">-- แสดงทั้งหมด --</option>
+            <option value="วิชาแกน">วิชาแกน (Core Course)</option>
+            <option value="วิชาศึกษาทั่วไป">วิชาศึกษาทั่วไป (General Education)</option>
+            <option value="วิชาเลือกเสรี">วิชาเลือกเสรี (Free Elective)</option>
+          </select>
+        </div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 120px;">รหัสวิชา</th>
+              <th>ชื่อวิชา</th>
+              <th style="width: 100px; text-align: center;">หน่วยกิต</th>
+              <th style="width: 180px;">หมวดหมู่</th>
+              <th style="text-align: center; width: 150px;">จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="subject-table-body">
+            <tr>
+              <td colspan="5" style="text-align:center;">กำลังโหลดข้อมูล...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="assets/js/admin_calculate.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,258 @@
+/* --- Global Styles --- */
+* {
+  box-sizing: border-box !important;
+}
+
+body {
+  font-family: 'Kanit', sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.round-header {
+  margin-top: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+/* --- Layout System --- */
+.grid-layout {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+/* --- Card Styles --- */
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  border: 1px solid #eee;
+}
+
+.card h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* --- Form Row & Select2 Fix --- */
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.select2-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+#select-grade {
+  width: 130px;
+  height: 48px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-family: 'Kanit';
+}
+
+.btn-add {
+  background: #F37021;
+  color: white;
+  border: none;
+  height: 48px;
+  padding: 0 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.2s;
+}
+
+.btn-add:hover {
+  background: #d65a12;
+}
+
+/* --- Table Styling (Readable & Wide) --- */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+}
+
+th,
+td {
+  padding: 18px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: left;
+}
+
+th {
+  color: #888;
+  font-weight: 400;
+  font-size: 0.9rem;
+  border-bottom: 2px solid #eee;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* ปรับความกว้างคอลัมน์ */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 120px;
+}
+
+/* รหัสวิชา */
+th:nth-child(3),
+td:nth-child(3) {
+  width: 130px;
+  white-space: nowrap;
+}
+
+/* หมวดหมู่ */
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5) {
+  width: 70px;
+}
+
+/* --- GPA & Progress --- */
+.gpa-box {
+  background: #F37021;
+  color: white;
+  padding: 30px 20px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gpa-value {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.gpa-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+.progress-item {
+  margin-bottom: 18px;
+}
+
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.progress-bg {
+  background: #eee;
+  height: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.6s ease;
+}
+
+.total-bar {
+  height: 15px;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+
+/* --- Responsive Adjustments --- */
+/* =========================================
+   5. Responsive (ปรับปรุงการแสดงผลมือถือ)
+   ========================================= */
+@media (max-width: 1024px) {
+  .grid-layout {
+    flex-direction: column;
+    /* เปลี่ยนจากเรียงซ้าย-ขวา เป็น บน-ล่าง */
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  /* ส่วนเนื้อหาหลัก (ฟอร์มและตาราง) */
+  .main-content {
+    width: 100%;
+    order: 1;
+    /* ให้ส่วนนี้ขึ้นก่อน */
+  }
+
+  /* ส่วน Sidebar (กล่อง GPA และ Progress) */
+  .sidebar {
+    width: 100% !important;
+    order: 2;
+    /* ย้ายมาอยู่ข้างล่างตามที่คุณต้องการ */
+    margin-top: 20px;
+  }
+
+  /* แก้ปัญหาช่องค้นหาทะลุในหน้าจอมือถือ */
+  .form-row {
+    flex-direction: column;
+    /* เรียง Select2 และเกรดเป็นแนวตั้ง */
+    align-items: stretch;
+  }
+
+  .select2-wrapper,
+  #select-grade,
+  .btn-add {
+    width: 100% !important;
+    /* บังคับให้ทุกอย่างเต็มความกว้าง ไม่ดันออกข้าง */
+    flex: none;
+  }
+
+  /* จัดการตารางไม่ให้ดันกรอบ */
+  .table-responsive {
+    overflow-x: auto;
+    /* ยอมให้เลื่อนซ้าย-ขวาได้ภายในตารางเท่านั้น */
+    display: block;
+    width: 100%;
+  }
+}

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchSubjects() {
   try {
-    const res = await fetch('api/subjects.php?action=get');
+    const res = await fetch('../api/subjects_api.php?action=get');
     allSubjects = await res.json();
     renderTable();
   } catch (error) {
@@ -103,7 +103,7 @@ async function saveData() {
   fd.append('category', cat);
 
   try {
-    const res = await fetch('api/subjects.php?action=save', { method: 'POST', body: fd });
+    const res = await fetch('../api/subjects_api.php?action=save', { method: 'POST', body: fd });
     const json = await res.json();
     if (json.status === 'success') {
       Swal.fire('สำเร็จ', 'บันทึกข้อมูลเรียบร้อย', 'success');
@@ -135,7 +135,7 @@ async function deleteSubjectById(id) {
 
   if (result.isConfirmed) {
     const fd = new FormData(); fd.append('id', id);
-    const res = await fetch('api/subjects.php?action=delete', { method: 'POST', body: fd });
+    const res = await fetch('../api/subjects_api.php?action=delete', { method: 'POST', body: fd });
     const json = await res.json();
     if (json.status === 'success') {
       Swal.fire('ลบแล้ว!', '', 'success');

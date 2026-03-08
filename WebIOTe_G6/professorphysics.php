@@ -140,7 +140,7 @@ if ($result && $result->num_rows > 0) {
                     <button type="submit" class="submit-btn">ส่งความคิดเห็น</button>
                 </form>
             </div>
-            <?php endif; // จบแค่นี้เลย ไม่ต้องมี else ให้ปวดหัว! ?>
+            <?php endif;?>
 
         </div>
     </div>
