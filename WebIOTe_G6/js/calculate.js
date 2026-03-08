@@ -72,6 +72,8 @@ function saveAndRender() {
   renderMySubjects();
 }
 
+// ... (ส่วนต้นของไฟล์เหมือนเดิม)
+
 function renderMySubjects() {
   const tbody = document.getElementById('my-subject-list');
   tbody.innerHTML = '';
@@ -89,16 +91,20 @@ function renderMySubjects() {
 
     let catName = sub.category === 'gen' ? 'ศึกษาทั่วไป' : (sub.category === 'core' ? 'วิชาเฉพาะ' : 'เลือกเสรี');
 
+    // แก้ไข: ลบ span background ออก เพื่อให้อยู่ในบรรทัดเดียวและอ่านง่าย
     tbody.innerHTML += `<tr>
         <td>${sub.code}</td>
         <td>${sub.name}</td>
-        <td><span style="background:#eee; padding:2px 8px; border-radius:10px; font-size:0.8rem;">${catName}</span></td>
-        <td>${sub.credit}</td>
-        <td><b>${sub.gradeText}</b></td>
-        <td><button class="btn-del" onclick="deleteMySubject(${index})">×</button></td>
+        <td>${catName}</td>
+        <td class="text-center">${sub.credit}</td>
+        <td class="text-center"><b>${sub.gradeText}</b></td>
+        <td class="text-center">
+            <button class="btn-del" onclick="deleteMySubject(${index})" style="background:none; border:none; color:#ff4d4f; cursor:pointer; font-size:1.2rem;">&times;</button>
+        </td>
     </tr>`;
   });
 
+  // คำนวณ GPAX: $\text{GPAX} = \frac{\sum (\text{Credit} \times \text{Grade Value})}{\sum \text{Credit}}$
   document.getElementById('display-gpa').innerText = totalCredit > 0 ? (totalPoints / totalCredit).toFixed(2) : "0.00";
 
   updateProgressBar('gen', credits.gen);
@@ -107,6 +113,7 @@ function renderMySubjects() {
   updateProgressBar('total', credits.total);
 }
 
+// ... (ส่วนที่เหลือของไฟล์เหมือนเดิม)
 function updateProgressBar(key, current) {
   const max = REQUIREMENTS[key];
   const percent = Math.min((current / max) * 100, 100);
