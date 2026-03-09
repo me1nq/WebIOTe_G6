@@ -16,27 +16,16 @@ body {
   padding: 30px 20px;
 }
 
-.round-header {
-  margin-top: 0;
-  font-weight: 600;
-  color: #333;
-}
-
 /* --- Layout System --- */
 .grid-layout {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 350px;
   gap: 25px;
-  align-items: flex-start;
+  align-items: start;
 }
 
-.main-content {
-  flex: 1;
+.grid-layout>div {
   min-width: 0;
-}
-
-.sidebar {
-  width: 320px;
-  flex-shrink: 0;
 }
 
 /* --- Card Styles --- */
@@ -62,7 +51,7 @@ body {
   margin-bottom: 15px;
 }
 
-/* --- Form Row & Select2 Fix --- */
+/* --- Form Styles --- */
 .form-row {
   display: flex;
   gap: 12px;
@@ -72,7 +61,22 @@ body {
 .select2-wrapper {
   flex: 1;
   min-width: 0;
+  max-width: 500px;
 }
+
+.select2-container {
+  width: 100% !important;
+  max-width: 500px;
+}
+
+.select2-selection__rendered {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
 
 #select-grade {
   width: 130px;
@@ -92,7 +96,6 @@ body {
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  white-space: nowrap;
   transition: 0.2s;
 }
 
@@ -100,7 +103,7 @@ body {
   background: #d65a12;
 }
 
-/* --- Table Styling (Readable & Wide) --- */
+/* --- Table Styles --- */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -130,27 +133,6 @@ th {
   text-align: center !important;
 }
 
-/* ปรับความกว้างคอลัมน์ */
-th:nth-child(1),
-td:nth-child(1) {
-  width: 120px;
-}
-
-/* รหัสวิชา */
-th:nth-child(3),
-td:nth-child(3) {
-  width: 130px;
-  white-space: nowrap;
-}
-
-/* หมวดหมู่ */
-th:nth-child(4),
-td:nth-child(4),
-th:nth-child(5),
-td:nth-child(5) {
-  width: 70px;
-}
-
 /* --- GPA & Progress --- */
 .gpa-box {
   background: #F37021;
@@ -167,12 +149,6 @@ td:nth-child(5) {
   line-height: 1;
 }
 
-.gpa-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-top: 10px;
-}
-
 .progress-item {
   margin-bottom: 18px;
 }
@@ -180,8 +156,8 @@ td:nth-child(5) {
 .progress-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.9rem;
   margin-bottom: 8px;
+  font-size: 0.9rem;
 }
 
 .progress-bg {
@@ -196,63 +172,38 @@ td:nth-child(5) {
   transition: width 0.6s ease;
 }
 
-.total-bar {
-  height: 15px;
-}
-
 .divider {
   border: 0;
   border-top: 1px solid #eee;
   margin: 20px 0;
 }
 
-/* --- Responsive Adjustments --- */
-/* =========================================
-   5. Responsive (ปรับปรุงการแสดงผลมือถือ)
-   ========================================= */
+/* --- Responsive (ปรับปรุงการแสดงผลมือถือ) --- */
 @media (max-width: 1024px) {
   .grid-layout {
-    flex-direction: column;
-    /* เปลี่ยนจากเรียงซ้าย-ขวา เป็น บน-ล่าง */
-    align-items: stretch;
-    gap: 20px;
+    grid-template-columns: 1fr;
   }
 
-  /* ส่วนเนื้อหาหลัก (ฟอร์มและตาราง) */
-  .main-content {
-    width: 100%;
-    order: 1;
-    /* ให้ส่วนนี้ขึ้นก่อน */
-  }
-
-  /* ส่วน Sidebar (กล่อง GPA และ Progress) */
   .sidebar {
     width: 100% !important;
     order: 2;
-    /* ย้ายมาอยู่ข้างล่างตามที่คุณต้องการ */
     margin-top: 20px;
   }
 
-  /* แก้ปัญหาช่องค้นหาทะลุในหน้าจอมือถือ */
+  .main-content {
+    width: 100%;
+    order: 1;
+  }
+
   .form-row {
-    flex-direction: column;
-    /* เรียง Select2 และเกรดเป็นแนวตั้ง */
-    align-items: stretch;
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
 
   .select2-wrapper,
   #select-grade,
   .btn-add {
     width: 100% !important;
-    /* บังคับให้ทุกอย่างเต็มความกว้าง ไม่ดันออกข้าง */
     flex: none;
-  }
-
-  /* จัดการตารางไม่ให้ดันกรอบ */
-  .table-responsive {
-    overflow-x: auto;
-    /* ยอมให้เลื่อนซ้าย-ขวาได้ภายในตารางเท่านั้น */
-    display: block;
-    width: 100%;
   }
 }

@@ -75,7 +75,7 @@ if ($result && mysqli_num_rows($result) > 0) {
           <a href="admin/admin_calculate.php" class="btn-custom btn-primary">จัดการระบบคำนวณหน่วยกิต</a>
           <?php else: ?>
           <a href="admission.php" class="btn-custom btn-primary">ตรวจสอบสถานะการรับสมัคร</a>
-          <a href="calculate.html" class="btn-custom btn-primary">วางแผนการลงทะเบียนเรียน</a>
+          <a href="calculate.php" class="btn-custom btn-primary">วางแผนการลงทะเบียนเรียน</a>
           <a href="cyber_lab.html" class="btn-custom btn-primary">ข้อมูลห้องปฏิบัติการ</a>
           <?php endif; ?>
         </div>

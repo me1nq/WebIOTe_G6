@@ -3,7 +3,6 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 header('Content-Type: application/json');
-
 require_once '../includes/db.php'; 
 
 $action = $_GET['action'] ?? '';
