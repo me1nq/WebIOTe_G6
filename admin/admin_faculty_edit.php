@@ -29,7 +29,6 @@ if (isset($_POST['submit_update'])) {
     $image_path = $row['image']; 
     $research_image_path = $row['research_image']; 
 
-    // 🔴 แก้ระบบอัปโหลดรูปโปรไฟล์
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $upload_dir = "../assets/faculty/"; 
         $db_path = "assets/faculty/"; 
@@ -42,7 +41,6 @@ if (isset($_POST['submit_update'])) {
 
         if(getimagesize($_FILES["image"]["tmp_name"]) !== false) {
             if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_upload)) {
-                // 🔴 ลบรูปเก่าทิ้ง (ต้องเอา ../ แปะไว้ข้างหน้าเพื่อให้ออกไปลบถูกโฟลเดอร์)
                 if($image_path != 'assets/faculty/default.png' && file_exists("../" . $image_path)) {
                     unlink("../" . $image_path); 
                 }
@@ -51,7 +49,6 @@ if (isset($_POST['submit_update'])) {
         }
     }
 
-    // 🔴 แก้ระบบอัปโหลดรูปรักงานวิจัย
     if (isset($_FILES['research_image']) && $_FILES['research_image']['error'] == 0) {
         $upload_dir = "../assets/faculty/"; 
         $db_path = "assets/faculty/"; 

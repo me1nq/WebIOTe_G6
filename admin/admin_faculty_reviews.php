@@ -1,17 +1,12 @@
 <?php
-require '../includes/db.php'; // เชื่อมต่อฐานข้อมูล
+require '../includes/db.php';
 
-// -------------------------
-// 1. จัดการลบคอมเมนต์ (กรณีเจอสแปม หรือคำหยาบ)
-// -------------------------
 if (isset($_GET['delete_review_id'])) {
     $del_id = intval($_GET['delete_review_id']);
     
-    // ตรวจสอบว่าในตาราง reviews ของคุณมีคอลัมน์ id หรือไม่ (ถ้าเป็นชื่ออื่นให้แก้ตรง WHERE id)
     $sql_delete = "DELETE FROM reviews WHERE id = $del_id"; 
     
     if ($conn->query($sql_delete) === TRUE) {
-        // 🚨 แก้ลิงก์เป็น faculty_reviews.php
         echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'ลบความคิดเห็นเรียบร้อยแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin_faculty_reviews.php'; });</script></body></html>";
         exit;
     } else {
@@ -20,18 +15,12 @@ if (isset($_GET['delete_review_id'])) {
     }
 }
 
-// -------------------------
-// 2. ดึงรายชื่ออาจารย์มาทำ Dropdown ตัวกรอง
-// -------------------------
 $staff_query = $conn->query("SELECT id, name FROM personnel ORDER BY name ASC");
 
-// -------------------------
-// 3. ดึงข้อมูลคอมเมนต์ทั้งหมดมาแสดง 
-// -------------------------
 $sql_reviews = "SELECT r.id AS review_id, r.comment_text, p.id AS personnel_id, p.name AS personnel_name, p.image 
                 FROM reviews r 
                 JOIN personnel p ON r.personnel_id = p.id 
-                ORDER BY r.id DESC"; // ดึงคอมเมนต์ล่าสุดขึ้นก่อน
+                ORDER BY r.id DESC"; 
 $reviews_result = $conn->query($sql_reviews);
 ?>
 

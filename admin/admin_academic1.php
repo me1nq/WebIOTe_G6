@@ -20,17 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_FILES['image']['name'])) {
         $imageName = time() . "_" . $_FILES['image']['name'];
-        // เอาไฟล์ไปวางด้วย $uploadDir
         move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $imageName);
-        // แต่เซฟชื่อลง DB ด้วย $dbPath
         $imagePath = $dbPath . $imageName; 
     }
 
     if (!empty($_FILES['pdf']['name'])) {
         $pdfName = time() . "_" . $_FILES['pdf']['name'];
-        // เอาไฟล์ไปวางด้วย $uploadDir
         move_uploaded_file($_FILES['pdf']['tmp_name'], $uploadDir . $pdfName);
-        // แต่เซฟชื่อลง DB ด้วย $dbPath
         $pdfPath = $dbPath . $pdfName; 
     }
 
@@ -44,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssssss", $title, $content, $tuition, $color, $imagePath, $pdfPath);
 
     if ($stmt->execute()) {
-        // ถ้าเซฟสำเร็จ ให้สร้างตัวแปรนี้ไว้เพื่อไปเปิดป๊อปอัปสีเขียวด้านล่าง
         $success = true;
     }
 }

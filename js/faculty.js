@@ -76,7 +76,6 @@ async function submitComment(event) {
     formData.append('comment_text', comment);
 
     try {
-        // 🔴 เช็คพาธตรงนี้นะ ถ้าไฟล์ save_comment.php อยู่หน้าบ้าน ใช้แบบนี้ได้เลย
         let response = await fetch('save_comment.php', { method: 'POST', body: formData });
         let result = await response.text();
         

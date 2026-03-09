@@ -2,7 +2,6 @@
 session_start();
 include "../includes/db.php";
 
-// 🔴 ส่วนของ "พ่อครัว" จะทำงานตอนกดปุ่มบันทึก
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title   = $_POST['title'];
     $content = $_POST['content'];
@@ -12,9 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $imagePath = "";
     $pdfPath   = "";
 
-    // 🔴 ทริคแยกพาธ ให้รูปโชว์หน้าเว็บได้เป๊ะๆ
-    $uploadDir = "../assets/"; // พาธสำหรับ "วางไฟล์จริง"
-    $dbPath    = "assets/";    // พาธสำหรับ "เซฟข้อความลง DB"
+    $uploadDir = "../assets/";
+    $dbPath    = "assets/";
 
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
@@ -32,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pdfPath = $dbPath . $pdfName; 
     }
 
-    // 🔴 บันทึกลงฐานข้อมูลตาราง academic2
     $stmt = $conn->prepare("
         INSERT INTO academic2 
         (title, content, tuition, bg_color, image_path, pdf_path)
@@ -42,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssssss", $title, $content, $tuition, $color, $imagePath, $pdfPath);
 
     if ($stmt->execute()) {
-        // ถ้าเซฟสำเร็จ โชว์ป๊อปอัป
         $success = true;
     }
 }

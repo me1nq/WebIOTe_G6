@@ -25,96 +25,163 @@ if ($res && mysqli_num_rows($res) > 0) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <?php include 'includes/navbar.php'; ?>
 
-    <div class="page-header">
-        Department of IoT and Information Engineering
+    <div class="hero-slider">
+        <div class="slider-container">
+            <div class="slide active" style="background-image: url('assets/hero1.jpg');"></div>
+            <div class="slide" style="background-image: url('assets/hero2.jpg');"></div>
+            <div class="slide" style="background-image: url('assets/hero3.jpg');"></div>
+        </div>
+        
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Department of IoT and Information Engineering</h1>
+                <p>King Mongkut's Institute of Technology Ladkrabang</p>
+            </div>
+        </div>
     </div>
 
     <div class="page-background">
         <div class="content-card">
-            
-            <div class="info-grid">
-                <div class="content-left">
-                    <h1>IoT and Information Engineering</h1>
-                    <div class="description-iot">
-                        <?php echo nl2br($data['content']); ?>
-                    </div>
-                    
-                    <?php if(isset($_SESSION['is_admin'])): ?>
-                        <a href="admin/index_edit.php" style="display:inline-block; margin-top:20px; color: #ff6600; font-weight:bold;">
-                            [ Edit Content ]
-                        </a>
-                    <?php endif; ?>
+            <div class="content-card-full">
+                <div class="info-grid">
+                    <div class="content-left">
+                        <h1>IoT and Information Engineering</h1>
+                        <div class="description-iot">
+                            <?php echo nl2br($data['content']); ?>
+                        </div>
+                        
+                        <?php if(isset($_SESSION['is_admin'])): ?>
+                            <a href="admin/index_edit.php" style="display:inline-block; margin-top:20px; color: #ff6600; font-weight:bold;">
+                                [ Edit Content ]
+                            </a>
+                        <?php endif; ?>
 
-                    <a href="admission.php" class="btn-admission">
-                        <span>กดเพื่อดูรายละเอียดการสมัคร</span>
-                        <div class="btn-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="4" y="2" width="16" height="20" rx="2" stroke="black" stroke-width="2"/>
-                                <path d="M8 8H16" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M8 12H16" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M8 16H12" stroke="black" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="16" cy="16" r="4" fill="black"/>
-                                <path d="M14.5 16H17.5M16 14.5V17.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                    </a>
-                </div> <div class="stats-right">
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <img src="assets/icon1.png" alt="icon" class="stat-img">
+                        <a href="admission.php" class="btn-admission">
+                            <span>กดเพื่อดูรายละเอียดการสมัคร</span>
+                            <div class="btn-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="4" y="2" width="16" height="20" rx="2" stroke="black" stroke-width="2"/>
+                                    <path d="M8 8H16" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M8 12H16" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                    <path d="M8 16H12" stroke="black" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="16" cy="16" r="4" fill="black"/>
+                                    <path d="M14.5 16H17.5M16 14.5V17.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
                             </div>
-                            <div class="stat-desc">ปริญญาตรี วิศวกรรมศาสตรบัณฑิต (วิศวกรรมไอโอทีและสารสนเทศ)</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <img src="assets/icon2.png" alt="icon" class="stat-img">
+                        </a>
+                    </div> <div class="stats-right">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <img src="assets/icon1.png" alt="icon" class="stat-img">
+                                </div>
+                                <div class="stat-desc">ปริญญาตรี วิศวกรรมศาสตรบัณฑิต (วิศวกรรมไอโอทีและสารสนเทศ)</div>
                             </div>
-                            <div class="stat-desc">วศ.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ (หลักสูตรสองปริญญา)</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <img src="assets/icon3.png" alt="icon" class="stat-img">
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <img src="assets/icon2.png" alt="icon" class="stat-img">
+                                </div>
+                                <div class="stat-desc">วศ.บ. ฟิสิกส์อุตสาหกรรม และ วศ.บ. วิศวกรรมระบบไอโอทีและสารสนเทศ (หลักสูตรสองปริญญา)</div>
                             </div>
-                            <div class="stat-desc">ปริญญาตรี วิศวกรรมศาสตรบัณฑิต (คอมพิวเตอร์และไอโอที) หลักสูตรต่อเนื่อง</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-header">
-                                <img src="assets/icon4.png" alt="icon" class="stat-img">
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <img src="assets/icon3.png" alt="icon" class="stat-img">
+                                </div>
+                                <div class="stat-desc">ปริญญาตรี วิศวกรรมศาสตรบัณฑิต (คอมพิวเตอร์และไอโอที) หลักสูตรต่อเนื่อง</div>
                             </div>
-                            <div class="stat-desc">ปริญญาโท วิศวกรรมศาสตรมหาบัณฑิต (ไอโอทีและสารสนเทศ) และปริญญาเอก ปรัชญาดุษฎีบัณฑิต</div>
+                            <div class="stat-card">
+                                <div class="stat-header">
+                                    <img src="assets/icon4.png" alt="icon" class="stat-img">
+                                </div>
+                                <div class="stat-desc">ปริญญาโท วิศวกรรมศาสตรมหาบัณฑิต (ไอโอทีและสารสนเทศ) และปริญญาเอก ปรัชญาดุษฎีบัณฑิต</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="community-banners">
+                    <div class="banner-item internship-banner">
+                        <div class="banner-text-wrap">
+                            <h2>Internship Experience</h2>
+                        </div>
+                    </div>
+                    <div class="banner-item projects-banner">
+                        <div class="banner-text-wrap">
+                            <h2>Projects Inventory</h2>
+                        </div>
+                    </div>
+                </div>
 
-            <div style="text-align:center; margin-top: 50px;">
-                <h2 style="text-decoration: underline; text-underline-offset: 8px; color: #000;">The secret of success</h2>
-            </div>
+                <div class="community-action">
+                    <a href="#" class="btn-community-orange">MORE FROM THE IOT COMMUNITY</a>
+                </div>
 
-            <h2 class="section-title" style="color: #000;">ภาพบรรยากาศ</h2>
-            <div class="image-grid">
-                <?php
-                $gallery_res = mysqli_query($conn, "SELECT * FROM gallery");
-                if ($gallery_res) {
-                    while($img = mysqli_fetch_assoc($gallery_res)) {
-                        echo '<div class="grid-item">';
-                        echo '  <img src="assets/'.$img['image_path'].'" alt="gallery">';
-                        if(isset($_SESSION['is_admin'])) {
-                            echo '  <a href="admin/admin_index.php?id='.$img['id'].'" class="edit-overlay">แก้ไขรูป</a>';
+                <div class="community-main-grid">
+                    <div class="news-column">
+                        <div class="news-card-item">
+                            <div class="news-img-box">
+                                <img src="assets/news1.png" alt="ข่าวสาร">
+                            </div>
+                            <div class="news-content-box">
+                                <p class="news-meta"><i class="far fa-calendar-alt"></i> 5 ม.ค. 2026</p>
+                                <h3>นักวิจัย IoTe คว้ารางวัลนวัตกรรมระดับชาติ</h3>
+                                <p class="news-excerpt">โครงการ Smart City Platform ได้รับรางวัลระดับประเทศในการประชุมวิชาการประจำปี...</p>
+                                <div class="news-tags-row">
+                                    <span># Smart City</span>
+                                    <span># Innovation</span>
+                                </div>
+                                <a href="#" class="news-readmore-btn">อ่านเพิ่มเติม →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-column">
+                        <div class="sidebar-block announcement-list">
+                            <h3>ประกาศสำคัญ</h3>
+                            <ul>
+                                <li>กำหนดการสอบกลางภาคการศึกษา 2/2568</li>
+                                <li>Workshop: IoT Development with Arduino</li>
+                            </ul>
+                            <a href="#" class="link-view-all">ดูประกาศทั้งหมด →</a>
+                        </div>
+
+                        <div class="sidebar-block event-calendar">
+                            <h3>ปฏิทินกิจกรรม</h3>
+                            <div class="event-row">
+                                <div class="event-pill">15-25 ม.ค. 2569</div>
+                                <p>สอบกลางภาค</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="color: #000;">ภาพบรรยากาศ</h2>
+                <div class="image-grid">
+                    <?php
+                    $gallery_res = mysqli_query($conn, "SELECT * FROM gallery");
+                    if ($gallery_res) {
+                        while($img = mysqli_fetch_assoc($gallery_res)) {
+                            echo '<div class="grid-item">';
+                            echo '  <img src="assets/'.$img['image_path'].'" alt="gallery">';
+                            if(isset($_SESSION['is_admin'])) {
+                                echo '  <a href="admin/admin_index.php?id='.$img['id'].'" class="edit-overlay">แก้ไขรูป</a>';
+                            }
+                            echo '</div>';
                         }
-                        echo '</div>';
                     }
-                }
-                ?>
-            </div>
-            </div> </div> <?php include 'includes/footer.php'; ?>
+                    ?>
+                </div>
+            </div> 
+        </div>
+    </div> 
+        <?php include 'includes/footer.php'; ?>
     <script src="js/script.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

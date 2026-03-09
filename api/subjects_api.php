@@ -1,5 +1,4 @@
 <?php
-// ไฟล์: api/subjects.php
 error_reporting(0);
 ini_set('display_errors', 0);
 header('Content-Type: application/json');
@@ -7,9 +6,6 @@ require_once '../includes/db.php';
 
 $action = $_GET['action'] ?? '';
 
-// ==========================================
-// ส่วนที่ 1: READ 
-// ==========================================
 if ($action == 'get') {
     $sql = "SELECT * FROM subjects ORDER BY category, course_code ASC";
     $result = $conn->query($sql);
@@ -22,9 +18,6 @@ if ($action == 'get') {
     exit();
 }
 
-// ==========================================
-// ส่วนที่ 2: CREATE & UPDATE 
-// ==========================================
 if ($action == 'save' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'] ?? ''; 
     $code = $_POST['course_code'];
@@ -35,12 +28,12 @@ if ($action == 'save' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($id) {
         $sql = "UPDATE subjects SET course_code=?, name=?, credit=?, category=? WHERE id=?";
         $stmt = $conn->prepare($sql);
-        // 🟢 แก้ไขตรงนี้: เปลี่ยนจาก sssii เป็น ssisi (String, String, Int, String, Int)
+
         $stmt->bind_param("ssisi", $code, $name, $credit, $cat, $id);
     } else {
         $sql = "INSERT INTO subjects (course_code, name, credit, category) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        // 🟢 แก้ไขตรงนี้: เปลี่ยนจาก sssi เป็น ssis (String, String, Int, String)
+
         $stmt->bind_param("ssis", $code, $name, $credit, $cat);
     }
 
@@ -52,9 +45,6 @@ if ($action == 'save' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-// ==========================================
-// ส่วนที่ 3: DELETE 
-// ==========================================
 if ($action == 'delete' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $stmt = $conn->prepare("DELETE FROM subjects WHERE id=?");

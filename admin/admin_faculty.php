@@ -1,14 +1,10 @@
 <?php
-require '../includes/db.php'; // เชื่อมต่อฐานข้อมูล
+require '../includes/db.php';
 
-// -------------------------
-// 1. จัดการการลบข้อมูล (Delete)
-// -------------------------
 if (isset($_GET['delete_id'])) {
     $id = $_GET['delete_id'];
     $sql_delete = "DELETE FROM personnel WHERE id = $id";
     if ($conn->query($sql_delete) === TRUE) {
-        // 🚨 เปลี่ยนกลับมาหน้า faculty.php
         echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'ลบข้อมูลเรียบร้อยแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin_faculty.php'; });</script></body></html>";
         exit;
     } else {
@@ -17,9 +13,6 @@ if (isset($_GET['delete_id'])) {
     }
 }
 
-// -------------------------
-// 2. จัดการการเพิ่มข้อมูล (Create)
-// -------------------------
 if (isset($_POST['submit_add'])) {
     $type = $conn->real_escape_string($_POST['type']);
     $program = $conn->real_escape_string($_POST['program']);
@@ -33,7 +26,6 @@ if (isset($_POST['submit_add'])) {
     $image_path = "assets/faculty/default.png"; 
     $research_image_path = ""; 
 
-    // 🔴 จัดการรูปโปรไฟล์ (อัปโหลดจริงมี ../ แต่เซฟลง DB ไม่มี)
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $upload_dir = "../assets/faculty/"; 
         $db_path = "assets/faculty/";       
@@ -51,7 +43,6 @@ if (isset($_POST['submit_add'])) {
         }
     }
 
-    // 🔴 จัดการรูปงานวิจัย (ใช้หลักการเดียวกัน)
     if (isset($_FILES['research_image']) && $_FILES['research_image']['error'] == 0) {
         $upload_dir = "../assets/faculty/"; 
         $db_path = "assets/faculty/"; 
@@ -73,8 +64,7 @@ if (isset($_POST['submit_add'])) {
                    VALUES ('$type', '$program', '$name', '$role', '$popup_role', '$history', '$image_path', '$research', '$research_link', '$research_image_path')";
     
     if ($conn->query($sql_insert) === TRUE) {
-        // 🚨 เด้งกลับหน้า faculty.php
-        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'บันทึกแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'faculty.php'; });</script></body></html>";
+        echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'success', title: 'สำเร็จ', text: 'บันทึกแล้ว', confirmButtonColor: '#7b68ee', confirmButtonText: 'OK'}).then(() => { window.location.href = 'admin_faculty.php'; });</script></body></html>";
         exit;
     } else {
         echo "<!DOCTYPE html><html><head><script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script><link href='https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500&display=swap' rel='stylesheet'><style>*{font-family:\"Kanit\", sans-serif;}</style></head><body><script>Swal.fire({icon: 'error', title: 'ผิดพลาด', text: '" . $conn->error . "', confirmButtonColor: '#dc3545'}).then(() => { window.history.back(); });</script></body></html>";
@@ -82,9 +72,6 @@ if (isset($_POST['submit_add'])) {
     }
 }
 
-// -------------------------
-// 3. ดึงข้อมูลมาแสดง (Read)
-// -------------------------
 $sql_select = "SELECT * FROM personnel ORDER BY id DESC";
 $result = $conn->query($sql_select);
 ?>

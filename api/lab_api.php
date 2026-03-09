@@ -1,5 +1,4 @@
 <?php
-// ไฟล์: api/lab.php
 error_reporting(0);
 ini_set('display_errors', 0);
 header('Content-Type: application/json');
@@ -8,9 +7,6 @@ require_once '../includes/db.php';
 
 $action = $_GET['action'] ?? '';
 
-// ==========================================
-// 1. จัดการข้อมูล Lab (ดึงจากตาราง labs)
-// ==========================================
 if ($action == 'get_info') {
     $sql = "SELECT * FROM labs WHERE id = 1";
     $result = $conn->query($sql);
@@ -25,7 +21,7 @@ if ($action == 'save_info' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $logo_name = $_POST['old_logo'] ?? '';
 
     if (isset($_FILES['logo']) && $_FILES['logo']['error'] == 0) {
-        $upload_dir = '../assets/images/lab/';
+        $upload_dir = '../assets/lab/';
         if (!file_exists($upload_dir)) mkdir($upload_dir, 0777, true);
         $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
         $new_filename = "lab_logo_" . time() . "." . $ext;
@@ -42,9 +38,6 @@ if ($action == 'save_info' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-// ==========================================
-// 2. จัดการหมวดหมู่ (ดึงจากตาราง categories)
-// ==========================================
 if ($action == 'get_categories') {
     $sql = "SELECT * FROM categories ORDER BY display_order ASC";
     $result = $conn->query($sql);
@@ -81,11 +74,7 @@ if ($action == 'delete_category' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-// ==========================================
-// 3. จัดการสมาชิก (ตาราง lab_members)
-// ==========================================
 if ($action == 'get_members') {
-    // ใช้ JOIN เพื่อดึง category_name ออกมา
     $sql = "SELECT m.*, c.category_name 
             FROM lab_members m
             LEFT JOIN categories c ON m.category_id = c.id
@@ -110,7 +99,7 @@ if ($action == 'save_member' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $image_name = $_POST['old_image'] ?? '';
     
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $upload_dir = '../assets/images/lab/';
+        $upload_dir = '../assets/lab/';
         if (!file_exists($upload_dir)) mkdir($upload_dir, 0777, true);
         $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
         $new_filename = uniqid() . "." . $ext;

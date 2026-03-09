@@ -2,6 +2,9 @@
   padding: 20px 10px;
   max-width: 900px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(80vh - 160px);
 }
 /* --- ส่วนบน: รูป - ข้อมูล - ปุ่มรีเซ็ต --- */
 .profile-top {
@@ -57,10 +60,9 @@
 .profile-bottom {
   display: flex;
   flex-direction: column;
-  /* เรียงจากบนลงล่าง */
   gap: 15px;
-  /* ระยะห่างระหว่างปุ่ม */
   width: 100%;
+  margin-top: auto;
 }
 .btn-custom {
   display: flex;
