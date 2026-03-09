@@ -20,6 +20,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <li class="<?= ($current_page == 'admin_index.php') ? 'active' : '' ?>">
             <a href="admin_index.php"><i class="fas fa-home"></i> หน้าหลัก & แกลลอรี</a>
         </li>
+        <li class="<?= ($current_page == 'admin_internship.php') ? 'active' : '' ?>">
+            <a href="admin_internship.php"><i class="fas fa-briefcase"></i> จัดการ Internship</a>
+        </li>
+        <li class="<?= ($current_page == 'admin_projects.php' || $current_page == 'admin_projects_edit.php') ? 'active' : '' ?>">
+            <a href="admin_projects.php"><i class="fas fa-book-open"></i> จัดการคลังความรู้</a>
+        </li>
         <li class="<?= ($current_page == 'admin_academic1.php' || $current_page == 'admin_academic2.php') ? 'active' : '' ?>">
             <a href="admin_academic1.php"><i class="fas fa-book"></i> จัดการหลักสูตร</a>
         </li>

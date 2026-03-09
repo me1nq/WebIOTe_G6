@@ -1,8 +1,62 @@
 /* =========================================
-   index.css - Consolidated & Clean Version
+   INDEX.CSS - REORGANIZED & CLEAN VERSION
    ========================================= */
 
-/* --- 1. ข้อความเกริ่นนำและ Layout ส่วนบน --- */
+/* --- 1. HERO SLIDER (ส่วนบนสุดของหน้า) --- */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 38vh; /* ความสูงครึ่งหน้าจอ */
+    background-color: #000;
+    overflow: hidden;
+}
+
+.slider-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    text-align: center;
+}
+
+.hero-content h1 {
+    color: #fff;
+    font-size: clamp(20px, 4vw, 38px);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.hero-content p {
+    color: #fff;
+    font-size: clamp(12px, 2vw, 18px);
+    margin-top: 10px;
+}
+
+/* --- 2. MAIN INFO SECTION (เกริ่นนำและสถิติ) --- */
 .info-grid { 
     display: grid; 
     grid-template-columns: 2fr 1fr; 
@@ -28,7 +82,6 @@
     font-weight: normal;
 }
 
-/* --- 2. ปุ่มรายละเอียดการสมัคร --- */
 .btn-admission {
     display: flex;
     align-items: center;
@@ -46,9 +99,7 @@
 }
 
 .btn-admission:hover { transform: scale(1.02); }
-
 .btn-admission span { flex: 1; text-align: center; }
-
 .btn-admission .btn-icon {
     position: absolute;
     right: 25px; 
@@ -57,7 +108,6 @@
     justify-content: center;
 }
 
-/* --- 3. ส่วนของ 4 กล่องสถิติ/หลักสูตรด้านขวา --- */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
@@ -79,87 +129,28 @@
 }
 
 .stat-img { height: 45px; object-fit: contain; margin-bottom: 10px; }
-
 .stat-desc { font-size: 15px; color: #555555; line-height: 1.5; }
 
-/* --- 4. ส่วนของภาพบรรยากาศ (Gallery) --- */
-.image-grid { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 15px; 
-    margin-top: 20px;
-}
-
-.grid-item { 
-    position: relative;
-    border-radius: 15px; 
-    overflow: hidden; 
-    aspect-ratio: 4/3; 
-}
-
-.grid-item img { width: 100%; height: 100%; object-fit: cover; }
-
-/* =========================================
-   ส่วน Banners (Internship & Projects)
-   แก้ไขบั๊กเส้นขาวแลบ และดันให้เต็มขอบ 100%
-   ========================================= */
-
-.community-banners {
+/* --- 3. ANNOUNCEMENT & NEWS SECTION --- */
+.community-action {
+    text-align: center;
+    margin: 40px 0 60px 0;
     display: flex;
-    flex-direction: column;
-    
-    /* 🔴 จุดตาย: ห้ามใส่ width: 100% เพราะมันจะทำให้ margin ติดลบทำงานเพี้ยน */
-    width: auto !important; 
-    
-    /* 🔴 ดัน Margin ติดลบเพิ่มขึ้นนิดหน่อยเป็น -5.35% เพื่อให้มั่นใจว่ากลบเส้นขาวมิด */
-    margin-left: -5.35% !important; 
-    margin-right: -5.35% !important;
-    
-    margin-top: 40px;
-    gap: 0 !important; 
-    padding: 0 !important;
-    
-    /* กันรูปแลบออกนอกขอบกล่องหลัก */
-    overflow: hidden; 
+    justify-content: center;
 }
 
-.banner-item {
-    /* 🔴 ให้ความกว้างเป็นอิสระตามตัวแม่ */
-    width: 100% !important; 
-    height: 300px; 
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    
-    /* บังคับลบขอบมนและ Margin ทิ้งสนิท */
-    border-radius: 0 !important; 
-    margin: 0 !important;
-    padding: 0 !important;
-    
-    /* สีสำรองกรณีรูปไม่ขึ้น */
-    background-color: #000; 
-}
-
-.banner-text-wrap {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* ไล่เฉดสีให้ตัวหนังสืออ่านง่ายเหมือนใน Figma */
-    background: linear-gradient(to left, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 70%);
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; 
-    padding-right: 80px;
-}
-
-.banner-text-wrap h2 {
-    color: #fff;
-    font-size: 40px;
+.announcement-title-box {
+    background-color: #FF6F00;
+    color: #ffffff !important;
+    padding: 15px 40px; 
+    border-radius: 12px; /* ทรงสี่เหลี่ยมขอบมนตามรูป */
+    font-size: 30px; 
     font-weight: bold;
-    margin: 0;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
+    cursor: default;
+    user-select: none;
 }
-/* --- จัดการ News Section: รูปซ้าย ข้อความขวา --- */
+
 .community-main-grid {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -178,8 +169,8 @@
 }
 
 .news-img-box {
-    flex: 0 0 220px; /* ล็อกความกว้างรูปภาพ */
-    height: 160px;
+    flex: 0 0 220px; 
+    height: 180px;
     border-radius: 15px;
     overflow: hidden;
 }
@@ -190,29 +181,20 @@
     font-size: 24px;
     margin: 10px 0;
     color: #333;
-}
-
-/* --- ปฏิทินกิจกรรมสีส้ม --- */
-.event-calendar {
-    background: #FF6F00;
-    color: #fff;
-    border: none !important;
-}
-
-.event-calendar h3 {
-    color: #fff;
-    border-bottom: 2px solid rgba(255,255,255,0.3) !important;
-}
-
-.event-pill {
-    background: rgba(255,255,255,0.2);
-    padding: 6px 15px;
-    border-radius: 10px;
     font-weight: bold;
-    font-size: 14px;
 }
 
-/* Sidebar Styles */
+.news-tags-row span {
+    font-size: 12px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+/* --- 4. SIDEBAR (ประกาศสำคัญ & ปฏิทิน) --- */
 .sidebar-block {
     background: #fff; border-radius: 20px; padding: 25px;
     margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;
@@ -223,67 +205,98 @@
 .announcement-list ul { padding: 0; list-style: none; }
 .announcement-list li { padding: 12px 0; border-bottom: 1px solid #f9f9f9; font-size: 15px; color: #444; }
 
-.event-calendar { background: #FF6F00; color: #fff; border: none; }
+.event-calendar { background: #FF6F00; color: #fff; border: none; border-radius: 25px !important; }
 .event-calendar h3 { border-color: #fff; color: #fff; }
 .event-row { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-.event-pill { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 8px; font-weight: bold; font-size: 13px; }
-.hero-slider {
-    position: relative;
-    width: 100%;
-    height: 38vh; /* 🔴 นี่แหละเพื่อน! ครึ่งหน้าจอพอดีเป๊ะ */
-    background-color: #000;
-    overflow: hidden;
+
+.event-pill {
+    background: rgba(255,255,255,0.2); 
+    padding: 8px 15px; 
+    border-radius: 15px; 
+    font-weight: bold; 
+    font-size: 13px;
+    text-align: center;
+    min-width: 120px;
 }
 
-.slider-container {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+/* --- 5. BANNERS (INTERNSHIP & PROJECTS) --- */
+.community-banners {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    gap: 30px !important;
+    width: 100% !important;
 }
 
-.slide {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
+.banner-item {
+    display: block !important;
+    width: 100% !important;
+    height: 220px; 
     background-size: cover;
     background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out; /* ความเนียนตอนเปลี่ยนรูป */
-    z-index: 1;
+    position: relative;
+    border-radius: 50px !important; /* ทรงมน Pill Shape */
+    overflow: hidden; 
+    text-decoration: none !important;
+    color: #fff !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.slide.active {
-    opacity: 1;
-    z-index: 2;
+.banner-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.2);
 }
 
-/* แผ่น Filter สีดำจางๆ ให้ตัวหนังสือขาวอ่านง่ายขึ้นเหมือนใน Figma */
-.hero-overlay {
+.internship-banner { background-image: url('../assets/internship_banner.png'); }
+.projects-banner { background-image: url('../assets/project_banner.png'); }
+
+.banner-text-wrap {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
     display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 3;
-    text-align: center;
+    justify-content: flex-end; 
+    padding-right: 60px;
 }
 
-.hero-content h1 {
-    color: #fff;
-    font-size: clamp(20px, 4vw, 38px); /* ปรับขนาดตัวหนังสือตามหน้าจออัตโนมัติ */
+/* 🟢 ส่วนรูป Overlay แยกตามประเภทแบนเนอร์ */
+.internship-banner .banner-text-wrap {
+    background: url('../assets/intern_overlay_pattern.png') no-repeat center !important;
+    background-size: cover;
+}
+
+.projects-banner .banner-text-wrap {
+    background: url('../assets/project_overlay_pattern.png') no-repeat center !important;
+    background-size: cover;
+}
+
+.banner-text-wrap h2 {
+    color: #fff !important;
+    font-size: 36px;
     font-weight: bold;
-    text-transform: uppercase;
     margin: 0;
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.5);
 }
 
-.hero-content p {
-    color: #fff;
-    font-size: clamp(12px, 2vw, 18px);
-    margin-top: 10px;
+/* --- 6. GALLERY (ภาพบรรยากาศ) --- */
+.image-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin-top: 20px;
 }
 
-/* =========================================
-   Responsive (Mobile) - ต้องอยู่ล่างสุดเสมอ!
-   ========================================= */
+.grid-item { 
+    position: relative;
+    border-radius: 15px; 
+    overflow: hidden; 
+    aspect-ratio: 4/3; 
+}
+
+.grid-item img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- 7. RESPONSIVE DESIGN (MOBILE) --- */
 @media (max-width: 992px) {
     .info-grid, .image-grid, .community-main-grid { grid-template-columns: 1fr; }
     
@@ -293,14 +306,12 @@
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .stat-desc { font-size: 8px; }
 
-    .community-banners {
-        margin-left: -20px !important; 
-        margin-right: -20px !important;
-    }
-    .banner-item { height: 180px; }
-    .banner-text-wrap { padding-right: 30px; }
+    .banner-item { height: 180px; border-radius: 35px !important; }
+    .banner-text-wrap { padding-right: 30px; justify-content: center; }
     .banner-text-wrap h2 { font-size: 24px; }
 
     .news-card-item { flex-direction: column; }
-    .news-img-box { height: 220px; }
+    .news-img-box { height: 220px; flex: 0 0 100%; }
+    
+    .announcement-title-box { padding: 12px 50px; font-size: 20px; }
 }

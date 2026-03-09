@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost","root","","university_db");
+include '../includes/db.php';
 
 $id = intval($_POST['id']);
 
@@ -13,6 +13,6 @@ if(file_exists("uploads/" . $image)){
     unlink("uploads/" . $image);
 }
 
-header("Location: AdminInternship.php");
+header("Location: admin_internship.php");
 exit;
 ?>

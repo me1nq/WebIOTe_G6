@@ -48,7 +48,6 @@ if ($res && mysqli_num_rows($res) > 0) {
 
     <div class="page-background">
         <div class="content-card">
-            <div class="content-card-full">
                 <div class="info-grid">
                     <div class="content-left">
                         <h1>IoT and Information Engineering</h1>
@@ -104,41 +103,35 @@ if ($res && mysqli_num_rows($res) > 0) {
                         </div>
                     </div>
                 </div>
-                
-                <div class="community-banners">
-                    <div class="banner-item internship-banner">
-                        <div class="banner-text-wrap">
-                            <h2>Internship Experience</h2>
-                        </div>
-                    </div>
-                    <div class="banner-item projects-banner">
-                        <div class="banner-text-wrap">
-                            <h2>Projects Inventory</h2>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="community-action">
-                    <a href="#" class="btn-community-orange">MORE FROM THE IOT COMMUNITY</a>
+                    <div class="announcement-title-box">Announcement</div>
                 </div>
 
                 <div class="community-main-grid">
                     <div class="news-column">
+                        <?php
+                        $news_res = mysqli_query($conn, "SELECT * FROM announcements ORDER BY date_posted DESC");
+                        while($news = mysqli_fetch_assoc($news_res)):
+                        ?>
                         <div class="news-card-item">
                             <div class="news-img-box">
-                                <img src="assets/news1.png" alt="ข่าวสาร">
+                                <img src="assets/<?php echo $news['image_path']; ?>" alt="ข่าวสาร">
                             </div>
                             <div class="news-content-box">
-                                <p class="news-meta"><i class="far fa-calendar-alt"></i> 5 ม.ค. 2026</p>
-                                <h3>นักวิจัย IoTe คว้ารางวัลนวัตกรรมระดับชาติ</h3>
-                                <p class="news-excerpt">โครงการ Smart City Platform ได้รับรางวัลระดับประเทศในการประชุมวิชาการประจำปี...</p>
+                                <p class="news-meta"><i class="far fa-calendar-alt"></i> <?php echo date('j ม.ค. Y', strtotime($news['date_posted'])); ?></p>
+                                <h3><?php echo $news['title']; ?></h3>
+                                <p class="news-excerpt"><?php echo mb_strimwidth($news['content'], 0, 150, "..."); ?></p>
                                 <div class="news-tags-row">
-                                    <span># Smart City</span>
-                                    <span># Innovation</span>
+                                    <?php 
+                                    $tags = explode(',', $news['tags']);
+                                    foreach($tags as $tag) echo "<span>" . trim($tag) . "</span>";
+                                    ?>
                                 </div>
                                 <a href="#" class="news-readmore-btn">อ่านเพิ่มเติม →</a>
                             </div>
                         </div>
+                        <?php endwhile; ?>
                     </div>
 
                     <div class="sidebar-column">
@@ -148,17 +141,35 @@ if ($res && mysqli_num_rows($res) > 0) {
                                 <li>กำหนดการสอบกลางภาคการศึกษา 2/2568</li>
                                 <li>Workshop: IoT Development with Arduino</li>
                             </ul>
-                            <a href="#" class="link-view-all">ดูประกาศทั้งหมด →</a>
+                            <a href="#" class="link-view-all" style="color:#FF6F00; font-weight:bold; display:block; text-align:right;">ดูประกาศทั้งหมด →</a>
                         </div>
 
                         <div class="sidebar-block event-calendar">
-                            <h3>ปฏิทินกิจกรรม</h3>
+                            <h3 style="color:#fff; border-bottom: 2px solid #fff;">ปฏิทินกิจกรรม</h3>
                             <div class="event-row">
                                 <div class="event-pill">15-25 ม.ค. 2569</div>
                                 <p>สอบกลางภาค</p>
                             </div>
+                            <div class="event-row">
+                                <div class="event-pill">28 ม.ค. 2569</div>
+                                <p>IoT Workshop</p>
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="community-banners">
+                    <a href="internship.php" class="banner-item internship-banner">
+                        <div class="banner-text-wrap">
+                            <h2>Internship Experience</h2>
+                        </div>
+                    </a>
+
+                    <a href="projects.php" class="banner-item projects-banner">
+                        <div class="banner-text-wrap">
+                            <h2>Projects Inventory</h2>
+                        </div>
+                    </a>
                 </div>
 
                 <h2 class="section-title" style="color: #000;">ภาพบรรยากาศ</h2>
@@ -177,7 +188,6 @@ if ($res && mysqli_num_rows($res) > 0) {
                     }
                     ?>
                 </div>
-            </div> 
         </div>
     </div> 
         <?php include 'includes/footer.php'; ?>

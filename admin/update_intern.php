@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost","root","","university_db");
+include '../includes/db.php';
 
 $id = intval($_POST['id']);
 $company = $_POST['company'];
@@ -18,10 +18,10 @@ $imageName = $oldImage;
 if(isset($_FILES['image']) && $_FILES['image']['error'] == 0){
 
     $imageName = time() . "_" . $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $imageName);
+    move_uploaded_file($_FILES['image']['tmp_name'], "../assets/internship/" . $imageName);
 
-    if(file_exists("uploads/" . $oldImage)){
-        unlink("uploads/" . $oldImage);
+    if(file_exists("../assets/internship/" . $oldImage)){
+        unlink("../assets/internship/" . $oldImage);
     }
 }
 
@@ -33,6 +33,6 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssssi", $company, $position, $date_range, $details, $imageName, $id);
 $stmt->execute();
 
-header("Location: AdminInternship.php?success=1");
+header("Location: admin_internship.php?success=1");
 exit;
 ?>

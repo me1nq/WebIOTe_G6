@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "university_db");
+include '../includes/db.php';
 
 $company = $_POST['company'];
 $position = $_POST['position'];
@@ -11,12 +11,12 @@ $imageName = "";
 if(isset($_FILES['image']) && $_FILES['image']['error'] == 0){
 
     $imageName = time() . "_" . $_FILES['image']['name'];
-    move_uploaded_file($_FILES['image']['tmp_name'], "uploads/" . $imageName);
+    move_uploaded_file($_FILES['image']['tmp_name'], "../assets/internship/" . $imageName);
 }
 
 $stmt = $conn->prepare("INSERT INTO internships (company, position, date_range, image, details) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("sssss", $company, $position, $date_range, $imageName, $details);
 $stmt->execute();
 
-header("Location: AdminInternship.php?success=1");
+header("Location: admin_internship.php?success=1");
 exit;
