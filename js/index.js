@@ -13,12 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ระบบเลื่อนรูปอัตโนมัติ เฉพาะหน้าที่มี .slide
 document.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.slide');
     if (slides.length > 0) {
         let currentSlide = 0;
-        const slideInterval = 5000; // 5 วินาทีเปลี่ยนทีนึง
+        const slideInterval = 5000;
 
         function nextSlide() {
             slides[currentSlide].classList.remove('active');
@@ -29,3 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(nextSlide, slideInterval);
     }
 });
+
+function startGallerySlider() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    if (slides.length <= 1) return;
+
+    let currentSlide = 0;
+
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 5000);
+}
+
+document.addEventListener('DOMContentLoaded', startGallerySlider);

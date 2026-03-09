@@ -172,21 +172,30 @@ if ($res && mysqli_num_rows($res) > 0) {
                     </a>
                 </div>
 
-                <h2 class="section-title" style="color: #000;">ภาพบรรยากาศ</h2>
-                <div class="image-grid">
-                    <?php
-                    $gallery_res = mysqli_query($conn, "SELECT * FROM gallery");
-                    if ($gallery_res) {
-                        while($img = mysqli_fetch_assoc($gallery_res)) {
-                            echo '<div class="grid-item">';
-                            echo '  <img src="assets/'.$img['image_path'].'" alt="gallery">';
-                            if(isset($_SESSION['is_admin'])) {
-                                echo '  <a href="admin/admin_index.php?id='.$img['id'].'" class="edit-overlay">แก้ไขรูป</a>';
+                <div class="gallery-slider-container">
+                    <div class="gallery-slider">
+                        <?php
+                        $gallery_res = mysqli_query($conn, "SELECT * FROM gallery");
+                        if ($gallery_res && mysqli_num_rows($gallery_res) > 0) {
+                            $first = true;
+                            while($img = mysqli_fetch_assoc($gallery_res)) {
+                                // เพิ่มคลาส active ให้รูปแรกเพื่อให้แสดงผลทันที
+                                $active_class = $first ? 'active' : '';
+                                echo '<div class="gallery-slide ' . $active_class . '">';
+                                echo '  <img src="assets/'.$img['image_path'].'" alt="gallery">';
+                                
+                                // ปุ่มแก้ไขสำหรับ Admin (ถ้ามี Session)
+                                if(isset($_SESSION['is_admin'])) {
+                                    echo '  <a href="admin/admin_index.php?id='.$img['id'].'" class="edit-overlay-gallery">แก้ไขรูป</a>';
+                                }
+                                echo '</div>';
+                                $first = false;
                             }
-                            echo '</div>';
+                        } else {
+                            echo '<p style="text-align:center; padding:50px; color:#999;">ยังไม่มีภาพในแกลลอรี</p>';
                         }
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
         </div>
     </div> 
