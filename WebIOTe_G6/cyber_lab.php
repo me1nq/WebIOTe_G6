@@ -8,9 +8,9 @@ include 'includes/db.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cybersecurity Laboratory</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="css/style.css"> <link rel="stylesheet" href="css/lab.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/lab.css">
 </head>
 <body>
 
@@ -23,7 +23,12 @@ include 'includes/db.php';
   <div class="page-background">
       <div class="content-card">
         <div class="lab-header" id="header-content"></div>
-        <div id="desc-content" class="info-box"></div>
+        
+        <div class="lab-intro-section">
+          <div id="desc-content" class="lab-description-text"></div>
+        </div>
+
+        <hr class="minimal-divider">
         <div id="members-container">
           <p style="text-align:center;">กำลังโหลด...</p>
         </div>

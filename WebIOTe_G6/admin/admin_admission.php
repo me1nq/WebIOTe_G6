@@ -2,7 +2,6 @@
 session_start();
 require '../includes/db.php';
 
-// 🔴 เช็กล็อกอิน: ถ้ายังไม่ล็อกอิน ให้เด้งกลับไปหน้า login.php
 if (!isset($_SESSION['user_id'])) {
     header("Location: ../login.php");
     exit();
@@ -16,15 +15,18 @@ if (!isset($_SESSION['user_id'])) {
   <title>Admin Dashboard - ระบบรับสมัคร</title>
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   
+  <link rel="stylesheet" href="../css/admin_style.css">
+  <link rel="stylesheet" href="../css/admin_sidebar.css">
   <link rel="stylesheet" href="../css/admin_admission.css">
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
-  <div class="admin-container">
-    
-    <a href="admin_faculty.php" style="display:inline-block; background:#FF6F00; color:white; padding:8px 15px; text-decoration:none; border-radius:5px; margin-bottom: 20px; font-family: 'Kanit', sans-serif;">🔙 กลับไปหน้าจัดการบุคลากร</a>
+<?php include 'sidebar.php'; ?>
 
+<div class="admin-main-content">
+  <div class="admin-container">
     <div class="top-panel">
       <div class="top-header">
         <h3 style="margin:0; color:#4a4a4a;">จัดการระบบรับสมัคร</h3>
@@ -95,7 +97,6 @@ if (!isset($_SESSION['user_id'])) {
 
   <div id="roundModal" class="modal-overlay">
     <div class="modal-content">
-      <span class="close-btn" onclick="document.getElementById('roundModal').style.display='none'; location.reload();">&times;</span>
       <h3 style="margin-top:0;">จัดการชื่อรอบ (Rounds)</h3>
       <div style="display:flex; gap:10px; margin-bottom:20px;">
         <input type="text" id="new-round-name" placeholder="ชื่อรอบใหม่..." style="flex:1; padding:10px; border-radius:5px; border:1px solid #ccc;">
@@ -104,7 +105,7 @@ if (!isset($_SESSION['user_id'])) {
       <div id="round-list-container"></div>
     </div>
   </div>
-
+</div>
   <script src="../js/admin_admission.js"></script>
 </body>
 </html>

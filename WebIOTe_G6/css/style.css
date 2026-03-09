@@ -1,12 +1,13 @@
-/* =========================================
-   style.css - โครงสร้างหลักของเว็บ (Navbar & พื้นฐาน)
-   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+
+* {
+    font-family: 'Kanit', sans-serif !important;
+    box-sizing: border-box;
+}
 
 /* --- 1. พื้นฐาน --- */
-* { box-sizing: border-box; }
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
     background-color: #0b0b0b;
     color: #333;
 }

@@ -54,57 +54,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - IoT</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Admin - IoT Engineering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="../css/admin_style.css">
+    <link rel="stylesheet" href="../css/admin_sidebar.css">
     <link rel="stylesheet" href="../css/admin_academic.css">
 </head>
 <body>
 
-<div class="admin-container">
-    <h1>Admin - IoT Engineering</h1>
+<?php include 'sidebar.php'; ?>
 
-    <form method="POST" enctype="multipart/form-data">
+<div class="admin-main-content">
+    <div class="admin-container">
+        
+        <div class="top-panel" style="padding-bottom: 25px;">
+            <div class="top-header" style="border-bottom:none; padding-bottom:0;">
+                <h3 style="margin:0; color:#4a4a4a;">Admin - IoT Engineering</h3>
+                
+                <div class="top-actions">
+                    <a href="admin_academic2.php" class="btn-switch">
+                        สลับไปจัดการ PhysIoT <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-        <label>หัวข้อหลัก</label>
-        <input type="text" name="title" required>
+        <div class="main-editor">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>หัวข้อหลัก</label>
+                    <input type="text" name="title" required>
+                </div>
 
-        <label>รายละเอียดเนื้อหา</label>
-        <textarea name="content" rows="6" required></textarea>
+                <div class="form-group">
+                    <label>รายละเอียดเนื้อหา</label>
+                    <textarea name="content" rows="6" required></textarea>
+                </div>
 
-        <label>ค่าธรรมเนียม</label>
-        <input type="number" name="tuition" required>
+                <div style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>ค่าธรรมเนียม</label>
+                        <input type="number" name="tuition" required>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>สีพื้นหลังกล่องเนื้อหา</label>
+                        <input type="color" name="color" value="#f4b183" style="width: 100%; height: 45px; cursor: pointer; border: 1px solid #ccc; border-radius: 8px;">
+                    </div>
+                </div>
 
-        <label>สีพื้นหลังกล่องเนื้อหา</label>
-        <input type="color" name="color" value="#f4b183">
+                <div class="form-group">
+                    <label>เปลี่ยนรูปแผนการศึกษา</label>
+                    <input type="file" name="image" accept="image/*" style="border: 1px dashed #ccc; background: #fafafa; padding: 10px;">
+                </div>
 
-        <label>เปลี่ยนรูปแผนการศึกษา</label>
-        <input type="file" name="image" accept="image/*">
+                <div class="form-group">
+                    <label>อัปโหลดไฟล์ PDF หลักสูตร</label>
+                    <input type="file" name="pdf" accept="application/pdf" style="border: 1px dashed #ccc; background: #fafafa; padding: 10px;">
+                </div>
 
-        <label>อัปโหลดไฟล์ PDF หลักสูตร</label>
-        <input type="file" name="pdf" accept="application/pdf">
+                <button type="submit" class="btn btn-save" style="width: 100%; padding: 15px; font-size: 1.1rem; margin-top: 10px;">บันทึกข้อมูลทั้งหมด</button>
+            </form>
+        </div>
 
-        <button type="submit">บันทึกข้อมูลทั้งหมด</button>
-
-    </form>
-</div>
-
-<?php if(isset($success) && $success == true): ?>
-<div class="popup-overlay">
-    <div class="popup-box">
-        <div class="success-icon">✓</div>
-        <h2>อัปเดตข้อมูลสำเร็จ!</h2>
-        <p>ระบบได้บันทึกการเปลี่ยนแปลงของคุณแล้ว</p>
-        <button onclick="window.location.href='admin_academic1.php'">
-            ตกลง
-        </button>
     </div>
-</div>
-<?php endif; ?>
 
+    <?php if(isset($success) && $success == true): ?>
+    <div class="popup-overlay" id="academicPopup">
+        <div class="popup-box">
+            <div class="success-icon">✓</div>
+            <h2 style="margin-top:0;">อัปเดตข้อมูลสำเร็จ!</h2>
+            <p>ระบบได้บันทึกการเปลี่ยนแปลงของคุณแล้ว</p>
+            <button class="btn btn-save" onclick="closePopup()">ตกลง</button>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+<script src="../js/admin_academic.js"></script>
 </body>
 </html>

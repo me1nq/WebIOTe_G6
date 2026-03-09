@@ -40,128 +40,82 @@ $reviews_result = $conn->query($sql_reviews);
 <head>
     <meta charset="UTF-8">
     <title>ดูรีวิวและความคิดเห็น - Admin Panel</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <style>
-        body { font-family: 'Kanit', sans-serif; background-color: #f5f6fa; padding: 20px; font-weight: 300; }
-        h2, h3, label, th, strong { font-weight: 500; }
-        .admin-container { max-width: 1100px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.95rem; }
-        th, td { padding: 15px 10px; border: 1px solid #ddd; text-align: left; vertical-align: middle; }
-        th { background-color: #FF6F00; color: white;} 
-        
-        .comment-text { background: #f9f9f9; padding: 10px; border-radius: 5px; border-left: 3px solid #007bff; font-style: italic; }
-        .btn-danger { background: #dc3545; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block;}
-        .btn-back { background: #FF6F00; color: white; padding: 10px 20px; border: none; border-radius: 5px; text-decoration: none; margin-bottom: 20px; display: inline-block; transition: 0.2s;}
-        .btn-back:hover { background: #5a6268; }
-        
-        .filter-section { background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px; display: flex; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .filter-section select, .filter-section input { font-family: 'Kanit', sans-serif; padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
-        .filter-section select { width: 250px; }
-        .filter-section input { width: 300px; } 
-    </style>
+
+    <link rel="stylesheet" href="../css/admin_style.css">
+    <link rel="stylesheet" href="../css/admin_sidebar.css">
+    <link rel="stylesheet" href="../css/admin_faculty_reviews.css">
 </head>
 <body>
 
-<div class="admin-container">
-    <a href="admin_faculty.php" class="btn-back">กลับไปหน้าจัดการบุคลากร</a>
-    <h2>ระบบดูความคิดเห็น / วิจารณ์ (Reviews)</h2>
-    
-    <div class="filter-section">
-        <label for="filterProfessor"><strong>กรองด้วยการเลือกชื่อ:</strong></label>
-        <select id="filterProfessor" onchange="filterReviews()">
-            <option value="all">-- ดูความคิดเห็นของทุกคน --</option>
-            <?php 
-            if ($staff_query->num_rows > 0) {
-                while($staff = $staff_query->fetch_assoc()) {
-                    echo "<option value='".$staff['id']."'>".$staff['name']."</option>";
-                }
-            }
-            ?>
-        </select>
+<?php include 'sidebar.php'; ?>
 
-        <label for="searchReviewInput" style="margin-left: 10px;"><strong>หรือพิมพ์ค้นหาชื่อ:</strong></label>
-        <input type="text" id="searchReviewInput" onkeyup="filterReviews()" placeholder="พิมพ์ชื่ออาจารย์เพื่อค้นหา...">
+<div class="admin-main-content">
+    <div class="admin-container">
+        
+        <div class="top-panel" style="padding-bottom: 25px;">
+            <div class="top-header" style="border-bottom:none; padding-bottom:0;">
+                <h3 style="margin:0; color:#4a4a4a;">ระบบดูความคิดเห็น / วิจารณ์ (Reviews)</h3>
+                <div class="top-actions">
+                    <a href="admin_faculty.php" class="btn btn-cancel"><i class="fas fa-arrow-left"></i> กลับไปหน้าจัดการบุคลากร</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                <div class="form-group" style="margin:0; flex:1;">
+                    <label style="margin-bottom: 5px; font-size: 0.9rem;">กรองด้วยการเลือกชื่อ:</label>
+                    <select id="filterProfessor" onchange="filterReviews()">
+                        <option value="all">-- ดูความคิดเห็นของทุกคน --</option>
+                        <?php 
+                        if ($staff_query->num_rows > 0) {
+                            while($staff = $staff_query->fetch_assoc()) {
+                                echo "<option value='".$staff['id']."'>".$staff['name']."</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="form-group" style="margin:0; flex:2;">
+                    <label style="margin-bottom: 5px; font-size: 0.9rem;">หรือพิมพ์ค้นหาชื่อ:</label>
+                    <input type="text" id="searchReviewInput" onkeyup="filterReviews()" placeholder="พิมพ์ชื่ออาจารย์เพื่อค้นหา...">
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="80">รูปภาพ</th>
+                            <th width="200">ชื่ออาจารย์ที่ถูกวิจารณ์</th>
+                            <th>ข้อความรีวิว / ความคิดเห็น</th>
+                            <th width="100" style="text-align: center;">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if ($reviews_result && $reviews_result->num_rows > 0) {
+                            while($row = $reviews_result->fetch_assoc()) { 
+                        ?>
+                            <tr class="review-row" data-pid="<?php echo $row['personnel_id']; ?>" data-name="<?php echo strtolower(htmlspecialchars($row['personnel_name'])); ?>">
+                                <td><img src="../<?php echo htmlspecialchars($row['image']); ?>" width="60" height="60" style="object-fit: cover; border-radius: 8px;" onerror="this.src=''; this.style.backgroundColor='#ccc';"></td>
+                                <td><strong><?php echo htmlspecialchars($row['personnel_name']); ?></strong></td>
+                                <td><div class="comment-text">"<?php echo nl2br(htmlspecialchars($row['comment_text'])); ?>"</div></td>
+                                <td style="text-align: center;">
+                                    <button onclick="confirmDeleteReview(<?php echo $row['review_id']; ?>)" class="btn btn-danger">ลบ</button>
+                                </td>
+                            </tr>
+                        <?php } } else { ?>
+                            <tr id="noDataRow"><td colspan="4" style="text-align: center; padding: 30px;">ยังไม่มีใครแสดงความคิดเห็นในระบบ</td></tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
-
-    <table>
-        <thead>
-            <tr>
-                <th width="80">รูปภาพ</th>
-                <th width="200">ชื่ออาจารย์ที่ถูกวิจารณ์</th>
-                <th>ข้อความรีวิว / ความคิดเห็น</th>
-                <th width="100" style="text-align: center;">จัดการ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($reviews_result && $reviews_result->num_rows > 0) {
-                while($row = $reviews_result->fetch_assoc()) { 
-            ?>
-                <tr class="review-row" data-pid="<?php echo $row['personnel_id']; ?>" data-name="<?php echo strtolower(htmlspecialchars($row['personnel_name'])); ?>">
-                    <td>
-                        <img src="../<?php echo htmlspecialchars($row['image']); ?>" width="60" height="60" style="object-fit: cover; border-radius: 50%;" onerror="this.src=''; this.style.backgroundColor='#ccc';">
-                    </td>
-                    <td><strong><?php echo htmlspecialchars($row['personnel_name']); ?></strong></td>
-                    <td>
-                        <div class="comment-text">
-                            "<?php echo nl2br(htmlspecialchars($row['comment_text'])); ?>"
-                        </div>
-                    </td>
-                    <td style="text-align: center;">
-                        <a href="#" onclick="confirmDeleteReview(<?php echo $row['review_id']; ?>); return false;" class="btn-danger">ลบ</a>
-                    </td>
-                </tr>
-            <?php } 
-            } else { ?>
-                <tr id="noDataRow"><td colspan="4" style="text-align: center; padding: 30px;">ยังไม่มีใครแสดงความคิดเห็นในระบบ</td></tr>
-            <?php } ?>
-        </tbody>
-    </table>
 </div>
-
-<script>
-function filterReviews() {
-    let filterVal = document.getElementById("filterProfessor").value;
-    let searchVal = document.getElementById("searchReviewInput").value.toLowerCase();
-    let rows = document.querySelectorAll(".review-row");
-    
-    rows.forEach(row => {
-        let pid = row.getAttribute("data-pid");
-        let name = row.getAttribute("data-name");
-        
-        let matchDropdown = (filterVal === "all" || filterVal === pid);
-        let matchSearch = (name.includes(searchVal));
-        
-        if (matchDropdown && matchSearch) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-
-function confirmDeleteReview(reviewId) {
-    Swal.fire({
-        title: 'ลบความคิดเห็นนี้?',
-        text: "คุณไม่สามารถกู้คืนข้อมูลนี้ได้!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#6c757d',
-        confirmButtonText: 'ใช่, ลบเลย!',
-        cancelButtonText: 'ยกเลิก'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // 🚨 แก้ลิงก์เป็น faculty_reviews.php
-            window.location.href = 'admin_faculty_reviews.php?delete_review_id=' + reviewId;
-        }
-    });
-}
-</script>
-
+<script src="../js/admin_faculty_reviews.js"></script>
 </body>
 </html>

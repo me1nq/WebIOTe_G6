@@ -5,7 +5,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: 'Inter', 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif;
     background: linear-gradient(135deg, #ff7e00, #ff4500); /* พื้นหลังสีส้มไล่ระดับ */
     /* ถ้ามีรูปลายจุดพื้นหลัง สามารถใส่เป็น background-image ได้ที่นี่ */
 }
@@ -104,7 +104,7 @@ body, html {
     background: rgba(255, 255, 255, 0.45); 
     color: #333;
     font-size: 1.05rem;
-    font-family: 'Inter', 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif;
     box-sizing: border-box;
     outline: none;
     transition: all 0.3s ease;
@@ -127,7 +127,7 @@ body, html {
     font-size: 1.05rem;
     pointer-events: none; /* เพื่อให้คลิกทะลุตัวหนังสือไปโดนช่องกรอกได้เลย */
     transition: all 0.3s ease;
-    font-family: 'Inter', 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif;
 }
 
 /* 🔴 แอนิเมชันตอนคลิก (focus) หรือตอนพิมพ์เสร็จแล้ว (valid) ให้ตัวหนังสือลอยขึ้นและเล็กลง */
@@ -150,7 +150,7 @@ body, html {
     color: #ffffff;
     font-size: 1.1rem;
     font-weight: 600;
-    font-family: 'Inter', 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif;
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);

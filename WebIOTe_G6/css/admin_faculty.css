@@ -1,0 +1,5 @@
+.file-upload-box { border: 2px dashed #ccc; padding: 20px; text-align: center; background-color: #fafafa; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+.file-upload-box:hover { background-color: #fff; border-color: #FF6F00; }
+.file-upload-box input[type="file"] { display: block; margin: 10px auto; cursor: pointer; }
+.action-buttons { display: flex; gap: 5px; justify-content: center; }
+.research-section { background-color: #fffcf9; padding: 15px; border-radius: 8px; border: 1px solid #ffe0b2; margin-bottom: 15px; }

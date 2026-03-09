@@ -63,6 +63,10 @@ function selectProject(index, el) {
 
   let txtScoring = (p.scoring || "").replace(/<ul>/g, "").replace(/<\/ul>/g, "").replace(/<\/li><li>/g, "\n").replace(/<\/?li>/g, "").trim();
   document.getElementById('edit-scoring').value = txtScoring;
+
+  setTimeout(() => {
+    document.getElementById('editor-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
 function setupNewProject() {
@@ -78,9 +82,12 @@ function setupNewProject() {
   document.getElementById('edit-link').value = '';
   document.getElementById('edit-details').value = '';
 
-  // 🟢 เคลียร์ค่า conditions และ scoring เมื่อกดเพิ่มใหม่
   document.getElementById('edit-conditions').value = '';
   document.getElementById('edit-scoring').value = '';
+
+  setTimeout(() => {
+    document.getElementById('editor-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
 }
 
 async function saveData() {
@@ -187,3 +194,12 @@ async function deleteRound(id) {
 }
 
 init();
+
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('roundModal');
+  
+  // ตรวจสอบว่ามีกล่อง modal อยู่ในหน้าเว็บไหม และสิ่งที่คลิกคือพื้นหลังสีดำ (overlay) จริงๆ ใช่ไหม
+  if (modal && event.target === modal) {
+    modal.style.display = 'none';
+  }
+});

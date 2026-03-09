@@ -7,21 +7,25 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin - Lab Management</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/admin_lab.css">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+  <link rel="stylesheet" href="../css/admin_style.css">
+  <link rel="stylesheet" href="../css/admin_sidebar.css">
+  <link rel="stylesheet" href="../css/admin_lab.css">
 </head>
 <body>
 
-  <div class="admin-container">
-    <a href="admin_faculty.php" style="display:inline-block; background:#FF6F00; color:white; padding:8px 15px; text-decoration:none; border-radius:5px; margin-bottom: 20px; font-family: 'Kanit', sans-serif;">🔙 กลับไปหน้าจัดการบุคลากร</a>
+<?php include 'sidebar.php'; ?>
 
+<div class="admin-main-content">
+  <div class="admin-container">
     <div class="top-panel" style="padding-bottom: 25px;">
       <div class="top-header" style="border-bottom:none; padding-bottom:0;">
         <h3 style="margin:0; color:#4a4a4a;">จัดการข้อมูล Cybersecurity Lab</h3>
@@ -92,29 +96,10 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="table-container">
       <h3 style="margin-top:0; color:#4a4a4a; margin-bottom: 15px;">รายชื่อสมาชิกทั้งหมด</h3>
-      <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-        <div style="flex: 2; min-width: 200px;">
-          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">ค้นหาชื่อ / ตำแหน่ง:</label>
-          <input type="text" id="search-input" placeholder="พิมพ์ชื่อ หรือ ตำแหน่ง..." onkeyup="filterTable()">
-        </div>
-        <div style="flex: 1; min-width: 150px;">
-          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">กรองตามหมวดหมู่:</label>
-          <select id="filter-category" onchange="filterTable()">
-            <option value="all">-- แสดงทั้งหมด --</option>
-          </select>
-        </div>
-      </div>
-
       <div style="overflow-x: auto;">
         <table>
           <thead>
-            <tr>
-              <th style="width: 80px; text-align: center;">รูป</th>
-              <th>ชื่อ-นามสกุล</th>
-              <th>หมวดหมู่</th>
-              <th>ตำแหน่ง</th>
-              <th style="text-align: center; width: 150px;">จัดการ</th>
-            </tr>
+            <tr><th style="width: 80px; text-align: center;">รูป</th><th>ชื่อ-นามสกุล</th><th>หมวดหมู่</th><th>ตำแหน่ง</th><th style="text-align: center; width: 150px;">จัดการ</th></tr>
           </thead>
           <tbody id="member-table-body">
             <tr><td colspan="5" style="text-align:center;">กำลังโหลดข้อมูล...</td></tr>
@@ -122,8 +107,9 @@ if (!isset($_SESSION['user_id'])) {
         </table>
       </div>
     </div>
-  </div>
 
-  <script src="../js/admin_lab.js"></script>
+  </div>
+</div>
+<script src="../js/admin_lab.js"></script>
 </body>
 </html>

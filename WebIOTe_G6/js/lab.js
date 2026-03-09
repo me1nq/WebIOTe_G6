@@ -4,7 +4,7 @@ async function init() {
     const infoRes = await fetch('api/lab_api.php?action=get_info');
     const info = await infoRes.json();
     if (info) {
-      document.getElementById('header-content').innerHTML = (info.logo_url ? `<img src="assets/lab/${info.logo_url}" class="lab-logo"><br>` : '') + `<h2>${info.lab_name}</h2>`;
+      document.getElementById('header-content').innerHTML = (info.logo_url ? `<img src="assets/lab/${info.logo_url}" class="lab-logo"><br>` : '') + `<h1>${info.lab_name}</h1>`;
       if (info.description) {
         document.getElementById('desc-content').innerText = info.description;
         document.getElementById('desc-content').style.display = 'block';

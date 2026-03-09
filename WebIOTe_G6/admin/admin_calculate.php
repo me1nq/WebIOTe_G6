@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - จัดการรายวิชา (Calculate)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&family=Kanit:wght@300;400;600&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="../css/admin_calculate.css">
+  <title>Admin - จัดการรายวิชา</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
 
+  <link rel="stylesheet" href="../css/admin_style.css">
+  <link rel="stylesheet" href="../css/admin_sidebar.css">
+  <link rel="stylesheet" href="../css/admin_calculate.css">
+</head>
 <body>
 
+<?php include 'sidebar.php'; ?>
+
+<div class="admin-main-content">
   <div class="admin-container">
 
     <div class="top-panel" style="padding-bottom: 25px;">
@@ -25,7 +27,6 @@
     </div>
 
     <div class="main-editor">
-
       <div id="editor-area" class="settings-box" style="display:none; border-left-color: #007bff;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
           <h2 class="section-header" id="edit-title" style="margin:0; border:none; padding:0;">แก้ไขรายวิชา</h2>
@@ -60,8 +61,7 @@
           </div>
         </div>
 
-        <button class="btn btn-save" onclick="saveData()"
-          style="width: 100%; font-size: 1.1rem; padding: 15px; margin-top: 10px;">บันทึกข้อมูลรายวิชา</button>
+        <button class="btn btn-save" onclick="saveData()" style="width: 100%; font-size: 1.1rem; padding: 15px; margin-top: 10px;">บันทึกข้อมูลรายวิชา</button>
       </div>
 
       <div id="welcome-msg" style="text-align:center; color:#aaa; padding: 30px 0;">
@@ -72,46 +72,20 @@
 
     <div class="table-container">
       <h3 style="margin-top:0; color:#4a4a4a; margin-bottom: 15px;">รายชื่อวิชาทั้งหมดในระบบ</h3>
-      <div
-        style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
-        <div style="flex: 2; min-width: 200px;">
-          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">ค้นหารหัสวิชา / ชื่อวิชา:</label>
-          <input type="text" id="search-input" placeholder="พิมพ์รหัสวิชา หรือ ชื่อวิชาที่ต้องการหา..."
-            onkeyup="filterTable()">
-        </div>
-        <div style="flex: 1; min-width: 150px;">
-          <label style="margin-bottom: 5px; font-size: 0.9rem; color: #666;">กรองตามหมวดหมู่:</label>
-          <select id="filter-category" onchange="filterTable()">
-            <option value="all">-- แสดงทั้งหมด --</option>
-            <option value="วิชาแกน">วิชาแกน (Core Course)</option>
-            <option value="วิชาศึกษาทั่วไป">วิชาศึกษาทั่วไป (General Education)</option>
-            <option value="วิชาเลือกเสรี">วิชาเลือกเสรี (Free Elective)</option>
-          </select>
-        </div>
-      </div>
       <div style="overflow-x: auto;">
         <table>
           <thead>
-            <tr>
-              <th style="width: 120px;">รหัสวิชา</th>
-              <th>ชื่อวิชา</th>
-              <th style="width: 100px; text-align: center;">หน่วยกิต</th>
-              <th style="width: 180px;">หมวดหมู่</th>
-              <th style="text-align: center; width: 150px;">จัดการ</th>
-            </tr>
+            <tr><th style="width: 120px;">รหัสวิชา</th><th>ชื่อวิชา</th><th style="width: 100px; text-align: center;">หน่วยกิต</th><th style="width: 180px;">หมวดหมู่</th><th style="text-align: center; width: 150px;">จัดการ</th></tr>
           </thead>
           <tbody id="subject-table-body">
-            <tr>
-              <td colspan="5" style="text-align:center;">กำลังโหลดข้อมูล...</td>
-            </tr>
+            <tr><td colspan="5" style="text-align:center;">กำลังโหลดข้อมูล...</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
   </div>
-
-  <script src="assets/js/admin_calculate.js"></script>
+</div>
+<script src="../js/admin_calculate.js"></script> 
 </body>
-
 </html>

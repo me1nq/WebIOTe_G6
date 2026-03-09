@@ -1,5 +1,5 @@
 <?php
-session_start(); // 🔴 ต้องเปิด session_start() เพื่อเช็คสถานะล็อกอินด้วย
+session_start();
 require 'includes/db.php'; // เรียกใช้งาน Database
 
 // 🔴 เช็คความปลอดภัยชั้นที่ 1: ล็อกอินหรือยัง? (อย่าลืมเปลี่ยน 'user_id' ให้ตรงกับของมึง)

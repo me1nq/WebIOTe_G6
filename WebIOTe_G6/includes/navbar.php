@@ -35,7 +35,7 @@
         </li>
 
         <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-            <li><a href="admin/edit_index.php" style="color:#ff6600;">Edit</a></li>
+            <li><a href="admin/admin_index.php" style="color:#ff6600;">Edit</a></li>
         <?php endif; ?>
         <li>
             <?php if(isset($_SESSION['username'])): ?>
