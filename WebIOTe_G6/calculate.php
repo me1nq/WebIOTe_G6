@@ -51,7 +51,7 @@ if (!isset($_SESSION['username'])) {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #ddd;
-    font-size: 1rem;
+    /* font-size: 20px; */
   }
   </style>
 </head>
@@ -102,7 +102,7 @@ if (!isset($_SESSION['username'])) {
               <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h3 style="margin:0;">วิชาที่บันทึกไว้</h3>
                 <button onclick="clearAll()"
-                  style="font-size:0.8rem; padding:5px 10px; background:#eee; border:none; border-radius:5px; cursor:pointer;">ล้างข้อมูล</button>
+                  style="font-size:14px; padding:5px 10px; background:#eee; border:none; border-radius:5px; cursor:pointer;">ล้างข้อมูล</button>
               </div>
               <div class="table-responsive">
                 <table style="width:100%; text-align:left; border-collapse: collapse;">
