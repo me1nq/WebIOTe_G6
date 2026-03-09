@@ -1,0 +1,345 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+
+*:not(i) {
+    font-family: 'Kanit', sans-serif !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* --- 1. พื้นฐาน --- */
+body {
+    margin: 0;
+    background-color: #0b0b0b;
+    color: #333;
+}
+
+/* --- 2. Navbar Desktop --- */
+.navbar {
+    background: #000;
+    padding: 10px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-text span { font-size: 15px; }
+.logo-text strong { font-size: 23px; }
+.logo img { height: 40px; }
+
+.nav-desktop { display: flex; gap: 20px; list-style: none; align-items: center; margin: 0; }
+.nav-desktop a { color: white; text-decoration: none; font-size: 17px; font-weight: bold; }
+.btn-signin { background: #FF6F00; padding: 8px 20px; border-radius: 20px; font-weight: bold; color: white !important; }
+
+/* Hamburger Icon */
+.hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.hamburger span { width: 25px; height: 3px; background: white; border-radius: 2px; }
+
+/* --- 3. Mobile Menu Popup --- */
+.mobile-menu-overlay {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: fit-content;
+    background: linear-gradient(180deg, rgba(0,0,0,0.98) 0%, rgba(75, 75, 75, 0.9) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 10000;
+    padding: 0 20px 20px 20px;
+    overflow-y: auto;
+    border-radius: 0 0 25px 25px;
+}
+.mobile-menu-overlay.active { visibility: visible; opacity: 1; }
+
+.mobile-header-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 40px; margin-top: 10px;
+}
+.logo-mobile-menu {
+    display: flex; align-items: center; gap: 10px; overflow: hidden;
+    justify-content: space-between;
+}
+.logo-mobile-menu img { height: 40px; flex-shrink: 0; }
+.logo-mobile-menu .text-content { text-align: left; line-height: normal; }
+.logo-mobile-menu .text-content strong { color: white; font-size: 16px; white-space: nowrap; font-weight: bold; }
+.logo-mobile-menu .text-content span { color: white; font-size: 11px; white-space: nowrap; }
+
+.close-btn { color: white; font-size: 35px; cursor: pointer; line-height: 1; }
+
+.mobile-nav-links { 
+    list-style: none; padding: 0; text-align: center; margin: 0; 
+    opacity: 0; transform: translateY(-30px);
+    transition: all 0.3s ease; transition-delay: 0.1s;
+}
+.mobile-menu-overlay.active .mobile-nav-links { opacity: 1; transform: translateY(0); }
+.mobile-nav-links li { margin: 25px 0; }
+.mobile-nav-links a, .dropdown-header {
+    color: white; text-decoration: none; font-size: 20px; font-weight: bold;
+    display: flex; justify-content: center; align-items: center; gap: 8px; cursor: pointer;
+}
+
+/* Sub-menu Dropdown */
+.sub-menu { display: none; list-style: none; padding: 5px 0; margin: 10px auto 0 auto; }
+.sub-menu li { margin: 5px 0; }
+.sub-menu a { font-size: 17px !important; color: #ccc !important; text-align: center; font-weight: normal; display: block; padding: 8px 0; }
+
+.btn-signin-mobile {
+    background: #FF6F00; color: white !important; padding: 12px 50px;
+    border-radius: 30px; font-size: 18px !important; font-weight: bold;
+    display: inline-block; margin-top: 15px;
+}
+
+/* --- Responsive เฉพาะส่วน Navbar --- */
+@media (max-width: 992px) {
+    .navbar { padding: 10px 20px; }
+    .nav-desktop { display: none; }
+    .hamburger { display: flex; }
+    .navbar .logo-text strong { font-size: 16px; white-space: nowrap; }
+    .navbar .logo-text span { font-size: 11px; white-space: nowrap; }
+}
+
+/* =========================================
+   Desktop Dropdown Menu (Academics, Faculty)
+   ========================================= */
+.desktop-dropdown {
+    position: relative; 
+    padding: 10px 0; 
+}
+
+.desktop-submenu {
+    display: none; 
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    background-color: #ffffff;
+    min-width: 220px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 10px 0;
+    margin: 0;
+    list-style: none;
+    z-index: 1000;
+}
+
+.desktop-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+.desktop-dropdown:hover .desktop-submenu {
+    display: block;
+    animation: fadeInDown 0.3s ease; 
+}
+
+.desktop-submenu li {
+    margin: 0;
+}
+
+.desktop-submenu a {
+    color: #333333 !important; 
+    display: block;
+    padding: 12px 20px;
+    font-size: 15px !important;
+    font-weight: normal !important;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.desktop-submenu a:hover {
+    background-color: #f8f9fa;
+    color: #FF6F00 !important; 
+}
+
+/* =========================================
+   User Dropdown in Navbar (ปุ่ม User สีส้ม)
+   ========================================= */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 15px;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+.user-display {
+    cursor: pointer;
+    border: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    gap: 8px;
+    font-size: 17px;
+    min-width: 100px;
+}
+
+.user-dropdown-content {
+    display: none; 
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: #ffffff;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 10001;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.user-dropdown-content.show {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+.user-dropdown-content a {
+    color: #000000;
+    padding: 12px 0;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+    font-weight: normal;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.user-dropdown-content a.logout-link {
+    color: #FF6F00; 
+    font-weight: bold;
+    border-top: 1px solid #eee;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* =========================================
+   Mobile User Capsule (โหมดล็อกอินแล้วในมือถือ 40/30/30)
+   ========================================= */
+.user-capsule-container {
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    align-items: stretch; 
+    min-height: 45px;     
+}
+
+.capsule-username, .capsule-profile, .capsule-logout {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    border-radius: 40px;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    text-decoration: none;
+}
+
+.capsule-username {
+    width: 40%;
+    background-color: #ffffff;
+    color: #000000;
+    z-index: 3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.capsule-profile {
+    width: calc(30% + 40px); 
+    background-color: #f79844; 
+    color: #ffffff;
+    z-index: 2;
+    margin-left: -40px; 
+    padding-left: 20px; 
+}
+
+.capsule-logout {
+    width: calc(30% + 40px); 
+    background-color: #FF6F00; 
+    color: #ffffff;
+    z-index: 1;
+    margin-left: -40px; 
+    padding-left: 20px; 
+}
+
+/* =========================================
+   Global Layout (โครงสร้างหน้าเว็บทุกหน้า)
+   ========================================= */
+
+/* 1. แถบสีดำด้านบน (Department of...) */
+.page-header {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 50px 20px 100px 20px; 
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* 2. พื้นหลังด้านหลังการ์ด*/
+.page-background {
+    background-color: #ffffff; /* 🔴 ลบสีขาวทิ้ง ให้มันโปร่งใส */
+    min-height: 100vh;
+    padding-bottom: 0px; /* 🔴 ลบ padding ล่างทิ้ง เพื่อไม่ให้มันดัน Footer */
+    padding-top: 1px;
+    position: relative;
+}
+
+/* 3. การ์ดสีขาวขอบมนมีเงา (สำหรับใส่เนื้อหา) */
+.content-card {
+    background-color: #ffffff;
+    border-radius: 30px; 
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); 
+    margin: -50px 120px 0 120px; 
+    padding: 40px 5% 80px 5%;
+    min-height: 80vh;
+    position: relative;
+    z-index: 10;
+}
+
+/* 4. ปรับขนาดตอนเป็นจอมือถือ */
+@media (max-width: 992px) {
+    .content-card {
+        margin: -18px 15px 0 15px; 
+        padding: 30px 20px;
+        border-radius: 25px;
+    }
+    .page-header {
+        font-size: 16px; 
+        padding: 40px 20px 35px 20px;
+    }
+}

@@ -1,0 +1,28 @@
+.success-icon { font-size: 50px; color: #4CAF50; margin-bottom: 15px; }
+.popup-box { background: white; padding: 40px; border-radius: 20px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+/* --- ปุ่มสลับหน้าหลักสูตร --- */
+/* --- ปุ่มสลับหน้าหลักสูตร (แก้ใหม่ให้เป็นสีส้มทึบ และกว้างเท่ากันเป๊ะ) --- */
+.btn-switch {
+    background-color: #FF6F00; /* เปลี่ยนเป็นสีส้มทึบ */
+    color: #fff;               /* ตัวหนังสือสีขาว */
+    border: none;              /* เอาขอบออก */
+    text-decoration: none;
+    padding: 10px 15px;        /* ความอ้วนเท่าปุ่มปกติ */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;   /* บังคับตัวหนังสือให้อยู่กึ่งกลาง */
+    gap: 8px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;        /* ขนาดฟอนต์มาตรฐาน */
+    width: 220px;              /* 🔴 ล็อคความกว้างไว้ที่ 220px (เท่ากันทั้ง 2 หน้าแน่นอน) */
+    transition: all 0.2s ease-in-out;
+}
+
+/* เอฟเฟกต์ตอนเอาเมาส์ชี้ (สีส้มเข้มขึ้น มีเงา) */
+.btn-switch:hover {
+    background-color: #e65c00; 
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(255, 111, 0, 0.2);
+}

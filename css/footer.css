@@ -1,0 +1,104 @@
+/* =========================================
+   Desktop Styles (ขนาดฟอนต์ 20px)
+   ========================================= */
+.kmitl-footer {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Kanit', sans-serif;
+    font-size: 20px;
+    padding: 60px 40px 40px; 
+    line-height: 1.6;
+    margin-top: -50px;
+    position: relative;
+    z-index: 20;
+}
+
+.kmitl-footer a { color: #ffffff; text-decoration: none; transition: 0.3s; }
+.kmitl-footer a:hover { color: #FF6F00; }
+
+.kmitl-footer h4 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.kmitl-footer ul { list-style: none; padding: 0; margin: 0; }
+.kmitl-footer ul li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+.kmitl-footer ul li i { margin-top: 6px; color: #ffffff; }
+
+.social-links { display: flex; gap: 20px; }
+.social-links img { width: 45px; height: 45px; object-fit: contain; transition: 0.2s; }
+.social-links img:hover { transform: scale(1.1); }
+
+/* --- โครงสร้าง Grid สำหรับ Desktop --- */
+.kmitl-footer-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    /* แบ่งคอลัมน์: ให้ชื่อภาคอยู่ซ้ายสุด, ข้อมูลติดต่อกินพื้นที่ตรงกลางถึงขวา */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+        "brand contact contact"
+        "copy privacy terms";
+    gap: 60px 20px;
+    align-items: start;
+}
+
+.item-brand { grid-area: brand; text-align: center; }
+.social-links { justify-content: center; margin-top: 20px; }
+
+/* กล่องติดต่อเรา (จัดให้อยู่ตรงกลางของพื้นที่ฝั่งขวา) */
+.item-contact { 
+    grid-area: contact; 
+    justify-self: center; /* ดันกล่องให้อยู่กึ่งกลาง */
+    text-align: center;
+}
+
+.item-copy { grid-area: copy; text-align: left; align-self: end; color: #ccc; }
+.item-privacy { grid-area: privacy; text-align: center; align-self: end; }
+.item-terms { grid-area: terms; text-align: right; align-self: end; }
+
+
+/* =========================================
+   Mobile Styles (Max 768px: ขนาดฟอนต์ 16px)
+   ========================================= */
+@media (max-width: 768px) {
+    .kmitl-footer {
+        font-size: 16px; /* 🔴 หดฟอนต์เหลือ 16px ในมือถือ */
+        padding: 40px 15px 20px;
+    }
+
+    .kmitl-footer h4 {
+        font-size: 16px; /* 🔴 หดหัวข้อเหลือ 16px เท่ากัน */
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .social-links img { width: 35px; height: 35px; }
+
+    /* โครงสร้าง Grid สลับตำแหน่งสำหรับ Mobile (แบ่งซ้าย-ขวา เป๊ะตามรูป) */
+    .kmitl-footer-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "brand   contact"
+            "copy    privacy"
+            "copy    terms"; /* copy กินพื้นที่ 2 บรรทัดด้านซ้ายล่าง */
+        gap: 30px 10px;
+    }
+
+    .item-brand { text-align: center; }
+    .social-links { justify-content: center; margin-top: 15px; }
+    
+    .item-contact { justify-self: stretch; } /* ให้เต็มพื้นที่คอลัมน์ขวา */
+    .item-contact ul li { gap: 10px; }
+    .item-contact ul li i { margin-top: 4px; }
+    
+    .item-copy { text-align: center; align-self: center; margin-top: 20px; }
+    .item-privacy { text-align: center; align-self: end; }
+    .item-terms { text-align: center; align-self: start; margin-top: 10px; }
+}
